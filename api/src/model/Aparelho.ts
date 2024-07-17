@@ -5,7 +5,6 @@ import { DatabaseModel } from "./DatabaseModel";
  */
 const database = new DatabaseModel().pool;
 
-
 /**
  * Representa um aparelho de exercício.
  */
@@ -14,8 +13,6 @@ export class Aparelho {
      * O identificador do aparelho.
      */
     private id_aparelho: number;
-
-
 
     /**
      * O nome do aparelho.
@@ -157,4 +154,44 @@ export class Aparelho {
         }
     }
 
+    static async removerAparelho(idAparelho: number): Promise<boolean> {
+        let queryResult = false;
+
+        try {
+            const queryDeleteAparelho = `DELETE FROM aparelho WHERE id_aparelho=${idAparelho}`;
+            await database.query(queryDeleteAparelho)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+            return queryResult;
+        } catch (error) {
+            console.log(error);
+            return queryResult;
+        }
+    }
+
+    static async atualizarAparelho(aparelho: Aparelho): Promise<boolean> {
+        let queryResult = false;
+    
+        try {
+            const queryUpdateAluno = `UPDATE aparelho SET 
+                                        nome_aparelho='${aparelho.getNomeAparelho().toUpperCase()}',
+                                        musculo_ativado='${aparelho.getMusculoAtivado().toUpperCase()}'
+                                        WHERE id_aparelho=${aparelho.getIdAparelho()}`;
+    
+            await database.query(queryUpdateAluno)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+    
+            return queryResult;
+        } catch (error) {
+            console.log(error, queryResult);
+            return queryResult;
+        }
+    }
 }

@@ -7,6 +7,7 @@ dotenv.config();
 const port: number = parseInt(process.env.SERVER_PORT as string); // Define a porta do servidor
 
 new DatabaseModel().testeConexao().then((resbd) => {
+    console.clear();
     if (resbd) {
         server.listen(port, () => {
             console.info(`Servidor executando no endereço http://localhost:${process.env.SERVER_EXPOSED_PORT}/`);

@@ -67,74 +67,41 @@ class AparelhoController extends Aparelho {
      * @param res Resposta
      * @returns Resposta do resultado da operação
      */
-//     public async remover(req: Request, res: Response): Promise < Response > {
-//     // tenta remover um objeto no banco de dados
-//     try {
-//         // recuperando o id da atração a ser removida recebida do cliente
-//         const idAtracao = parseInt(req.query.idAtracao as string);
+    public async remover(req: Request, res: Response): Promise<Response> {
+        try {
+            const idAparelho = parseInt(req.query.id_aparelho as string);
 
-//         // chama a função para remover a atração
-//         // o resulado da função é um booleano que será armazenado na variável de controle resultado
-//         const resultado = await Atracao.removerAtracao(idAtracao);
+            if (await Aparelho.removerAparelho(idAparelho)) {
+                return res.status(200).json('aparelho removido com sucesso');
+            } else {
+                return res.status(400).json('Erro ao deletar aparelho');
+            }
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 
-//         // Verifica o estado na variável resultado
-//         if(resultado) {
-//             // se o resultado for **true**, retorna mensagem de sucesso
-//             return res.status(200).json('Atração foi removida com sucesso');
-//         } else {
-//             // se o resultado for **false**, retorna mensagem de erro
-//             return res.status(401).json('Erro ao remover atração');
-//         }
+    public async atualizar(req: Request, res: Response): Promise<Response> {
+        try {
+            const { nome_aparelho, musculo_ativado } = req.body;
+            const aparelho = new Aparelho(0, nome_aparelho, musculo_ativado);
+            aparelho.setIdAparelho(parseInt(req.query.id_aparelho as string));
 
-//         // caso aconteça algum erro, é lançada uma exceção
-//     } catch(error) {
-//         // caso aconteça algum erro, este é lançado nos logs do servidor
-//         console.log(`Erro ao acessar o modelo: ${error}`);
-//         // retorna um status 400 com uma mensagem de erro
-//         return res.status(400).json("Erro ao remover atração, consulte os logs no servidor");
-//     }
-// }
+            console.log(aparelho.getMusculoAtivado(), aparelho.getNomeAparelho(), aparelho.getIdAparelho());
 
-    /**
-     * Acessa o método do Model para atualizar uma atração
-     * 
-     * @param req Requisição
-     * @param res Resposta
-     * @returns Resposta do resultado da operação
-     */
-    // public async atualizar(req: Request, res: Response): Promise < Response > {
-    // // tenta atualizar um objeto no banco de dados
-    // try {
-    //     // Desestruturando objeto recebido pelo cliente
-    //     const { nomeAtracao } = req.body;
-
-    //     // recuperando o id da atração a ser atualizada, recebido do cliente
-    //     const idAtracao = parseInt(req.query.idAtracao as string);
-
-    //     // Instanciando objeto do tipo Atracao
-    //     const novaAtracao = new Atracao(nomeAtracao);
-
-    //     // Chama o método para persistir a ave no banco de dados
-    //     // O resultado é um booleano, que será armazenado na variável resultado
-    //     const resultado = await Atracao.atualizarAtracao(novaAtracao, idAtracao);
-
-    //     // Verifica o estado na variável resultado
-    //     if(resultado) {
-    //         // se o resultado for **true**, retorna mensagem de sucesso
-    //         return res.status(200).json('Atração foi alterada com sucesso');
-    //     } else {
-    //         // se o resultado for **false**, retorna mensagem de erro
-    //         return res.status(401).json('Erro ao alterar atração');
-    //     }
-
-//         // caso aconteça algum erro, é lançada uma exceção
-//     } catch(error) {
-//         // caso aconteça algum erro, este é lançado nos logs do servidor
-//         console.log(`Erro ao acessar modelo: ${error}`);
-//         // retorna um status 400 com uma mensagem de erro
-//         return res.status(400).json("Erro ao atualizar atração, consulte os logs no servidor");
-//     }
-// }}
+            if (await Aparelho.atualizarAparelho(aparelho)) {
+                return res.status(200).json('aparelho atualizado com sucesso');
+            } else {
+                return res.status(400).json('Não foi possível atualizar o aparelho no banco de dados');
+            }
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 
 }
 export default AparelhoController;

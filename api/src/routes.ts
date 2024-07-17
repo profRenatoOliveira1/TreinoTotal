@@ -50,9 +50,9 @@ router.get('/listar/aparelhos', aparelhoController.todos);
 // Cadastra um aparelho
 router.post('/novo/aparelho', aparelhoController.cadastrar);
 // Remove um aparelho 
-//router.delete('/delete/aparelho', aparelhoController.remover);
+router.delete('/delete/aparelho', aparelhoController.remover);
 // Atualiza um aparelho 
-//router.put('/update/aparelho', aparelhoController.atualizar);
+router.put('/update/aparelho', aparelhoController.atualizar);
 
 /**
 * Rotas para a entidade exercício
