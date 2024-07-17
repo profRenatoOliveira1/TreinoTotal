@@ -1,0 +1,184 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-04-12T13:38:32.136Z",
+    "__export_source": "insomnia.desktop.app:v8.6.1",
+    "resources": [
+        {
+            "_id": "req_75e52fb2aade4e08b6b562dec7b42959",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1712758294843,
+            "created": 1708536752599,
+            "url": "http://localhost:3000/listar-exercicio",
+            "name": "ListarExercicio",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n    \"id\": 7,\n    \"nome\": \"João Pipis\",\n    \"cpf\": \"123.456.789-00\",\n    \"dataNascimento\": \"1990-01-01\",\n    \"telefone\": \"(12) 3456-7890\",\n    \"endereco\": \"Rua Exemplo, 123\",\n    \"email\": \"joao@example.com\",\n    \"senha\": \"senha123\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1708536752599,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "parentId": null,
+            "modified": 1712758497404,
+            "created": 1707485760392,
+            "name": "sql_treinototal",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_87f4258464e54207baa0bcf902ed7116",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1712758301629,
+            "created": 1708536738810,
+            "url": "http://localhost:3000/listar-aparelho",
+            "name": "ListarAparelho",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1708536738810,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_88c383b1c525455b9fa9412021a07941",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1712758345723,
+            "created": 1708533971235,
+            "url": "http://localhost:3000/listar-aluno",
+            "name": "ListarAluno",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1708533971235,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_44a52e48eb5a47fe899f205285fbf790",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1712758456452,
+            "created": 1707480146716,
+            "url": "http://localhost:3000/listar-professor",
+            "name": "ListarProfessor",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"nome\": \"Selva\",\n\t\"animais\": [{\n\t\t\"nome\": \"Simba\",\n\t\t\"idade\": 2,\n\t\t\"genero\": \"Macho\",\n\t\t\"raca\": \"Leão\"\n\t},\n\t\t{\n\t\t\"nome\": \"Stue\",\n\t\t\"idade\": 3,\n\t\t\"genero\": \"Femea\",\n\t\t\"envergadura\": 0.8\n\t\t}\n\t]\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Insomnia/2023.5.7"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1707480146716,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_9337b5758b4f6db570ebc8bfd07f3634bc4c40c8",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1707485760397,
+            "created": 1707485760397,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1707485760397,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_9337b5758b4f6db570ebc8bfd07f3634bc4c40c8",
+            "parentId": "wrk_513b2d05056f45e2b6b28624d3526c88",
+            "modified": 1707485760405,
+            "created": 1707485760405,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}
