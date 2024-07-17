@@ -3,6 +3,7 @@ import AlunoController from "./controller/AlunoController";
 import AparelhoController from "./controller/AparelhoController";
 import ExercicioController from "./controller/ExercicioController";
 import ProfessorController from "./controller/ProfessorController";
+import { TreinoController } from "./controller/TreinoController";
 
 // Instanciando um novo objeto do controller AveController
 // assim podemos acessar os métodos do controller
@@ -10,6 +11,7 @@ const alunoController = new AlunoController(0, '', '', new Date(), '', '', '', '
 const aparelhoController = new AparelhoController(0, '', '');
 const exercicioController = new ExercicioController(0, 0, '', 0, 0, '');
 const professorController = new ProfessorController(0, '', '', new Date(), '', '', '', '', new Date(), '', '');
+const treinoController = new TreinoController(0, 0, 0, []);
 
 const router = express.Router();
 
@@ -65,5 +67,10 @@ router.post('/novo/exercicio', exercicioController.cadastrar);
 router.delete('/delete/exercicio', exercicioController.remover);
 // Atualiza um aluno 
 router.put('/update/exercicio', exercicioController.atualizar);
+
+/**
+* Rotas para a entidade exercício
+*/
+router.get('/listar/treino', treinoController.treinoNomeAluno);
 
 export { router }

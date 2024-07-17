@@ -1,4 +1,10 @@
+import { DatabaseModel } from "./DatabaseModel";
 import { Exercicio } from "./Exercicio";
+
+/**
+ * Pool de conexão do banco de dados
+ */
+const database = new DatabaseModel().pool;
 
 /**
  * Representa um treino que contém uma lista de exercícios.
@@ -116,5 +122,43 @@ export class Treino {
      */
     public setExercicios(exercicios: Exercicio[]): void {
         this.exercicios = exercicios;
+    }
+
+    static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
+
+        const querySelectTreinoNomeAluno = `SELECT 
+                                                a.id_aluno,
+                                                a.nome AS nome_aluno,
+                                                p.id_professor,
+                                                p.nome AS nome_professor,
+                                                t.id_treino,
+                                                e.id_exercicio,
+                                                e.exercicio,
+                                                e.carga,
+                                                e.repeticoes,
+                                                ap.id_aparelho,
+                                                ap.nome_aparelho
+                                            FROM 
+                                                aluno a
+                                            JOIN 
+                                                treino t ON a.id_aluno = t.id_aluno
+                                            JOIN 
+                                                professor p ON t.id_professor = p.id_professor
+                                            JOIN 
+                                                exercicio_treino et ON t.id_treino = et.id_treino
+                                            JOIN 
+                                                exercicio e ON et.id_exercicio = e.id_exercicio
+                                            JOIN 
+                                                aparelho ap ON e.id_aparelho = ap.id_aparelho
+                                            WHERE 
+                                                a.nome = UPPER('${nomeAluno.toUpperCase()}');`
+        
+        try {
+            const queryReturn = await database.query(querySelectTreinoNomeAluno);
+            return queryReturn.rows;
+        } catch (error) {
+            console.log(`Erro no modelo: ${error}`);
+            return null;
+        }
     }
 }
