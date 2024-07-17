@@ -62,8 +62,8 @@ router.get('/listar/exercicios', exercicioController.todos);
 // Cadastra um exercicio
 router.post('/novo/exercicio', exercicioController.cadastrar);
 // Remove um exercício 
-//router.delete('/delete/exercicio', exercicioController.remover);
+router.delete('/delete/exercicio', exercicioController.remover);
 // Atualiza um aluno 
-//router.put('/update/exercicio', exercicioController.atualizar);
+router.put('/update/exercicio', exercicioController.atualizar);
 
 export { router }

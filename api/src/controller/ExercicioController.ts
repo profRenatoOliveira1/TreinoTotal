@@ -59,81 +59,39 @@ class ExercicioController extends Exercicio {
         // caso aconteça algum erro, é lançada uma exceção
     }
 
-    /**
-     * Acessa o método do Model para remover uma atração
-     * 
-     * @param req Requisição
-     * @param res Resposta
-     * @returns Resposta do resultado da operação
-     */
-    //     public async remover(req: Request, res: Response): Promise < Response > {
-    //     // tenta remover um objeto no banco de dados
-    //     try {
-    //         // recuperando o id da atração a ser removida recebida do cliente
-    //         const idAtracao = parseInt(req.query.idAtracao as string);
+    public async remover(req: Request, res: Response): Promise<Response> {
+        try {
+            const idExercicio = parseInt(req.query.id_exercicio as string);
 
-    //         // chama a função para remover a atração
-    //         // o resulado da função é um booleano que será armazenado na variável de controle resultado
-    //         const resultado = await Atracao.removerAtracao(idAtracao);
+            if (await Exercicio.removerExercicio(idExercicio)) {
+                return res.status(200).json('exercicio removido com sucesso');
+            } else {
+                return res.status(400).json('Erro ao deletar exercicio');
+            }
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 
-    //         // Verifica o estado na variável resultado
-    //         if(resultado) {
-    //             // se o resultado for **true**, retorna mensagem de sucesso
-    //             return res.status(200).json('Atração foi removida com sucesso');
-    //         } else {
-    //             // se o resultado for **false**, retorna mensagem de erro
-    //             return res.status(401).json('Erro ao remover atração');
-    //         }
+    public async atualizar(req: Request, res: Response): Promise<Response> {
+        try {
+            const { id_aparelho, exercicio, carga, repeticoes, regiao_corpo_ativada } = req.body;
+            const novoExercicio = new Exercicio(0, id_aparelho, exercicio, carga, repeticoes, regiao_corpo_ativada);
+            novoExercicio.setIdExercicio(parseInt(req.query.id_exercicio as string));
 
-    //         // caso aconteça algum erro, é lançada uma exceção
-    //     } catch(error) {
-    //         // caso aconteça algum erro, este é lançado nos logs do servidor
-    //         console.log(`Erro ao acessar o modelo: ${error}`);
-    //         // retorna um status 400 com uma mensagem de erro
-    //         return res.status(400).json("Erro ao remover atração, consulte os logs no servidor");
-    //     }
-    // }
+            if (await Exercicio.atualizarExercicio(novoExercicio)) {
+                return res.status(200).json('exercicio atualizado com sucesso');
+            } else {
+                return res.status(400).json('Não foi possível atualizar o exercicio no banco de dados');
+            }
 
-    /**
-     * Acessa o método do Model para atualizar uma atração
-     * 
-     * @param req Requisição
-     * @param res Resposta
-     * @returns Resposta do resultado da operação
-     */
-    // public async atualizar(req: Request, res: Response): Promise < Response > {
-    // // tenta atualizar um objeto no banco de dados
-    // try {
-    //     // Desestruturando objeto recebido pelo cliente
-    //     const { nomeAtracao } = req.body;
-
-    //     // recuperando o id da atração a ser atualizada, recebido do cliente
-    //     const idAtracao = parseInt(req.query.idAtracao as string);
-
-    //     // Instanciando objeto do tipo Atracao
-    //     const novaAtracao = new Atracao(nomeAtracao);
-
-    //     // Chama o método para persistir a ave no banco de dados
-    //     // O resultado é um booleano, que será armazenado na variável resultado
-    //     const resultado = await Atracao.atualizarAtracao(novaAtracao, idAtracao);
-
-    //     // Verifica o estado na variável resultado
-    //     if(resultado) {
-    //         // se o resultado for **true**, retorna mensagem de sucesso
-    //         return res.status(200).json('Atração foi alterada com sucesso');
-    //     } else {
-    //         // se o resultado for **false**, retorna mensagem de erro
-    //         return res.status(401).json('Erro ao alterar atração');
-    //     }
-
-    //         // caso aconteça algum erro, é lançada uma exceção
-    //     } catch(error) {
-    //         // caso aconteça algum erro, este é lançado nos logs do servidor
-    //         console.log(`Erro ao acessar modelo: ${error}`);
-    //         // retorna um status 400 com uma mensagem de erro
-    //         return res.status(400).json("Erro ao atualizar atração, consulte os logs no servidor");
-    //     }
-    // }}
-
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 }
 export default ExercicioController;

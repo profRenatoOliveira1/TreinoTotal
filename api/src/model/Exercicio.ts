@@ -208,7 +208,6 @@ export class Exercicio {
         }
     }
 
-
     static async cadastrarExercicio(exercicio: Exercicio): Promise<Boolean> {
         let insertResult = false;
 
@@ -239,8 +238,47 @@ export class Exercicio {
         }
     }
 
+    static async removerExercicio(idExercicio: number): Promise<boolean> {
+        let queryResult = false;
 
+        try {
+            const queryDeleteExercicio = `DELETE FROM exercicio WHERE id_exercicio=${idExercicio}`;
+            await database.query(queryDeleteExercicio)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+            return queryResult;
+        } catch (error) {
+            console.log(error);
+            return queryResult;
+        }
+    }
 
+    static async atualizarExercicio(exercicio: Exercicio): Promise<boolean> {
+        let queryResult = false;
 
+        try {
+            const queryUpdateExercicio = `UPDATE exercicio SET 
+                                        id_aparelho=${exercicio.getIdAparelho()},
+                                        exercicio='${exercicio.getExercicio().toUpperCase()}',
+                                        carga=${exercicio.getCarga()},
+                                        repeticoes=${exercicio.getRepeticoes()},
+                                        regiao_corpo_ativa='${exercicio.getRegiaoCorpoAtiva().toUpperCase()}'
+                                        WHERE id_exercicio=${exercicio.getIdExercicio()}`;
 
+            await database.query(queryUpdateExercicio)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+
+            return queryResult;
+        } catch (error) {
+            console.log(error, queryResult);
+            return queryResult;
+        }
+    }
 }
