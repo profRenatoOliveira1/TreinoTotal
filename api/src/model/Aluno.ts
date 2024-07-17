@@ -148,8 +148,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         }
     }
 
-
-
     static async cadastrarAluno(aluno: Aluno): Promise<Boolean> {
         let insertResult = false;
 
@@ -182,6 +180,59 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         } catch (error) {
             console.log(`Erro ao cadastrar aluno: ${error}`);
             return insertResult;
+        }
+    }
+
+    static async removerAluno(idAluno: number): Promise<boolean> {
+        let queryResult = false;
+
+        try {
+            const queryRemoveAluno = `DELETE FROM aluno WHERE id_aluno=${idAluno}`;
+
+            const queryReturn = await database.query(queryRemoveAluno);
+            if (queryReturn.rowCount != 0) {
+                console.log(`Aluno removido com sucesso. ID: ${idAluno}`);
+                queryResult = true;
+            }
+
+            return queryResult;
+        } catch (error) {
+            console.log(`Erro no modelo: ${error}`);
+            return queryResult;
+        }
+    }
+
+    static async atualizarAluno(aluno: Aluno): Promise<boolean> {
+        let queryResult = false;
+
+        // const dataNascimento = new Date(aluno.getDataNascimento());
+        //const dataNascimento = aluno.getDataNascimento().toISOString().split('T')[0]; // Formata a data para AAAA-MM-DD
+
+        try {
+            const queryUpdateAluno = `UPDATE Aluno SET 
+                                        nome='${aluno.getNome().toUpperCase()}',
+                                        cpf='${aluno.getCpf()}',
+                                        data_nascimento='${aluno.getDataNascimento()}',
+                                        celular='${aluno.getCelular()}',
+                                        endereco='${aluno.getEndereco().toUpperCase()}',
+                                        email='${aluno.getEmail().toUpperCase()}',
+                                        senha='${aluno.getSenha()}',
+                                        altura=${aluno.getAltura()},
+                                        peso=${aluno.getPeso()},
+                                        imc=${aluno.getImc()}
+                                        WHERE id_aluno=${aluno.getId()}`;
+
+            await database.query(queryUpdateAluno)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+
+            return queryResult;
+        } catch (error) {
+            console.log(error, queryResult);
+            return queryResult;
         }
     }
 }

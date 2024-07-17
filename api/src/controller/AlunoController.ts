@@ -52,6 +52,57 @@ class AlunoController extends Aluno {
             return res.status(400).json('Erro ao cadastrar a atração');
         }
     }
+
+    public async remover(req: Request, res: Response): Promise<Response> {
+        try {
+            const idAluno = parseInt(req.query.id_aluno as string);
+
+            if (await Aluno.removerAluno(idAluno)) {
+                return res.status(200).json('Aluno removido com sucesso');
+            } else {
+                return res.status(400).json('Erro ao deletar aluno');
+            }
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
+
+    public async atualizar(req: Request, res: Response): Promise<any> {
+        try {
+            // Desestruturando objeto recebido pelo front-end
+            const { id_aluno, nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha } = req.body;
+
+            // Instanciando objeto Aluno
+            const novoAluno = new Aluno(
+                id_aluno,
+                nome,
+                cpf,
+                data_nascimento,
+                celular,
+                endereco,
+                email,
+                senha,
+                altura,
+                peso,
+                imc
+            );
+
+            novoAluno.setId(parseInt(req.query.id_aluno as string));
+
+            console.log(novoAluno);
+            if (await Aluno.atualizarAluno(novoAluno)) {
+                return res.status(200).json('Aluno atualizado com sucesso');
+            } else {
+                return res.status(400).json('Não foi possível atualizar o aluno no banco de dados');
+            }
+        } catch (error) {
+            console.log("Error on controller method todos");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 }
 
 export default AlunoController;
