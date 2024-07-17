@@ -189,4 +189,56 @@ export class Professor extends Pessoa { // Herança de Pessoa
             return insertResult;
         }
     }
+
+    static async removerProfessor(idProfessor: number): Promise<boolean> {
+        let queryResult = false;
+
+        try {
+            const queryDeleteProfessor = `DELETE FROM Professor WHERE id_professor=${idProfessor}`;
+            await database.query(queryDeleteProfessor)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+            return queryResult;
+        } catch (error) {
+            console.log(error);
+            return queryResult;
+        }
+    }
+
+    static async atualizarProfessor(professor: Professor): Promise<boolean> {
+        let queryResult = false;
+
+        const dataNascimento = new Date(professor.getDataNascimento());
+        const dataContratacao = new Date(professor.getDataContratacao());
+
+        try {
+            const queryUpdateProfessor = `UPDATE Professor SET 
+                                        nome='${professor.getNome().toUpperCase()}',
+                                        cpf='${professor.getCpf()}',
+                                        data_nascimento='${dataNascimento.getFullYear()}-${dataNascimento.getMonth() + 1}-${dataNascimento.getDate() + 1}',
+                                        celular='${professor.getCelular()}',
+                                        endereco='${professor.getEndereco().toUpperCase()}',
+                                        email='${professor.getEmail().toUpperCase()}',
+                                        senha='${professor.getSenha()}',
+                                        data_contratacao='${dataContratacao.getFullYear()}-${dataContratacao.getMonth() + 1}-${dataContratacao.getDate() + 1}',
+                                        formacao='${professor.getFormacao().toUpperCase()}',
+                                        especialidade='${professor.getEspecialidade().toUpperCase()}'
+                                        WHERE id_professor=${professor.getId()}`;
+
+            await database.query(queryUpdateProfessor)
+                .then((result) => {
+                    if (result.rowCount != 0) {
+                        queryResult = true;
+                    }
+                })
+
+            return queryResult;
+        } catch (error) {
+            console.log(error, queryResult);
+            return queryResult;
+        }
+    }
 }

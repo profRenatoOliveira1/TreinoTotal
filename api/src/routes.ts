@@ -37,7 +37,10 @@ router.put('/update/aluno', alunoController.atualizar);
 router.get('/listar/professores', professorController.todos);
 // Cadastra um professor
 router.post('/novo/professor', professorController.cadastrar);
-
+// Remove um professor 
+router.delete('/delete/professor', professorController.remover);
+// Atualiza um professor 
+router.put('/update/professor', professorController.atualizar);
 
 /**
 * Rotas para a entidade aparelho
@@ -46,6 +49,10 @@ router.post('/novo/professor', professorController.cadastrar);
 router.get('/listar/aparelhos', aparelhoController.todos);
 // Cadastra um aparelho
 router.post('/novo/aparelho', aparelhoController.cadastrar);
+// Remove um aparelho 
+//router.delete('/delete/aparelho', aparelhoController.remover);
+// Atualiza um aparelho 
+//router.put('/update/aparelho', aparelhoController.atualizar);
 
 /**
 * Rotas para a entidade exercício
@@ -54,6 +61,9 @@ router.post('/novo/aparelho', aparelhoController.cadastrar);
 router.get('/listar/exercicios', exercicioController.todos);
 // Cadastra um exercicio
 router.post('/novo/exercicio', exercicioController.cadastrar);
-
+// Remove um exercício 
+//router.delete('/delete/exercicio', exercicioController.remover);
+// Atualiza um aluno 
+//router.put('/update/exercicio', exercicioController.atualizar);
 
 export { router }
