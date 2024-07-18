@@ -72,17 +72,17 @@ export class Authentication {
 
         if (!token) {
             console.log('Token não informado');
-            return res.status(401).end();
+            return res.status(401).json({ message: "Token não informado", auth: false }).end();
         }
 
         jwt.verify(token, SECRET, (err, decoded) => {
             if (err) {
                 if (err.name === 'TokenExpiredError') {
                     console.log('Token expirado');
-                    return res.status(401).json({ message: "Token expirado" }).end();
+                    return res.status(401).json({ message: "Token expirado, faça o login novamente", auth: false }).end();
                 } else {
-                    console.log('Token inválido. Caiu no erro');
-                    return res.status(401).json({ message: "Token inválido" }).end();
+                    console.log('Token inválido.');
+                    return res.status(401).json({ message: "Token inválido, faça o login", auth: false }).end();
                 }
             }
 
@@ -90,13 +90,13 @@ export class Authentication {
 
             if (!exp || !id) {
                 console.log('Data de expiração ou ID não encontrada no token');
-                return res.status(401).json({message: "Token inválido"}).end();
+                return res.status(401).json({ message: "Token inválido, faça o login", auth: false }).end();
             }
 
             const currentTime = Math.floor(Date.now() / 1000);
             if (currentTime > exp) {
                 console.log('Token expirado');
-                return res.status(401).json({message: "Token expirado"}).end();
+                return res.status(401).json({ message: "Token expirado, faça o login novamente", auth: false }).end();
             }
 
             req.body.userId = id;

@@ -21,6 +21,15 @@ export class DatabaseModel {
         this._pool = new pg.Pool(this._config);
     }
 
+    public async getConnection(user: string, password: string) {
+        const config = {
+            ...this._config,
+            user: user,
+            password: password
+        };
+        return new pg.Pool(config).connect();
+    }
+
     public async testeConexao() {
         try {
             const client = await this._pool.connect();
