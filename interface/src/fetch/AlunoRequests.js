@@ -4,6 +4,8 @@ class AlunoRequests {
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarAluno = '/listar-aluno';
         this.routeCadastrarAluno = '/novo/aluno';
+        this.routeRemoverAluno = '/delete/aluno';
+        this.routeAtualizarAluno = '/update/aluno';
     }
 
     async listarAlunos() { // Método assíncrono para listar alunos
@@ -51,6 +53,68 @@ class AlunoRequests {
             // Em caso de erro, exibe e relança o erro
             console.error('Erro: ', error);
             throw error;
+        }
+    }
+
+    /**
+     * Deleta um aluno do servidor
+     * 
+     * @param {*} idAluno ID do aluno a ser deletado
+     * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
+     */
+    async deletarAluno(idAluno) {
+        try {
+            // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
+            const response = await fetch(`${this.serverUrl}${this.routeRemoverAluno}?id_aluno=${idAluno}`, {
+                // Informa o verbo a ser acessado
+                method: 'DELETE'
+            });
+            // Verifica se a resposta não foi bem sucedida ...
+            if (!response.ok) {
+                // ... lança um erro
+                throw new Error('Erro ao enviar formulário');
+            }
+            // retorna true caso a resposta seja bem sucedida
+            return true;
+        } catch (error) {
+            // caso ocorra algum erro na comunicação
+            console.error('Erro: ', error);
+            window.alert('Erro ao remover aluno');
+            return null;
+        }
+    }
+
+    /**
+     * Atualiza o registro de um aluno no servidor
+     * 
+     * @param {*} aluno animal Objeto com as informações do animal
+     * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
+     */
+    async atualizarAluno(aluno) {
+        try {
+            // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAluno}?id_aluno=${aluno.idAluno}`, {
+                // Informa o verbo a ser acessado
+                method: 'PUT',
+                // informa os cabeçalhos da requisição
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // informa o corpo da requisição, contendo as informações do aluno
+                body: JSON.stringify(aluno)
+            });
+            // Verifica se a resposta não foi bem sucedida ...
+            if (!response.ok) {
+                // ... lança um erro
+                throw new Error('Erro ao enviar formulário');
+            }
+            // retorna true caso a resposta seja bem sucedida
+            return true;
+        } catch (error) {
+            // caso ocorra algum erro na comunicação
+            console.error('Erro: ', error);
+            window.alert('Erro ao ataulizar animal');
+            return null;
         }
     }
 }

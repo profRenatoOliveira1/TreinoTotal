@@ -4,6 +4,8 @@ class ProfessoresRequests {
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarProfessor = '/listar-professor';
         this.routeCadastrarProfessor = '/novo/professor';
+        this.routeRemoverProfessor = '/delete/professor';
+        this.routeAtualizarProfessor = '/update/professor';
     }
 
     async listarProfessor() { // Método assíncrono para listar professores
@@ -39,6 +41,68 @@ class ProfessoresRequests {
         } catch (error) {
             // Em caso de erro, exibe o erro no console
             console.error('Erro: ', error);
+        }
+    }
+
+    /**
+     * Deleta um professor do servidor
+     * 
+     * @param {*} idProfessor ID do aluno a ser deletado
+     * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
+     */
+    async deletarAluno(idProfessor) {
+        try {
+            // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
+            const response = await fetch(`${this.serverUrl}${this.routeRemoverProfessor}?id_professor=${idProfessor}`, {
+                // Informa o verbo a ser acessado
+                method: 'DELETE'
+            });
+            // Verifica se a resposta não foi bem sucedida ...
+            if (!response.ok) {
+                // ... lança um erro
+                throw new Error('Erro ao enviar formulário');
+            }
+            // retorna true caso a resposta seja bem sucedida
+            return true;
+        } catch (error) {
+            // caso ocorra algum erro na comunicação
+            console.error('Erro: ', error);
+            window.alert('Erro ao remover aluno');
+            return null;
+        }
+    }
+
+    /**
+     * Atualiza o registro de um professor no servidor
+     * 
+     * @param {*} professor animal Objeto com as informações do animal
+     * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
+     */
+    async atualizarAluno(professor) {
+        try {
+            // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarProfessor}?id_professor=${professor.idProfessor}`, {
+                // Informa o verbo a ser acessado
+                method: 'PUT',
+                // informa os cabeçalhos da requisição
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // informa o corpo da requisição, contendo as informações do aluno
+                body: JSON.stringify(professor)
+            });
+            // Verifica se a resposta não foi bem sucedida ...
+            if (!response.ok) {
+                // ... lança um erro
+                throw new Error('Erro ao enviar formulário');
+            }
+            // retorna true caso a resposta seja bem sucedida
+            return true;
+        } catch (error) {
+            // caso ocorra algum erro na comunicação
+            console.error('Erro: ', error);
+            window.alert('Erro ao ataulizar animal');
+            return null;
         }
     }
 }
