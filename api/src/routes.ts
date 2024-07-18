@@ -71,6 +71,10 @@ router.put('/update/exercicio', exercicioController.atualizar);
 /**
 * Rotas para a entidade exercício
 */
-router.get('/listar/treino', treinoController.treinoNomeAluno);
+router.get('/listar/treino/nome', treinoController.treinoNomeAluno);
+router.get('/listar/treino/id', treinoController.treinoIdAluno);
+router.post('/novo/treino', treinoController.novo);
+router.delete('/delete/treino', treinoController.remover);
+router.put('/update/treino', treinoController.atualizar);
 
 export { router }
