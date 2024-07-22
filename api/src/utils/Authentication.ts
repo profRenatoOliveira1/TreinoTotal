@@ -23,21 +23,21 @@ export class Authentication {
     static async validacaoUsuarioAluno(req: Request, res: Response): Promise<any> {
         const { email, password } = req.body;
 
-        const querySelectUser = `SELECT id_aluno, nome, email FROM aluno WHERE email=$1 AND senha=$2;`;
+        const querySelectUser = `SELECT id_professor, nome, email FROM professor WHERE email=$1 AND senha=$2;`;
 
         try {
             const queryResult = await database.query(querySelectUser, [email, password]);
 
             if (queryResult.rowCount != 0) {
-                const aluno = {
-                    id_aluno: queryResult.rows[0].id_aluno,
+                const professor = {
+                    id_professor: queryResult.rows[0].id_professor,
                     nome: queryResult.rows[0].nome,
                     email: queryResult.rows[0].email
                 }
 
-                const tokenAluno = Authentication.generateToken(parseInt(aluno.id_aluno), aluno.nome, aluno.email);
+                const tokenAluno = Authentication.generateToken(parseInt(professor.id_professor), professor.nome, professor.email);
 
-                return res.status(200).json({ auth: true, token: tokenAluno, aluno: aluno });
+                return res.status(200).json({ auth: true, token: tokenAluno, aluno: professor });
             } else {
                 return res.status(401).json({ auth: false, token: null, message: "Usuário e/ou senha incorretos" });
             }

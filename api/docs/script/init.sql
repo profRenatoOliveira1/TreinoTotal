@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS professor (id_professor SERIAL NOT NULL PRIMARY KEY,
 					data_nascimento DATE NOT NULL,
 					celular VARCHAR(14) NOT NULL UNIQUE,
 					endereco VARCHAR(100) NOT NULL,
-					--email VARCHAR(50) NOT NULL,
-					--senha VARCHAR(50) NOT NULL,
+					email VARCHAR(50) NOT NULL,
+					senha VARCHAR(50) NOT NULL,
 					data_contratacao DATE NOT NULL,
 					formacao VARCHAR(70) NOT NULL,
 					especialidade VARCHAR(70));
@@ -17,19 +17,19 @@ CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY,
 					data_nascimento DATE NOT NULL,
 					celular VARCHAR(14) NOT NULL UNIQUE,
 					endereco VARCHAR(100) NOT NULL,
-					--email VARCHAR (50) NOT NULL,
-					-- senha VARCHAR(50) NOT NULL,
+					email VARCHAR (50) NOT NULL,
+					senha VARCHAR(50) NOT NULL,
 					altura DECIMAL(5,2),
 					peso DECIMAL(5,2),
 					imc DECIMAL(5,2));
 
-CREATE TABLE users (id_user SERIAL PRIMARY KEY,
-					--username VARCHAR(50) NOT NULL UNIQUE,
-					cpf VARCHAR(11),
-					email VARCHAR(50) NOT NULL UNIQUE,
-					password VARCHAR(255) NOT NULL,
-					role VARCHAR(50) NOT NULL CHECK (role IN ('Professor', 'Aluno')),
-					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+-- CREATE TABLE users (id_user SERIAL PRIMARY KEY,
+-- 					--username VARCHAR(50) NOT NULL UNIQUE,
+-- 					cpf VARCHAR(11),
+-- 					email VARCHAR(50) NOT NULL UNIQUE,
+-- 					password VARCHAR(255) NOT NULL,
+-- 					role VARCHAR(50) NOT NULL CHECK (role IN ('Professor', 'Aluno')),
+-- 					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS aparelho (id_aparelho SERIAL NOT NULL PRIMARY KEY,  
 					nome_aparelho VARCHAR(80) NOT NULL,
@@ -59,46 +59,46 @@ CREATE TABLE IF NOT EXISTS exercicio_treino(id_exercicio_treino SERIAL NOT NULL 
 						   FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio));
 
 			
---INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao, especialidade)
---VALUES
---(UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), 'ricardo_carvalho@camilapassos.com.br', 'bWS0ZB1Ego', '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
---(UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), 'sara-alves86@dmcard.com.br', 'LpwfM884OF', '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
---(UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), 'arthur.miguel.dacruz@abcautoservice.net', 'ub7xFEMRHB', '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
---(UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), 'rodrigorobertoaparicio@picolotoengenharia.com.br', '6deaHr6beu', '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
---(UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), 'alessandra_almeida@unifesp.br', 'UgyyMl9fiW', '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
-INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade)
+INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao, especialidade)
 VALUES
-(UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
-(UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
-(UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
-(UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
-(UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
+(UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), 'ricardo_carvalho@camilapassos.com.br', 'bWS0ZB1Ego', '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
+(UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), 'sara-alves86@dmcard.com.br', 'LpwfM884OF', '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
+(UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), 'arthur.miguel.dacruz@abcautoservice.net', 'ub7xFEMRHB', '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
+(UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), 'rodrigorobertoaparicio@picolotoengenharia.com.br', '6deaHr6beu', '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
+(UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), 'alessandra_almeida@unifesp.br', 'UgyyMl9fiW', '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
+-- INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade)
+-- VALUES
+-- (UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
+-- (UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
+-- (UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
+-- (UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
+-- (UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
 
 
---INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco, email, senha, altura, peso, imc)
---VALUES
---(UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes'), 'biancalarapinto@somma.net.br', 'YKKPSCDIpa'),
---(UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento'), 'rosa-jesus76@nine9.com.br', 'TE4c3SAPMl'),
---(UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca'), 'jorge-dias95@nogueiramoura.adv.br', 'TfUmW1bNMA'),
---(UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber'), 'regina_fogaca@amaralmonteiro.com.br', 'CA9wKF2TbQ'),
---(UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio'), 'liviaagathadarosa@babo.adv.br', 'xmjnNlh5d7'),
---(UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha'), 'muriloigoroliveira@ugeda.com.br', 'AaKjNxdgyR'),
---(UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida'), 'emily_dasneves@msltecnologia.com.br', 'YRxzHDY0Bd'),
---(UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II'), 'rafael-darocha71@nhrtaxiaereo.com', 'tUWQMw6DOg'),
---(UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha'), 'matheus_bernardes@gigaonline.com.br', 'yuZGhfDr3m'),
---(UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'), 'antonio_otavio_dapaz@unicamp.br', 'cxWDlLsqjq');
-INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco)
+INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco, email, senha)
 VALUES
-(UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes')),
-(UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento')),
-(UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca')),
-(UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber')),
-(UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio')),
-(UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha')),
-(UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida')),
-(UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II')),
-(UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha')),
-(UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'));
+(UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes'), 'biancalarapinto@somma.net.br', 'YKKPSCDIpa'),
+(UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento'), 'rosa-jesus76@nine9.com.br', 'TE4c3SAPMl'),
+(UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca'), 'jorge-dias95@nogueiramoura.adv.br', 'TfUmW1bNMA'),
+(UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber'), 'regina_fogaca@amaralmonteiro.com.br', 'CA9wKF2TbQ'),
+(UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio'), 'liviaagathadarosa@babo.adv.br', 'xmjnNlh5d7'),
+(UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha'), 'muriloigoroliveira@ugeda.com.br', 'AaKjNxdgyR'),
+(UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida'), 'emily_dasneves@msltecnologia.com.br', 'YRxzHDY0Bd'),
+(UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II'), 'rafael-darocha71@nhrtaxiaereo.com', 'tUWQMw6DOg'),
+(UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha'), 'matheus_bernardes@gigaonline.com.br', 'yuZGhfDr3m'),
+(UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'), 'antonio_otavio_dapaz@unicamp.br', 'cxWDlLsqjq');
+-- INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco)
+-- VALUES
+-- (UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes')),
+-- (UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento')),
+-- (UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca')),
+-- (UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber')),
+-- (UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio')),
+-- (UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha')),
+-- (UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida')),
+-- (UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II')),
+-- (UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha')),
+-- (UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'));
 
 INSERT INTO aparelho (nome_aparelho, musculo_ativado)
 VALUES
@@ -150,7 +150,7 @@ INSERT INTO treino (id_aluno, id_professor)
 	(2,5), -- 4
 	(4,4); -- 5
 
-INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga)
+INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga, serie?)
 	VALUES
 	(1, 1, 10, 30),
 	(1, 2, 10, 30),

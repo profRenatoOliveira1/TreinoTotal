@@ -13,13 +13,29 @@ export class TreinoController extends Treino {
         }
     }
 
-    public async treinoIdAluno(req: Request, res: Response) {
+    public async listarTreino(req: Request, res: Response) {
         try {
-            const treinoAluno = await Treino.listarTreinoIDAluno(parseInt(req.query.id_aluno as string));
-            return res.status(200).json(treinoAluno);
+            const idAluno = req.query.id_aluno;
+            const idTreino = req.query.id_treino;
+
+            if (idAluno && !isNaN(parseInt(idAluno as string))) {
+                const treinoAluno = await Treino.listarTreinoIDAluno(parseInt(idAluno as string));
+                if (!treinoAluno) {
+                    return res.status(404).json({ error: "Treino não encontrado para o aluno especificado" });
+                }
+                return res.status(200).json(treinoAluno);
+            } else if (idTreino && !isNaN(parseInt(idTreino as string))) {
+                const treinoAluno = await Treino.listarTreinoIDTreino(parseInt(idTreino as string));
+                if (!treinoAluno) {
+                    return res.status(404).json({ error: "Treino não encontrado para o ID especificado" });
+                }
+                return res.status(200).json(treinoAluno);
+            } else {
+                return res.status(400).json({ error: "Parâmetro inválido. Forneça um id_aluno ou id_treino válido." });
+            }
         } catch (error) {
             console.log(`Erro ao acessar o modelo: ${error}`);
-            return res.status(400).json(`Erro ao acessar as informações`);
+            return res.status(500).json({ error: "Erro ao acessar as informações" });
         }
     }
 

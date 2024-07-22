@@ -77,7 +77,7 @@ router.put('/update/exercicio', Authentication.verifyToken, exercicioController.
 // Listar todos os treinos cadastrados para um aluno (usando nome como parâmetro)
 router.get('/listar/treino/nome', Authentication.verifyToken, treinoController.treinoNomeAluno);
 // Listar todos os treinos cadastrados para um aluno (usando ID como parâmetro)
-router.get('/listar/treino/id', Authentication.verifyToken, treinoController.treinoIdAluno);
+router.get('/listar/treino/id', Authentication.verifyToken, treinoController.listarTreino);
 // Cadastra um novo treino
 router.post('/novo/treino', Authentication.verifyToken, treinoController.novo);
 // Remove um treino 
