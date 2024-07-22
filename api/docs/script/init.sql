@@ -1,307 +1,238 @@
-CREATE TABLE professor (idProfessor SERIAL NOT NULL PRIMARY KEY,  
-					nome  VARCHAR(50)  NOT NULL,
+-- CRIANDO TABELAS
+CREATE TABLE IF NOT EXISTS professor (id_professor SERIAL NOT NULL PRIMARY KEY,  
+					nome VARCHAR(100) NOT NULL,
 					cpf VARCHAR(11) NOT NULL UNIQUE,
-					data_nascimento DATE,
-					telefone VARCHAR(11) NOT NULL UNIQUE,
-					endereco VARCHAR NOT NULL,
-					email VARCHAR(50) NOT NULL,
-					senha VARCHAR(50) NOT NULL,
-					dataContratacao DATE,
-					formacao VARCHAR(50) NOT NULL,
-					especialidade VARCHAR(50) NOT NULL
-	
-					);
+					data_nascimento DATE NOT NULL,
+					celular VARCHAR(14) NOT NULL UNIQUE,
+					endereco VARCHAR(100) NOT NULL,
+					--email VARCHAR(50) NOT NULL,
+					--senha VARCHAR(50) NOT NULL,
+					data_contratacao DATE NOT NULL,
+					formacao VARCHAR(70) NOT NULL,
+					especialidade VARCHAR(70));
 					
-CREATE TABLE aluno (idAluno SERIAL NOT NULL PRIMARY KEY, 
-					nome VARCHAR(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY, 
+					nome VARCHAR(100) NOT NULL,
 					cpf VARCHAR(11) NOT NULL UNIQUE,
-					data_nascimento DATE,
-					telefone VARCHAR(11) NOT NULL UNIQUE,
-					endereco VARCHAR NOT NULL,
-					email VARCHAR (50) NOT NULL,
-					senha VARCHAR(50) NOT NULL,
-					altura FLOAT(4) NOT NULL ,
-					peso FLOAT(4) NOT NULL ,
-					imc FLOAT (4) NOT NULL 	
-					);
+					data_nascimento DATE NOT NULL,
+					celular VARCHAR(14) NOT NULL UNIQUE,
+					endereco VARCHAR(100) NOT NULL,
+					--email VARCHAR (50) NOT NULL,
+					-- senha VARCHAR(50) NOT NULL,
+					altura DECIMAL(5,2),
+					peso DECIMAL(5,2),
+					imc DECIMAL(5,2));
 
-CREATE TABLE aparelho (idAparelho SERIAL NOT NULL PRIMARY KEY,  
-					nomeAparelho VARCHAR(50) NOT NULL,
-					musculoAtivado VARCHAR(50) NOT NULL	
-					);
+CREATE TABLE users (id_user SERIAL PRIMARY KEY,
+					--username VARCHAR(50) NOT NULL UNIQUE,
+					cpf VARCHAR(11),
+					email VARCHAR(50) NOT NULL UNIQUE,
+					password VARCHAR(255) NOT NULL,
+					role VARCHAR(50) NOT NULL CHECK (role IN ('Professor', 'Aluno')),
+					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE IF NOT EXISTS aparelho (id_aparelho SERIAL NOT NULL PRIMARY KEY,  
+					nome_aparelho VARCHAR(80) NOT NULL,
+					musculo_ativado VARCHAR(80));
 					
-CREATE TABLE exercicio (idExercicio SERIAL NOT NULL PRIMARY KEY,
-					idAparelho INT,
-					exercicio VARCHAR (50) NOT NULL,
-					carga INT NOT NULL,
-					repeticoes INT  NOT NULL,
-					regiaoCorpoAtivada VARCHAR(50) NOT NULL,
-					FOREIGN KEY (idAparelho) REFERENCES aparelho(idAparelho)		
-					);
+CREATE TABLE IF NOT EXISTS exercicio (id_exercicio SERIAL NOT NULL PRIMARY KEY,
+					id_aparelho INT,
+					exercicio VARCHAR (100) NOT NULL,
+					--carga INT NOT NULL,
+					--repeticoes INT  NOT NULL,
+					regiao_corpo_ativada VARCHAR(70),
+					FOREIGN KEY (id_aparelho) REFERENCES aparelho(id_aparelho));
 
-CREATE TABLE treino (idTreino SERIAL NOT NULL PRIMARY KEY,
-    idAluno INT NOT NULL,
-    idProfessor INT NOT NULL,
-    FOREIGN KEY (idAluno) REFERENCES aluno(idAluno),
-    FOREIGN KEY (idProfessor) REFERENCES professor(idProfessor)
-);
+CREATE TABLE IF NOT EXISTS treino (id_treino SERIAL NOT NULL PRIMARY KEY,
+    id_aluno INT NOT NULL,
+    id_professor INT NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id_aluno),
+    FOREIGN KEY (id_professor) REFERENCES professor(id_professor));
 
-CREATE TABLE exercicio_treino(idExerciciolTreino SERIAL NOT NULL PRIMARY KEY,
-						   idTreino INT,
-						   idExercicio INT,
-						   FOREIGN KEY (idTreino) REFERENCES treino(idTreino),
-						   FOREIGN KEY (idExercicio) REFERENCES exercicio(idExercicio)
-);
+CREATE TABLE IF NOT EXISTS exercicio_treino(id_exercicio_treino SERIAL NOT NULL PRIMARY KEY,
+						   id_treino INT,
+						   id_exercicio INT,
+						   repeticoes INT  NOT NULL DEFAULT 10,
+						   carga INT NOT NULL DEFAULT 0,
+						   series INT DEFAULT 3,
+						   FOREIGN KEY (id_treino) REFERENCES treino(id_treino),
+						   FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio));
 
-         
 			
-INSERT INTO professor (nome, cpf, data_nascimento, telefone, endereco, email, senha, dataContratacao, formacao, especialidade)
+--INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao, especialidade)
+--VALUES
+--(UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), 'ricardo_carvalho@camilapassos.com.br', 'bWS0ZB1Ego', '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
+--(UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), 'sara-alves86@dmcard.com.br', 'LpwfM884OF', '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
+--(UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), 'arthur.miguel.dacruz@abcautoservice.net', 'ub7xFEMRHB', '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
+--(UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), 'rodrigorobertoaparicio@picolotoengenharia.com.br', '6deaHr6beu', '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
+--(UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), 'alessandra_almeida@unifesp.br', 'UgyyMl9fiW', '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
+INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade)
 VALUES
-(UPPER('Ana Carolina Fernandes Nascimento '), '11111111111', '1995-04-28', '16666666666', UPPER('Rua dos Acadêmicos'), UPPER('cf4168548@gmail.com'), 'senha123', '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
-(UPPER('João Pedro Tamião'), '22222222222', '1990-08-15', '17777777777', UPPER('Avenida das Barras Paralelas'), UPPER('jpstz2013@hotmail.com'), 'senha456', '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
-(UPPER('Lucas Hideki Miyazaki'), '33333333333', '1987-11-10', '18888888888', UPPER('Rua dos Exercícios Físicos'), UPPER('lucasmiyazaki6@gmail.com'), 'senha789', '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
-(UPPER('Rian Siqueira Durigan'), '44444444444', '1984-02-20', '19999999999', UPPER('Avenida da Academia'), UPPER('durigansrian@gmail.com'), 'senha101112', '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
-(UPPER('Vitor Joaquim de Almeida'), '55555555555', '1993-06-15', '10101010101', UPPER('Rua das Ciências do Esporte'), UPPER('vitoreojoaquim@gmail.com'), 'senha131415', '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
+(UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
+(UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
+(UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
+(UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
+(UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
 
 
-INSERT INTO aluno (nome, cpf, data_nascimento, telefone, endereco, email, senha, altura, peso, imc)
+--INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco, email, senha, altura, peso, imc)
+--VALUES
+--(UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes'), 'biancalarapinto@somma.net.br', 'YKKPSCDIpa'),
+--(UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento'), 'rosa-jesus76@nine9.com.br', 'TE4c3SAPMl'),
+--(UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca'), 'jorge-dias95@nogueiramoura.adv.br', 'TfUmW1bNMA'),
+--(UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber'), 'regina_fogaca@amaralmonteiro.com.br', 'CA9wKF2TbQ'),
+--(UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio'), 'liviaagathadarosa@babo.adv.br', 'xmjnNlh5d7'),
+--(UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha'), 'muriloigoroliveira@ugeda.com.br', 'AaKjNxdgyR'),
+--(UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida'), 'emily_dasneves@msltecnologia.com.br', 'YRxzHDY0Bd'),
+--(UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II'), 'rafael-darocha71@nhrtaxiaereo.com', 'tUWQMw6DOg'),
+--(UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha'), 'matheus_bernardes@gigaonline.com.br', 'yuZGhfDr3m'),
+--(UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'), 'antonio_otavio_dapaz@unicamp.br', 'cxWDlLsqjq');
+INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco)
 VALUES
-(UPPER('Marcos'), '98711111111', '2000-09-12', '11111111111', UPPER('Rua dos Estudantes'), UPPER('marcos@gmail.com'), 'senha123', 1.75, 70, 22.9),
-(UPPER('Carla'), '31322222222', '1998-07-25', '22222222222', UPPER('Avenida do Conhecimento'), UPPER('carla@gmail.com'), 'senha456', 1.65, 55, 20.2),
-(UPPER('Bruno'), '88333333333', '2001-03-18', '33333333333', UPPER('Rua da Biblioteca'), UPPER('bruno@gmail.com'), 'senha789', 1.80, 75, 23.1),
-(UPPER('Camila'), '12344444444', '1999-11-05', '44444444444', UPPER('Avenida do Saber'), UPPER('camila@gmail.com'), 'senha101112', 1.70, 60, 20.8),
-(UPPER('Renata'), '87655555555', '2002-05-20', '55555555555', UPPER('Rua da Aprendizagem'), UPPER('renata@gmail.com'), 'senha131415', 1.68, 58, 20.6);
+(UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes')),
+(UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento')),
+(UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca')),
+(UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber')),
+(UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio')),
+(UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha')),
+(UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida')),
+(UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II')),
+(UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha')),
+(UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'));
 
-INSERT INTO aparelho (nomeAparelho, musculoAtivado)
+INSERT INTO aparelho (nome_aparelho, musculo_ativado)
 VALUES
-(UPPER('Supino'), UPPER('Peito')),
-(UPPER('LegPress'), UPPER('Perna')),
-(UPPER('Cadeira abdutora'), UPPER('Lateral Perna')),
-(UPPER('Cadeira adutora'), UPPER('Interior Perna')),
-(UPPER('Elevação Pelvica'), UPPER('Gluteo'));
+(UPPER('Supino'), UPPER('Peito')), -- 1
+(UPPER('Leg Press'), UPPER('Perna')), -- 2
+(UPPER('Cadeira abdutora'), UPPER('Lateral Perna')), -- 3
+(UPPER('Cadeira adutora'), UPPER('Interior Perna')), -- 4
+(UPPER('Peck Deck'), UPPER('Peito')), -- 5
+(UPPER('Roman Chair'), UPPER('Costas')), -- 6
+(UPPER('Barra Fixa'), UPPER('Biceps')), -- 7
+(UPPER('Esteira'), UPPER('Cardio')), -- 8
+(UPPER('Bicicleta'), UPPER('Cardio')), -- 9
+(UPPER('Livre'), UPPER('Livre')), -- 10
+(UPPER('Puxador'), UPPER('Costas')), -- 11
+(UPPER('Crossover'), UPPER('Multi')), -- 12
+(UPPER('Elevação Pelvica'), UPPER('Gluteo')); --13
 
-INSERT INTO exercicio ( idAparelho, exercicio, carga, repeticoes, regiaoCorpoAtivada)
+INSERT INTO exercicio (id_aparelho, exercicio, regiao_corpo_ativada)
 VALUES
-(1,UPPER('Adução'), 30, 10, UPPER('Pernas')),
-(4,UPPER('Abdução'), 50, 11, UPPER('Pernas')),
-(5,UPPER('Panturrilha sentada'), 70, 12, UPPER('Panturrilha')),
-(2,UPPER('Desenvolvimento de ombro'), 16, 12, UPPER('Ombros')),
-(3,UPPER('Puxador'), 90, 20, UPPER('Costas'));
+(3,UPPER('Adução'), UPPER('Pernas')), -- 1
+(4,UPPER('Abdução'), UPPER('Pernas')), -- 2
+(10,UPPER('Panturrilha sentada'), UPPER('Panturrilha')), -- 3
+(10,UPPER('Desenvolvimento de ombro'), UPPER('Ombros')), -- 4
+(11,UPPER('Puxada frontal pegada pronada'), UPPER('Costas')), -- 5
+(2,UPPER('Legpress 45'), UPPER('Pernas')), -- 6
+(10,UPPER('Rosca martelo'), UPPER('Biceps')), -- 7
+(5,UPPER('Peck deck'), UPPER('peito')), -- 8
+(5,UPPER('Peck deck invertido'), UPPER('Costas')), -- 9
+(10,UPPER('agachamento livre'), UPPER('pernas')), -- 10
+(6,UPPER('Flexao lombar'), UPPER('Costas')), -- 11
+(7,UPPER('Remada alta'), UPPER('Costas')), -- 12
+(10,UPPER('elevacao lateral'), UPPER('ombros')), -- 13
+(8,UPPER('Esteira'), UPPER('Cardio')), -- 14
+(9,UPPER('bicicleta'), UPPER('Cardio')), -- 15
+(10,UPPER('Abdominal'), UPPER('Abdomen')), -- 16
+(10,UPPER('Abdominal declinado'), UPPER('Abdomen')), -- 17
+(12,UPPER('Triceps barra v'), UPPER('Triceps')), -- 18
+(12,UPPER('rosca barra reta'), UPPER('Biceps')), -- 19
+(11,UPPER('Remada conjugada'), UPPER('Costas')), -- 20
+(1,UPPER('Supino reto'), UPPER('Peito')), -- 21
+(10,UPPER('Supino inclinado com halteres'), UPPER('Peito')); -- 22
 
 
-INSERT INTO treino (idAluno, idProfessor)
+INSERT INTO treino (id_aluno, id_professor)
 	VALUES
-	(1,4),
-	(5,3),
-	(3,1),
-	(2,5),
-	(4,4);
+	(1,4), -- 1
+	(5,3), -- 2
+	(3,1), -- 3
+	(2,5), -- 4
+	(4,4); -- 5
 
-INSERT INTO exercicio_treino (idTreino, idExercicio)
+INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga)
 	VALUES
-	(5,5),
-	(3,2),
-	(1,1),
-	(4,5),
-	(2,5);
-
-
-
--------ALTERANDO A COLUNA DOS ID
-
-ALTER TABLE Professor
-RENAME COLUMN idProfessor TO id_professor;
-
-ALTER TABLE Aluno
-RENAME COLUMN idAluno TO id_aluno;
-
-ALTER TABLE Treino
-RENAME COLUMN idTreino TO id_treino;
-
-ALTER TABLE Exercicio
-RENAME COLUMN idExercicio TO id_exercicio;
-
-ALTER TABLE Aparelho
-RENAME COLUMN idAparelho TO id_aparelho;
-
-ALTER TABLE exercicio_treino
-RENAME COLUMN idexercicioltreino TO id_exercicio_treino;
-
--------ALTERANDO AS OUTRAS COLUNAS COM NOMES DIFERENTES
-
-
--------PROFESSOR
-
-ALTER TABLE Professor
-RENAME COLUMN telefone TO celular;
-
-ALTER TABLE Professor
-RENAME COLUMN dataContratacao TO data_contratacao;
-
--------ALUNO
-
-ALTER TABLE Aluno
-RENAME COLUMN telefone TO celular;
-
--------APARELHO
-
-ALTER TABLE Aparelho
-RENAME COLUMN nomeAparelho TO nome_aparelho;
-
-ALTER TABLE Aparelho
-RENAME COLUMN musculoAtivado TO musculo_ativado;
-
--------TREINO
-
-ALTER TABLE Treino
-RENAME COLUMN idProfessor TO id_professor;
-
-ALTER TABLE Treino
-RENAME COLUMN idAluno TO id_aluno;
-
--------EXERCICIO
-
-ALTER TABLE Exercicio
-RENAME COLUMN idAparelho TO id_aparelho;
-
-ALTER TABLE Exercicio
-RENAME COLUMN regiaoCorpoAtivada  TO regiao_corpo_ativa;
-
--------EXERCICIO_TREINO
-
-ALTER TABLE exercicio_treino
-RENAME COLUMN idTreino TO id_treino;
-
-ALTER TABLE exercicio_treino
-RENAME COLUMN idExercicio TO id_exercicio;
-
--------ALTERANDO OS NOT NULL´S E NULL`S
-
-
--------PROFESSOR
-ALTER TABLE Professor
-ALTER COLUMN email  DROP NOT NULL;
-
-ALTER TABLE Professor
-ALTER COLUMN senha  DROP NOT NULL;
-
-ALTER TABLE Professor
-ALTER COLUMN especialidade  DROP NOT NULL;
-
-ALTER TABLE Professor
-ALTER COLUMN data_nascimento SET NOT NULL;
-
-ALTER TABLE Professor
-ALTER COLUMN data_contratacao SET NOT NULL;
-
--------ALUNO
-ALTER TABLE Aluno
-ALTER COLUMN imc DROP NOT NULL;
-
-ALTER TABLE Aluno
-ALTER COLUMN peso DROP NOT NULL;
-
-ALTER TABLE Aluno
-ALTER COLUMN altura DROP NOT NULL;
-
-ALTER TABLE Aluno
-ALTER COLUMN email DROP NOT NULL;
-
-ALTER TABLE Aluno
-ALTER COLUMN senha DROP NOT NULL;
-
--------APARELHO
-ALTER TABLE Aparelho
-ALTER COLUMN nome_aparelho DROP NOT NULL;
-
-ALTER TABLE Aparelho
-ALTER COLUMN musculo_ativado DROP NOT NULL;
-
--------EXERCICIO
-ALTER TABLE Exercicio
-ALTER COLUMN regiao_corpo_ativa DROP NOT NULL;
-
-
--------ALTERANDO COM O TYPE
-
-
--------PROFESSOR
-ALTER TABLE Professor
-ALTER COLUMN nome TYPE VARCHAR(100) ;
-
-ALTER TABLE Professor
-ALTER COLUMN cpf TYPE VARCHAR(11) ;
-
-ALTER TABLE Professor
-ALTER COLUMN formacao TYPE VARCHAR(70) ;
-
-ALTER TABLE Professor
-ALTER COLUMN especialidade TYPE VARCHAR(70);
-
-ALTER TABLE Professor
-ALTER COLUMN celular TYPE VARCHAR(14);
-
-
-ALTER TABLE Professor
-ALTER COLUMN endereco TYPE VARCHAR(100);
-
-
-ALTER TABLE Professor
-ALTER COLUMN email TYPE VARCHAR(70);
-
-
-ALTER TABLE Professor
-ALTER COLUMN senha TYPE VARCHAR(50);
-
--------ALUNO
-ALTER TABLE Aluno
-ALTER COLUMN nome TYPE VARCHAR(100) ;
-
-
-ALTER TABLE Aluno
-ALTER COLUMN cpf TYPE VARCHAR(11) ;
-
-
-ALTER TABLE Aluno
-ALTER COLUMN altura TYPE DECIMAL (5,2) ;
-
-
-ALTER TABLE Aluno
-ALTER COLUMN peso TYPE DECIMAL (5,2) ;
-
-
-ALTER TABLE Aluno
-ALTER COLUMN imc TYPE DECIMAL (5,2);
-
-
-ALTER TABLE Aluno
-ALTER COLUMN celular TYPE VARCHAR(14);
-
-
-ALTER TABLE Aluno
-ALTER COLUMN endereco TYPE VARCHAR(100);
-
-
-ALTER TABLE Aluno
-ALTER COLUMN email TYPE VARCHAR(70);
-
-
-ALTER TABLE Aluno
-ALTER COLUMN senha TYPE VARCHAR(50);
-
--------APARELHO
-ALTER TABLE Aparelho
-ALTER COLUMN nome_aparelho TYPE VARCHAR(80) ;
-
-
-ALTER TABLE Aparelho
-ALTER COLUMN musculo_ativado TYPE VARCHAR(80) ;
-
--------EXERCICIO
-ALTER TABLE Exercicio
-ALTER COLUMN exercicio TYPE VARCHAR(100);
-
-
-ALTER TABLE Exercicio
-ALTER COLUMN regiao_corpo_ativa TYPE VARCHAR(70);
-
+	(1, 1, 10, 30),
+	(1, 2, 10, 30),
+	(1, 3, 10, 50),
+	(1, 10, 10, 30),
+	(1, 6, 10, 140),
+	(1, 16, 10, 0),
+	(1, 11, 10, 0),
+	(1, 13, 10, 5),
+	(1, 17, 10, 0),
+	(1, 15, 30, 0),
+
+	(2, 4, 10, 7),
+	(2, 13, 10, 7),
+	(2, 5, 10, 60),
+	(2, 9, 10, 80),
+	(2, 21, 10, 60),
+	(2, 22, 10, 50),
+	(2, 12, 10, 70),
+	(2, 9, 10, 0),
+	(2, 16, 10, 0),
+	(2, 14, 30, 0),
+
+	(3, 13, 10, 60),
+	(3, 8, 10, 12),
+	(3, 9, 10, 6),
+	(3, 18, 10, 40),
+	(3, 20, 10, 60),
+	(3, 17, 10, 0),
+	(3, 7, 10, 15),
+	(3, 4, 10, 7),
+	(3, 22, 10, 20),
+	(3, 14, 30, 0),
+
+	(4, 10, 10, 60),
+	(4, 2, 10, 40),
+	(4, 1, 10, 40),
+	(4, 3, 10, 40),
+	(4, 16, 10, 0),
+	(4, 19, 10, 15),
+	(4, 7, 10, 15),
+	(4, 22, 10, 18),
+	(4, 17, 10, 0),
+	(4, 15, 30, 0),
+
+	(5, 11, 10, 0),
+	(5, 8, 10, 40),
+	(5, 5, 10, 40),
+	(5, 12, 10, 40),
+	(5, 17, 10, 0),
+	(5, 4, 10, 15),
+	(5, 13, 10, 15),
+	(5, 20, 10, 18),
+	(5, 18, 10, 12),
+	(5, 15, 30, 0);
+
+
+-- CONSULTAS
+-- Ficha de treino (id aluno)
+SELECT 
+    a.id_aluno,
+    a.nome AS nome_aluno,
+    p.id_professor,
+    p.nome AS nome_professor,
+    t.id_treino,
+    et.id_exercicio,
+	e.exercicio,
+    et.carga,
+    et.repeticoes,
+    et.series,
+    e.id_aparelho,
+    ap.nome_aparelho
+FROM 
+    aluno a
+JOIN 
+    treino t ON a.id_aluno = t.id_aluno
+JOIN 
+    professor p ON t.id_professor = p.id_professor
+JOIN 
+    exercicio_treino et ON t.id_treino = et.id_treino
+JOIN 
+    exercicio e ON et.id_exercicio = e.id_exercicio
+JOIN 
+    aparelho ap ON e.id_aparelho = ap.id_aparelho
+WHERE a.id_aluno = 1;
