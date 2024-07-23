@@ -17,7 +17,7 @@ const treinoController = new TreinoController(0, 0, 0, []);
 const router = express.Router();
 
 // Rota padrão para testar se o servidor está rodando
-router.get('/', Authentication.verifyToken, (req, res) => {
+router.get('/', (req, res) => {
     res.json("ola"); // Retorna uma resposta JSON com a mensagem "ola"
 });
 
@@ -27,62 +27,62 @@ router.post('/login', Authentication.validacaoUsuarioAluno);
  * Rotas para a entidade aluno
  */
 // Listar todos os alunos cadastrados
-router.get('/listar/alunos', Authentication.verifyToken, alunoController.todos);
+router.get('/listar/alunos', alunoController.todos);
 // Cadastra um aluno 
-router.post('/novo/aluno', Authentication.verifyToken, alunoController.cadastrar);
+router.post('/novo/aluno', alunoController.cadastrar);
 // Remove um aluno 
-router.delete('/delete/aluno', Authentication.verifyToken, alunoController.remover);
+router.delete('/delete/aluno', alunoController.remover);
 // Atualiza um aluno 
-router.put('/update/aluno', Authentication.verifyToken, alunoController.atualizar);
+router.put('/update/aluno', alunoController.atualizar);
 
 /**
 * Rotas para a entidade professor
 */
 // Listar todos os professores cadastrados
-router.get('/listar/professores', Authentication.verifyToken, professorController.todos);
+router.get('/listar/professores', professorController.todos);
 // Cadastra um professor
-router.post('/novo/professor', Authentication.verifyToken, professorController.cadastrar);
+router.post('/novo/professor', professorController.cadastrar);
 // Remove um professor 
-router.delete('/delete/professor', Authentication.verifyToken, professorController.remover);
+router.delete('/delete/professor', professorController.remover);
 // Atualiza um professor 
-router.put('/update/professor', Authentication.verifyToken, professorController.atualizar);
+router.put('/update/professor', professorController.atualizar);
 
 /**
 * Rotas para a entidade aparelho
 */
 // Listar todos os aparelhos cadastrados
-router.get('/listar/aparelhos', Authentication.verifyToken, aparelhoController.todos);
+router.get('/listar/aparelhos', aparelhoController.todos);
 // Cadastra um aparelho
-router.post('/novo/aparelho', Authentication.verifyToken, aparelhoController.cadastrar);
+router.post('/novo/aparelho', aparelhoController.cadastrar);
 // Remove um aparelho 
-router.delete('/delete/aparelho', Authentication.verifyToken, aparelhoController.remover);
+router.delete('/delete/aparelho', aparelhoController.remover);
 // Atualiza um aparelho 
-router.put('/update/aparelho', Authentication.verifyToken, aparelhoController.atualizar);
+router.put('/update/aparelho', aparelhoController.atualizar);
 
 /**
 * Rotas para a entidade exercício
 */
 // Listar todos os exercicios cadastrados
-router.get('/listar/exercicios', Authentication.verifyToken, exercicioController.todos);
+router.get('/listar/exercicios', exercicioController.todos);
 // Cadastra um exercicio
-router.post('/novo/exercicio', Authentication.verifyToken, exercicioController.cadastrar);
+router.post('/novo/exercicio', exercicioController.cadastrar);
 // Remove um exercício 
-router.delete('/delete/exercicio', Authentication.verifyToken, exercicioController.remover);
+router.delete('/delete/exercicio', exercicioController.remover);
 // Atualiza um exercicio 
-router.put('/update/exercicio', Authentication.verifyToken, exercicioController.atualizar);
+router.put('/update/exercicio', exercicioController.atualizar);
 
 /**
 * Rotas para a entidade exercício
 */
 // Listar todos os treinos cadastrados para um aluno (usando nome como parâmetro)
-router.get('/listar/treino/nome', Authentication.verifyToken, treinoController.treinoNomeAluno);
+router.get('/listar/treino/nome', treinoController.treinoNomeAluno);
 // Listar todos os treinos cadastrados para um aluno (usando ID como parâmetro)
-router.get('/listar/treino/id', Authentication.verifyToken, treinoController.listarTreino);
+router.get('/listar/treino/id', treinoController.listarTreino);
 // Cadastra um novo treino
-router.post('/novo/treino', Authentication.verifyToken, treinoController.novo);
+router.post('/novo/treino', treinoController.novo);
 // Remove um treino 
-router.delete('/delete/treino', Authentication.verifyToken, treinoController.remover);
+router.delete('/delete/treino', treinoController.remover);
 // Atualiza um treino 
-router.put('/update/treino', Authentication.verifyToken, treinoController.atualizar);
+router.put('/update/treino', treinoController.atualizar);
 
 export { router }
