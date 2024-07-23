@@ -2,7 +2,7 @@ class ExerciciosRequests {
     constructor() {
         // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
-        this.routeListarExercicio = '/listar-exercicio';
+        this.routeListarExercicio = '/listar/exercicios';
         this.routeCadastrarExercicio = '/novo/exercicio';
         this.routeRemoverExercicio = '/delete/exercicio';
         this.routeAtualizarExercicio = '/update/exercicio';
@@ -52,7 +52,7 @@ class ExerciciosRequests {
      * @param {*} idExercicio ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
-    async deletarAluno(idExercicio) {
+    async deletarExercicio(idExercicio) {
         try {
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverExercicio}?id_exercicio=${idExercicio}`, {
@@ -80,7 +80,7 @@ class ExerciciosRequests {
      * @param {*} exercicio animal Objeto com as informações do animal
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
-    async atualizarAluno(exercicio) {
+    async atualizarExercicio(exercicio) {
         try {
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeAtualizarExercicio}?id_exercicio=${exercicio.idExercicio}`, {

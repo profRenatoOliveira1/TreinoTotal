@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './ListarProfessor.module.css';
 import ProfessoresRequests from '../../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 
 function ListarProfessor() {
     // Define o estado inicial para armazenar os professores
@@ -42,11 +43,22 @@ function ListarProfessor() {
     };
 
     // Função para deletar um professor (ainda não implementada)
-    const deletar = () => {
-        window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
+    const deletar = (professor) => {
+        const deletar = window.confirm(`Tem certeza que deseja remover o professor ${professor.nome}?`);
+
+        if(deletar) {
+            if(ProfessoresRequests.deletarProfessor(professor.id_professor)) {
+                window.location.reload();
+                window.alert('Professor removido com sucesso!');
+            } else {
+                window.alert('Erro ao remover professor!');
+            }
+        }
     };
 
-    console.log(professores); // Exibe os professores no console para depuração
+    const atualizar = (aluno) => {
+        window.alert('Atualizar');
+    }
 
     // Renderização do componente
     return (
@@ -78,7 +90,7 @@ function ListarProfessor() {
                             <th>Data de Contratação</th>
                             <th>Formação</th>
                             <th>Especialidade</th>
-                            <th>Ação</th>
+                            <th colSpan={2}>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,7 +106,12 @@ function ListarProfessor() {
                                 <td>{formatarData(professor.data_contratacao)}</td>
                                 <td>{professor.formacao}</td>
                                 <td>{professor.especialidade}</td>
-                                <td onClick={deletar}><FaTrash /></td> {/* Botão para deletar um professor */}
+                                <td>
+                                    <FaTrash onClick={() => deletar(professor)}/>
+                                </td> {/* Botão para deletar um professor */}
+                                <td>
+                                    <MdEdit onClick={() => atualizar(professor)} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

@@ -2,7 +2,7 @@ class AparelhoRequests {
     constructor() {
         // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
-        this.routeListarAparelho = '/listar-aparelho';
+        this.routeListarAparelho = '/listar/aparelhos';
         this.routeCadastrarAparelho = '/novo/aparelho';
         this.routeRemoverAparelho = '/delete/aparelho';
         this.routeAtualizarAparelho = '/update/aparelho';
@@ -50,7 +50,7 @@ class AparelhoRequests {
      * @param {*} idAparelho ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
-    async deletarAluno(idAparelho) {
+    async deletarAparelho(idAparelho) {
         try {
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?id_aparelho=${idAparelho}`, {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './ListagemAlunos.module.css';
 import AlunoRequests from '../../../fetch/AlunoRequests';
 import { FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 
 function ListarAluno() {
     // Define o estado inicial para armazenar os alunos
@@ -42,11 +43,23 @@ function ListarAluno() {
     };
 
     // Função para deletar um aluno (ainda não implementada)
-    const deletar = () => {
-        window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
+    const deletar = (aluno) => {
+        //window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
+        const deletar = window.confirm(`Tem certeza que deseja remover o aluno ${aluno.nome}?`);
+
+        if (deletar) {
+            if (AlunoRequests.deletarAluno(aluno.id_aluno)) {
+                window.location.reload();
+                window.alert('Aluno removido com sucesso!');
+            } else {
+                window.alert('Erro ao remover aluno!');
+            }
+        }
     };
 
-    console.log(alunos); // Exibe os alunos no console para depuração
+    const atualizar = (aluno) => {
+        window.alert('Atualizar');
+    }
 
     // Renderização do componente
     return (
@@ -77,10 +90,10 @@ function ListarAluno() {
                                 <th>Telefone</th>
                                 <th>Endereço</th>
                                 <th>Email</th>
-                                <th>Altura</th>
-                                <th>Peso</th>
-                                <th>IMC</th>
-                                <th>Ação</th>
+                                {/** <th>Altura</th> */}
+                                {/** <th>Peso</th> */}
+                                {/** <th>IMC</th> */}
+                                <th colSpan={2}>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,10 +106,15 @@ function ListarAluno() {
                                     <td>{formatarTelefone(aluno.celular)}</td>
                                     <td>{aluno.endereco}</td>
                                     <td>{aluno.email}</td>
-                                    <td>{aluno.altura}</td>
-                                    <td>{aluno.peso}</td>
-                                    <td>{aluno.imc}</td>
-                                    <td onClick={deletar}><FaTrash /></td> {/* Botão para deletar um aluno */}
+                                    {/** <td>{aluno.altura}</td> */}
+                                    {/** <td>{aluno.peso}</td> */}
+                                    {/** <td>{aluno.imc}</td> */}
+                                    <td>
+                                        <FaTrash onClick={() => deletar(aluno)} />
+                                    </td> {/* Botão para deletar um aluno */}
+                                    <td>
+                                        <MdEdit onClick={() => atualizar(aluno)} />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

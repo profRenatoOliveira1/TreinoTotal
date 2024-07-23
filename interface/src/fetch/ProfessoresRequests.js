@@ -2,7 +2,7 @@ class ProfessoresRequests {
     constructor() {
         // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
-        this.routeListarProfessor = '/listar-professor';
+        this.routeListarProfessor = '/listar/professores';
         this.routeCadastrarProfessor = '/novo/professor';
         this.routeRemoverProfessor = '/delete/professor';
         this.routeAtualizarProfessor = '/update/professor';
@@ -50,7 +50,7 @@ class ProfessoresRequests {
      * @param {*} idProfessor ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
-    async deletarAluno(idProfessor) {
+    async deletarProfessor(idProfessor) {
         try {
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverProfessor}?id_professor=${idProfessor}`, {
@@ -78,7 +78,7 @@ class ProfessoresRequests {
      * @param {*} professor animal Objeto com as informações do animal
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
-    async atualizarAluno(professor) {
+    async atualizarProfessor(professor) {
         try {
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeAtualizarProfessor}?id_professor=${professor.idProfessor}`, {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './ListarAparelho.module.css';
 import AparelhoRequests from '../../../fetch/AparelhosRequests'; // Importa as requisições para buscar aparelhos
 import { FaTrash } from "react-icons/fa"; // Importa o ícone de lixeira da biblioteca react-icons
+import { MdEdit } from "react-icons/md";
 
 function ListarAparelho() {
     // Define o estado inicial para armazenar os aparelhos
@@ -27,11 +28,22 @@ function ListarAparelho() {
     }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
 
     // Função para deletar um aparelho (ainda não implementada)
-    const deletar = () => {
-        window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
+    const deletar = (aparelho) => {
+        const deletar = window.confirm(`Tem certeza que deseja remover o aparelho ${aparelho.nome_aparelho}`)
+    
+        if(deletar) {
+            if(AparelhoRequests.deletarAparelho(aparelho.id_aparelho)) {
+                window.location.reload();
+                window.alert('Aparelho removido com sucesso!');
+            } else {
+                window.alert('Erro ao remover o aparelho!');
+            }
+        }
     };
-
-    console.log(aparelhos); // Exibe os aparelhos no console para depuração
+    
+    const atualizar = (aparelho) => {
+        window.alert('Atualizar');
+    }
 
     // Renderização do componente
     return (
@@ -56,7 +68,7 @@ function ListarAparelho() {
                         <tr className={styles.tabelaHeader}>
                             <th>Nome</th>
                             <th>Músculo Ativado</th>
-                            <th>Ação</th>
+                            <th colSpan={2}>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +77,12 @@ function ListarAparelho() {
                             <tr key={aparelho.id_aparelho} className={styles.tabelaCorpo}>
                                 <td>{aparelho.nome_aparelho}</td>
                                 <td>{aparelho.musculo_ativado}</td>
-                                <td onClick={deletar}><FaTrash /></td> {/* Botão para deletar um aparelho */}
+                                <td>
+                                    <FaTrash onClick={() => deletar(aparelho)} />
+                                </td> {/* Botão para deletar um aparelho */}
+                                <td>
+                                    <MdEdit onClick={() => atualizar(aparelho)} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

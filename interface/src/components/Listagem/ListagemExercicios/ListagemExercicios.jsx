@@ -4,6 +4,7 @@ import styles from './ListagemExercicios.module.css'; // Importação dos estilo
 import ExerciciosRequests from '../../../fetch/ExerciciosRequests'; // Importação do módulo responsável por fazer as requisições dos exercícios
 import AparelhosRequests from '../../../fetch/AparelhosRequests'; // Importação do módulo responsável por fazer as requisições dos aparelhos
 import { FaTrash } from "react-icons/fa"; // Importação do ícone de lixeira da biblioteca react-icons
+import { MdEdit } from "react-icons/md";
 
 function TabelaListagemExercicios() {
     const [exercicios, setExercicios] = useState([]); // Estado para armazenar os exercícios
@@ -36,11 +37,22 @@ function TabelaListagemExercicios() {
         fetchDados(); // Chama a função para buscar os dados ao montar o componente
     }, []);
 
-    const deletar = () => {
-        window.alert('Não foi feito... ainda'); // Função para deletar um exercício (ainda não implementada)
+    const deletar = (exercicio) => {
+        const deletar = window.confirm(`Tem certeza que deseja remover o exercício ${exercicio.exercicio}?`);
+        
+        if(deletar) {
+            if(ExerciciosRequests.deletarExercicio(exercicio.id_exercicio)) {
+                window.location.reload();
+                window.alert('Exercicio removido com sucesso');
+            } else {
+                window.alert('Erro ao remover exercicio');
+            }
+        }
     };
 
-    console.log(exercicios); // Exibe os exercícios no console para depuração
+    const atualizar = (exercicio) => {
+        window.alert('Atualizar');
+    }
 
     // Renderização do componente
     return (
@@ -57,10 +69,7 @@ function TabelaListagemExercicios() {
                             <tr className={styles.tabelaHeader}>
                                 <th>Nome do Exercício</th>
                                 <th>Aparelho</th>
-                                <th>Repetições</th>
-                                <th>Carga</th>
-                                <th>Região do Corpo</th>
-                                <th>Ação</th>
+                                <th colSpan={2}>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,10 +78,12 @@ function TabelaListagemExercicios() {
                                 <tr key={exercicio.id_exercicio} className={styles.tabelaCorpo}>
                                     <td>{exercicio.exercicio}</td>
                                     <td>{exercicio.nome_aparelho}</td>
-                                    <td>{exercicio.repeticoes}</td>
-                                    <td>{exercicio.carga}</td>
-                                    <td>{exercicio.regiao_corpo_ativa}</td>
-                                    <td onClick={deletar}><FaTrash /></td> {/* Botão para deletar um exercício */}
+                                    <td>
+                                        <FaTrash onClick={() => deletar(exercicio)} />
+                                    </td> {/* Botão para deletar um exercício */}
+                                    <td>
+                                        <MdEdit onClick={() => atualizar(exercicio)} />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
