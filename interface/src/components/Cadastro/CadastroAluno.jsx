@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // Importa React e useState hook para gerenciar o estado do componente
 import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
-import AlunoRequests from '../../fetch/AlunoRequests';
+import AlunoRequests from '../../fetch/AlunoRequests'; // Importa o módulo de requisições para a API
 import InputMask from "react-input-mask";
 
 function CadastroAluno() {
+    // Define o estado inicial do formulário com todos os campos vazios
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
@@ -13,44 +14,47 @@ function CadastroAluno() {
         // email: '',
         // senha: '',
         altura: '',
-        peso: ''
+        peso: '',
+        imc: ''
     });
 
+    // Função para atualizar o estado do formulário conforme o usuário digita
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; // Obtém o nome e o valor do campo que foi alterado
         setFormData(prevState => ({
-            ...prevState,
-            [name]: value
+            ...prevState, // Mantém os valores atuais do estado
+            [name]: value // Atualiza o valor do campo específico
         }));
     };
 
+    // Função para lidar com a submissão do formulário
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!formData.nome || !formData.cpf ) {
+        e.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
+        // Validação básica para garantir que os campos obrigatórios estão preenchidos
+        if (!formData.nome || !formData.cpf /*|| !formData.email || !formData.senha*/) {
             window.alert('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
 
-        const cleanCPF = formData.cpf.replace(/\D/g, ''); 
-        const cleanCelular = formData.celular.replace(/\D/g, ''); 
-        const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
-
         try {
-            const response = await AlunoRequests.cadastrarAluno(cleanData);
+            // Envia os dados do formulário para a API e aguarda a resposta
+            const response = await AlunoRequests.cadastrarAluno(formData);
             console.log('Aluno cadastrado com sucesso:', response);
-            window.alert(`${formData.nome} foi cadastrado com sucesso`);
+            window.alert(`${formData.nome} foi cadastrado com sucesso`); // Exibe uma mensagem de sucesso
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);
-            window.alert('Ocorreu um erro: ' + error.message);
+            window.alert('Ocorreu um erro: ' + error.message); // Exibe uma mensagem de erro
         }
     };
+
+    // Função para capitalizar a primeira letra de cada palavra
 
     return (
         <div className={styles.section}>
             <div className={styles.container}>
                 <h1 className={styles.h1}>Cadastro de Aluno</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className={styles.formGroup}>
+                <div className={styles.formGroup}>
                         <input
                             type="text"
                             className={styles.formStyle}
@@ -108,8 +112,8 @@ function CadastroAluno() {
                             name="endereco"
                         />
                     </div>
-                    {/* 
-                    <div className={styles.formGroup}>
+                    {/* Campo para email */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="email"
                             className={styles.formStyle}
@@ -118,8 +122,9 @@ function CadastroAluno() {
                             onChange={handleChange}
                             name="email"
                         />
-                    </div>
-                    <div className={styles.formGroup}>
+                    </div> */}
+                    {/* Campo para senha */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="password"
                             className={styles.formStyle}
@@ -128,9 +133,8 @@ function CadastroAluno() {
                             onChange={handleChange}
                             name="senha"
                         />
-                    </div>
-                    */}
-                    {/* Campo para altura */}
+                    </div> */}
+                    {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input
                             type="number"
@@ -141,7 +145,7 @@ function CadastroAluno() {
                             name="altura"
                         />
                     </div>
-                    {/* Campo para peso */}
+                    {/* Campo para formação */}
                     <div className={styles.formGroup}>
                         <input
                             type="number"
@@ -150,6 +154,17 @@ function CadastroAluno() {
                             value={formData.peso}
                             onChange={handleChange}
                             name="peso"
+                        />
+                    </div>
+                    {/* Campo para especialidade */}
+                    <div className={styles.formGroup}>
+                        <input
+                            type="number"
+                            className={styles.formStyle}
+                            placeholder="Imc"
+                            value={formData.imc}
+                            onChange={handleChange}
+                            name="imc"
                         />
                     </div>
                     <button type="submit" className={styles.btn}>
@@ -161,4 +176,4 @@ function CadastroAluno() {
     );
 }
 
-export default CadastroAluno;
+export default CadastroAluno; // Exporta o componente para ser utilizado em outras partes da aplicação

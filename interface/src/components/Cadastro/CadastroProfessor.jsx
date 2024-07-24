@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
-import InputMask from "react-input-mask";
 
 // Componente funcional CadastroProfessor
 function CadastroProfessor() {
@@ -43,6 +42,7 @@ function CadastroProfessor() {
             console.error('Erro ao cadastrar professor:', error);
         }
     };
+
     // Renderização do formulário
     return (
         <div className={styles.section}>
@@ -62,9 +62,8 @@ function CadastroProfessor() {
                     </div>
                     {/* Campo para CPF */}
                     <div className={styles.formGroup}>
-                        <InputMask
+                        <input
                             type="text"
-                            mask="999.999.999-99"
                             className={styles.formStyle}
                             placeholder="CPF"
                             value={formData.cpf}
@@ -75,11 +74,9 @@ function CadastroProfessor() {
                     {/* Campo para data de nascimento */}
                     <div className={styles.formGroup}>
                         <input
-                            type="text"
+                            type="date"
                             className={styles.formStyle}
                             placeholder="Data de Nascimento"
-                            onFocus={(e) => e.target.type = 'date'}
-                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                             value={formData.data_nascimento}
                             onChange={handleChange}
                             name="data_nascimento"
@@ -87,9 +84,8 @@ function CadastroProfessor() {
                     </div>
                     {/* Campo para número de celular */}
                     <div className={styles.formGroup}>
-                        <InputMask
-                            mask="(99) 99999-9999"
-                            type="text"
+                        <input
+                            type="number"
                             className={styles.formStyle}
                             placeholder="Telefone"
                             value={formData.celular}
@@ -108,8 +104,8 @@ function CadastroProfessor() {
                             name="endereco"
                         />
                     </div>
-                    {/* 
-                    <div className={styles.formGroup}>
+                    {/* Campo para email */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="email"
                             className={styles.formStyle}
@@ -118,8 +114,9 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="email"
                         />
-                    </div>
-                    <div className={styles.formGroup}>
+                    </div> */}
+                    {/* Campo para senha */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="password"
                             className={styles.formStyle}
@@ -128,16 +125,13 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="senha"
                         />
-                    </div>
-                    */}
+                    </div> */}
                     {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input
-                            type="text"
+                            type="date"
                             className={styles.formStyle}
-                            placeholder="Data de Contratação"
-                            onFocus={(e) => e.target.type = 'date'}
-                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
+                            placeholder="Data Contratacao"
                             value={formData.data_contratacao}
                             onChange={handleChange}
                             name="data_contratacao"
