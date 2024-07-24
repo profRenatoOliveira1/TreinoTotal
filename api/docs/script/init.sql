@@ -150,7 +150,7 @@ INSERT INTO treino (id_aluno, id_professor)
 	(2,5), -- 4
 	(4,4); -- 5
 
-INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga, serie?)
+INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga, series)
 	VALUES
 	(1, 1, 10, 30),
 	(1, 2, 10, 30),

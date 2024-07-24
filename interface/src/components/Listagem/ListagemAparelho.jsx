@@ -1,6 +1,6 @@
+import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
 import React, { useState, useEffect } from 'react';
-import styles from './ListarAparelho.module.css';
-import AparelhoRequests from '../../../fetch/AparelhosRequests'; // Importa as requisições para buscar aparelhos
+import AparelhoRequests from '../../fetch/AparelhosRequests'; // Importa as requisições para buscar aparelhos
 import { FaTrash } from "react-icons/fa"; // Importa o ícone de lixeira da biblioteca react-icons
 import { MdEdit } from "react-icons/md";
 

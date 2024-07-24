@@ -1,16 +1,25 @@
 import { Request, Response } from "express";
 import { Aluno } from "../model/Aluno";
 
+/**
+ * Controlador para operações relacionadas aos alunos.
+ */
 class AlunoController extends Aluno {
 
+    /**
+     * Lista todos os alunos.
+     * @param req Objeto de requisição HTTP.
+     * @param res Objeto de resposta HTTP.
+     * @returns Lista de alunos em formato JSON.
+     */
     public async todos(req: Request, res: Response) {
         console.log('função todos executada em alunos');
         
         try {
-            // cria objeto alunos e atribui a ele o retorno do método listarAlunos
+            // Cria objeto alunos e atribui a ele o retorno do método listarAlunos
             const alunos = await Aluno.listarAlunos();
 
-            // retorna a lista de alunos em formato json
+            // Retorna a lista de alunos em formato JSON
             return res.status(200).json(alunos);
         } catch (error) {
             console.log(`Erro ao acessar o modelo: ${error}`);
@@ -18,6 +27,12 @@ class AlunoController extends Aluno {
         }
     }
 
+    /**
+     * Cadastra um novo aluno.
+     * @param req Objeto de requisição HTTP com os dados do aluno.
+     * @param res Objeto de resposta HTTP.
+     * @returns Mensagem de sucesso ou erro em formato JSON.
+     */
     public async cadastrar(req: Request, res: Response) {
         try {
             // Desestruturando objeto recebido pelo front-end
@@ -48,11 +63,17 @@ class AlunoController extends Aluno {
                 return res.status(400).json('Não foi possível cadastrar o aluno no banco de dados');
             }
         } catch (error) {
-            console.log(`Erro ao cadastrar a atração: ${error}`);
-            return res.status(400).json('Erro ao cadastrar a atração');
+            console.log(`Erro ao cadastrar o aluno: ${error}`);
+            return res.status(400).json('Erro ao cadastrar o aluno');
         }
     }
 
+    /**
+     * Remove um aluno.
+     * @param req Objeto de requisição HTTP com o ID do aluno a ser removido.
+     * @param res Objeto de resposta HTTP.
+     * @returns Mensagem de sucesso ou erro em formato JSON.
+     */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
             const idAluno = parseInt(req.query.id_aluno as string);
@@ -63,12 +84,18 @@ class AlunoController extends Aluno {
                 return res.status(400).json('Erro ao deletar aluno');
             }
         } catch (error) {
-            console.log("Error on controller method todos");
+            console.log("Error on controller method remover");
             console.log(error);
             return res.status(500).send("error");
         }
     }
 
+    /**
+     * Atualiza as informações de um aluno.
+     * @param req Objeto de requisição HTTP com os dados do aluno a serem atualizados.
+     * @param res Objeto de resposta HTTP.
+     * @returns Mensagem de sucesso ou erro em formato JSON.
+     */
     public async atualizar(req: Request, res: Response): Promise<any> {
         try {
             // Desestruturando objeto recebido pelo front-end
@@ -98,7 +125,7 @@ class AlunoController extends Aluno {
                 return res.status(400).json('Não foi possível atualizar o aluno no banco de dados');
             }
         } catch (error) {
-            console.log("Error on controller method todos");
+            console.log("Error on controller method atualizar");
             console.log(error);
             return res.status(500).send("error");
         }

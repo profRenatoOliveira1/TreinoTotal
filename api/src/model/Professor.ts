@@ -190,6 +190,11 @@ export class Professor extends Pessoa { // Herança de Pessoa
         }
     }
 
+    /**
+     * Remove um professor do banco de dados
+     * @param idProfessor ID do professor a ser removido
+     * @returns Boolean indicando se a remoção foi bem-sucedida
+     */
     static async removerProfessor(idProfessor: number): Promise<boolean> {
         let queryResult = false;
 
@@ -208,6 +213,11 @@ export class Professor extends Pessoa { // Herança de Pessoa
         }
     }
 
+    /**
+     * Atualiza as informações de um professor no banco de dados
+     * @param professor Objeto Professor contendo as informações a serem atualizadas
+     * @returns Boolean indicando se a atualização foi bem-sucedida
+     */
     static async atualizarProfessor(professor: Professor): Promise<boolean> {
         let queryResult = false;
 
@@ -216,17 +226,17 @@ export class Professor extends Pessoa { // Herança de Pessoa
 
         try {
             const queryUpdateProfessor = `UPDATE Professor SET 
-                                        nome='${professor.getNome().toUpperCase()}',
-                                        cpf='${professor.getCpf()}',
-                                        data_nascimento='${dataNascimento.getFullYear()}-${dataNascimento.getMonth() + 1}-${dataNascimento.getDate() + 1}',
-                                        celular='${professor.getCelular()}',
-                                        endereco='${professor.getEndereco().toUpperCase()}',
-                                        email='${professor.getEmail().toUpperCase()}',
-                                        senha='${professor.getSenha()}',
-                                        data_contratacao='${dataContratacao.getFullYear()}-${dataContratacao.getMonth() + 1}-${dataContratacao.getDate() + 1}',
-                                        formacao='${professor.getFormacao().toUpperCase()}',
-                                        especialidade='${professor.getEspecialidade().toUpperCase()}'
-                                        WHERE id_professor=${professor.getId()}`;
+                                    nome='${professor.getNome().toUpperCase()}',
+                                    cpf='${professor.getCpf()}',
+                                    data_nascimento='${dataNascimento.getFullYear()}-${dataNascimento.getMonth() + 1}-${dataNascimento.getDate() + 1}',
+                                    celular='${professor.getCelular()}',
+                                    endereco='${professor.getEndereco().toUpperCase()}',
+                                    email='${professor.getEmail().toUpperCase()}',
+                                    senha='${professor.getSenha()}',
+                                    data_contratacao='${dataContratacao.getFullYear()}-${dataContratacao.getMonth() + 1}-${dataContratacao.getDate() + 1}',
+                                    formacao='${professor.getFormacao().toUpperCase()}',
+                                    especialidade='${professor.getEspecialidade().toUpperCase()}'
+                                    WHERE id_professor=${professor.getId()}`;
 
             await database.query(queryUpdateProfessor)
                 .then((result) => {
@@ -241,4 +251,5 @@ export class Professor extends Pessoa { // Herança de Pessoa
             return queryResult;
         }
     }
+
 }

@@ -127,17 +127,22 @@ export class Aparelho {
         }
     }
 
+    /**
+ * Cadastra um novo aparelho no banco de dados
+ * @param aparelho Objeto Aparelho contendo as informações a serem cadastradas
+ * @returns Boolean indicando se o cadastro foi bem-sucedido
+ */
     static async cadastrarAparelho(aparelho: Aparelho): Promise<Boolean> {
         let insertResult = false;
 
         try {
             const queryInsertAparelho = `
-                INSERT INTO aparelho (nome_aparelho, musculo_ativado)
-                VALUES (
-                    '${aparelho.getNomeAparelho().toUpperCase()}',
-                    '${aparelho.getMusculoAtivado().toUpperCase()}'
-                )
-                RETURNING id_aparelho;`;
+            INSERT INTO aparelho (nome_aparelho, musculo_ativado)
+            VALUES (
+                '${aparelho.getNomeAparelho().toUpperCase()}',
+                '${aparelho.getMusculoAtivado().toUpperCase()}'
+            )
+            RETURNING id_aparelho;`;
 
             const result = await database.query(queryInsertAparelho);
 
@@ -154,6 +159,11 @@ export class Aparelho {
         }
     }
 
+    /**
+     * Remove um aparelho do banco de dados
+     * @param idAparelho ID do aparelho a ser removido
+     * @returns Boolean indicando se a remoção foi bem-sucedida
+     */
     static async removerAparelho(idAparelho: number): Promise<boolean> {
         let queryResult = false;
 
@@ -172,22 +182,27 @@ export class Aparelho {
         }
     }
 
+    /**
+     * Atualiza as informações de um aparelho no banco de dados
+     * @param aparelho Objeto Aparelho contendo as informações a serem atualizadas
+     * @returns Boolean indicando se a atualização foi bem-sucedida
+     */
     static async atualizarAparelho(aparelho: Aparelho): Promise<boolean> {
         let queryResult = false;
-    
+
         try {
-            const queryUpdateAluno = `UPDATE aparelho SET 
-                                        nome_aparelho='${aparelho.getNomeAparelho().toUpperCase()}',
-                                        musculo_ativado='${aparelho.getMusculoAtivado().toUpperCase()}'
-                                        WHERE id_aparelho=${aparelho.getIdAparelho()}`;
-    
-            await database.query(queryUpdateAluno)
+            const queryUpdateAparelho = `UPDATE aparelho SET 
+                                    nome_aparelho='${aparelho.getNomeAparelho().toUpperCase()}',
+                                    musculo_ativado='${aparelho.getMusculoAtivado().toUpperCase()}'
+                                    WHERE id_aparelho=${aparelho.getIdAparelho()}`;
+
+            await database.query(queryUpdateAparelho)
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;
                     }
                 })
-    
+
             return queryResult;
         } catch (error) {
             console.log(error, queryResult);

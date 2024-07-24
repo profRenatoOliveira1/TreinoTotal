@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ListagemAlunos.module.css';
-import AlunoRequests from '../../../fetch/AlunoRequests';
+import styles from '../styles/StyleListagem.module.css';
+import AlunoRequests from '../../fetch/AlunoRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 

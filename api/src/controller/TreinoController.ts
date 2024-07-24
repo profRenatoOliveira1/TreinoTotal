@@ -1,9 +1,19 @@
 import { Request, Response } from "express";
 import { Treino } from "../model/Treino";
 
+/**
+ * Controller para manipular o modelo Treino.
+ */
 export class TreinoController extends Treino {
 
-    public async treinoNomeAluno(req: Request, res: Response) {
+    /**
+     * Acessa o método do Model que lista os treinos pelo nome do aluno.
+     * 
+     * @param req Objeto de requisição HTTP com o parâmetro `nome_aluno`.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
+    public async treinoNomeAluno(req: Request, res: Response): Promise<Response> {
         try {
             const treinoAluno = await Treino.listarTreinoNomeAluno(req.query.nome_aluno as string);
             return res.status(200).json(treinoAluno);
@@ -13,7 +23,14 @@ export class TreinoController extends Treino {
         }
     }
 
-    public async listarTreino(req: Request, res: Response) {
+    /**
+     * Acessa o método do Model para listar um treino baseado no ID do aluno ou ID do treino.
+     * 
+     * @param req Objeto de requisição HTTP com os parâmetros `id_aluno` ou `id_treino`.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
+    public async listarTreino(req: Request, res: Response): Promise<Response> {
         try {
             const idAluno = req.query.id_aluno;
             const idTreino = req.query.id_treino;
@@ -39,7 +56,14 @@ export class TreinoController extends Treino {
         }
     }
 
-    public async novo(req: Request, res: Response) {     
+    /**
+     * Acessa o método do Model para cadastrar um novo treino.
+     * 
+     * @param req Objeto de requisição HTTP com os dados do treino.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
+    public async novo(req: Request, res: Response): Promise<Response> {
         try {
             const { id_aluno, id_professor, exercicios } = req.body;
 
@@ -48,7 +72,7 @@ export class TreinoController extends Treino {
 
             const result = await Treino.cadastrarTreino(id_aluno, id_professor, idsExercicios);
 
-            if(result) {
+            if (result) {
                 return res.status(200).json({ message: 'Treino cadastrado com sucesso' });
             } else {
                 return res.status(400).json({ message: 'Erro ao cadastrar o treino' });
@@ -59,7 +83,14 @@ export class TreinoController extends Treino {
         }
     }
 
-    public async remover(req: Request, res: Response) {
+    /**
+     * Acessa o método do Model para remover um treino.
+     * 
+     * @param req Objeto de requisição HTTP com o parâmetro `id_treino`.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
+    public async remover(req: Request, res: Response): Promise<Response> {
         try {
             const idTreino = parseInt(req.query.id_treino as string);
 
@@ -69,32 +100,37 @@ export class TreinoController extends Treino {
                 return res.status(400).json('Erro ao deletar treino');
             }
         } catch (error) {
-            console.log("Error on controller method todos");
+            console.log("Error on controller method remover");
             console.log(error);
             return res.status(500).send("error");
         }
     }
 
-    public async atualizar(req: Request, res: Response): Promise<any> {
+    /**
+     * Acessa o método do Model para atualizar um treino existente.
+     * 
+     * @param req Objeto de requisição HTTP com os dados atualizados do treino.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
+    public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
+            // Desestruturando objeto recebido pelo front-end
             const { id_aluno, id_professor, exercicios } = req.body;
             const id_treino = parseInt(req.query.id_treino as string);
-
-            console.log(typeof(req.query.id_treino));
-            console.log(id_treino);
 
             // Extraindo os IDs dos exercícios
             const idsExercicios = exercicios.map((exercicio: { id_exercicio: number }) => exercicio.id_exercicio);
 
             const result = await Treino.atualizarTreino(id_aluno, id_professor, idsExercicios, id_treino);
 
-            if(result) {
+            if (result) {
                 return res.status(200).json({ message: 'Treino atualizado com sucesso' });
             } else {
                 return res.status(400).json({ message: 'Erro ao atualizar o treino' });
             }
         } catch (error) {
-            console.log("Error on controller method todos");
+            console.log("Error on controller method atualizar");
             console.log(error);
             return res.status(500).send("error");
         }

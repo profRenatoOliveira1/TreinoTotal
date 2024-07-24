@@ -7,6 +7,10 @@ export class DatabaseModel {
     private _config: pg.PoolConfig;
     private _pool: pg.Pool;
 
+    /**
+     * Construtor da classe DatabaseModel
+     * Inicializa a configuração do pool de conexões com base nas variáveis de ambiente
+     */
     constructor() {
         this._config = {
             user: process.env.DB_USER,
@@ -21,6 +25,12 @@ export class DatabaseModel {
         this._pool = new pg.Pool(this._config);
     }
 
+    /**
+     * Obtém uma conexão de banco de dados com um usuário e senha específicos
+     * @param user Usuário do banco de dados
+     * @param password Senha do banco de dados
+     * @returns Uma conexão de banco de dados
+     */
     public async getConnection(user: string, password: string) {
         const config = {
             ...this._config,
@@ -30,6 +40,10 @@ export class DatabaseModel {
         return new pg.Pool(config).connect();
     }
 
+    /**
+     * Testa a conexão com o banco de dados
+     * @returns Boolean indicando se a conexão foi bem-sucedida
+     */
     public async testeConexao() {
         try {
             const client = await this._pool.connect();
@@ -43,6 +57,10 @@ export class DatabaseModel {
         }
     }
 
+    /**
+     * Getter para o pool de conexões do banco de dados
+     * @returns O pool de conexões do banco de dados
+     */
     public get pool() {
         return this._pool;
     }

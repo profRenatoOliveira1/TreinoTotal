@@ -2,22 +2,21 @@ import { Exercicio } from "../model/Exercicio";
 import { Request, Response } from "express";
 
 /**
- * Controller para manipular o modelo Atracao
+ * Controller para manipular o modelo Exercicio.
  */
 class ExercicioController extends Exercicio {
 
     /**
-     * Acessa o método do Model que lista todas as atrações
+     * Acessa o método do Model que lista todos os exercícios.
      * 
-     * @param req Requisição
-     * @param res Resposta
-     * @returns Reposta do resultado da operação
+     * @param req Objeto de requisição HTTP.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
      */
     public async todos(req: Request, res: Response): Promise<Response> {
         // tenta recuperar a lista de objetos
         try {
             const exercicios = await Exercicio.listarExercicios();
-
             return res.status(200).json(exercicios);
         } catch (error) {
             // caso aconteça algum erro, este é lançado nos logs do servidor
@@ -28,11 +27,11 @@ class ExercicioController extends Exercicio {
     }
 
     /**
-     * Acessa o método do Model para cadastrar uma nova atração
+     * Acessa o método do Model para cadastrar um novo exercício.
      * 
-     * @param req Requisição
-     * @param res Resposta
-     * @returns Resposta do resultado da operação
+     * @param req Objeto de requisição HTTP com os dados do exercício.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
      */
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
@@ -56,29 +55,53 @@ class ExercicioController extends Exercicio {
             // retorna um status 400 com uma mensagem de erro
             return res.status(400).json(`Erro ao acessar as informações, consulte os logs no servidor`);
         }
-        // caso aconteça algum erro, é lançada uma exceção
     }
 
+    /**
+     * Acessa o método do Model para remover um exercício.
+     * 
+     * @param req Objeto de requisição HTTP com o ID do exercício a ser removido.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
             const idExercicio = parseInt(req.query.id_exercicio as string);
 
             if (await Exercicio.removerExercicio(idExercicio)) {
-                return res.status(200).json('exercicio removido com sucesso');
+                return res.status(200).json('Exercicio removido com sucesso');
             } else {
                 return res.status(400).json('Erro ao deletar exercicio');
             }
         } catch (error) {
-            console.log("Error on controller method todos");
+            console.log("Error on controller method remover");
             console.log(error);
             return res.status(500).send("error");
         }
     }
 
+    /**
+     * Acessa o método do Model para atualizar as informações de um exercício.
+     * 
+     * @param req Objeto de requisição HTTP com os dados do exercício a serem atualizados.
+     * @param res Objeto de resposta HTTP.
+     * @returns Resposta do resultado da operação em formato JSON.
+     */
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
+            // Desestruturando objeto recebido pelo front-end
             const { id_aparelho, exercicio, carga, repeticoes, regiao_corpo_ativada } = req.body;
-            const novoExercicio = new Exercicio(0, id_aparelho, exercicio, carga, repeticoes, regiao_corpo_ativada);
+
+            // Instanciando objeto Exercício
+            const novoExercicio = new Exercicio(
+                0,
+                id_aparelho,
+                exercicio,
+                carga,
+                repeticoes,
+                regiao_corpo_ativada
+            );
+
             novoExercicio.setIdExercicio(parseInt(req.query.id_exercicio as string));
 
             if (await Exercicio.atualizarExercicio(novoExercicio)) {

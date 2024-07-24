@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importação do Bootstrap
-import styles from './ListagemExercicios.module.css'; // Importação dos estilos CSS específicos para este componente
-import ExerciciosRequests from '../../../fetch/ExerciciosRequests'; // Importação do módulo responsável por fazer as requisições dos exercícios
-import AparelhosRequests from '../../../fetch/AparelhosRequests'; // Importação do módulo responsável por fazer as requisições dos aparelhos
+import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
+import ExerciciosRequests from '../../fetch/ExerciciosRequests'; // Importação do módulo responsável por fazer as requisições dos exercícios
+import AparelhosRequests from '../../fetch/AparelhosRequests'; // Importação do módulo responsável por fazer as requisições dos aparelhos
 import { FaTrash } from "react-icons/fa"; // Importação do ícone de lixeira da biblioteca react-icons
 import { MdEdit } from "react-icons/md";
 
-function TabelaListagemExercicios() {
+function ListagemExercicios() {
     const [exercicios, setExercicios] = useState([]); // Estado para armazenar os exercícios
     const [aparelhos, setAparelho] = useState([]);
 
@@ -97,4 +97,4 @@ function TabelaListagemExercicios() {
     );
 }
 
-export default TabelaListagemExercicios;
+export default ListagemExercicios;

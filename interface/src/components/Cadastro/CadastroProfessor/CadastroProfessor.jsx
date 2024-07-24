@@ -11,8 +11,8 @@ function CadastroProfessor() {
         data_nascimento: '',
         celular: '',
         endereco: '',
-        email: '',
-        senha: '',
+        // email: '',
+        // senha: '',
         data_contratacao: '',
         formacao: '',
         especialidade: ''
@@ -87,7 +87,7 @@ function CadastroProfessor() {
                         <input
                             type="number"
                             className={styles.formStyle}
-                            placeholder="Telefone"
+                            placeholder="Celular"
                             value={formData.celular}
                             onChange={handleChange}
                             name="celular"
@@ -105,7 +105,7 @@ function CadastroProfessor() {
                         />
                     </div>
                     {/* Campo para email */}
-                    <div className={styles.formGroup}>
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="email"
                             className={styles.formStyle}
@@ -114,9 +114,9 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="email"
                         />
-                    </div>
+                    </div> */}
                     {/* Campo para senha */}
-                    <div className={styles.formGroup}>
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="password"
                             className={styles.formStyle}
@@ -125,7 +125,7 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="senha"
                         />
-                    </div>
+                    </div> */}
                     {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input

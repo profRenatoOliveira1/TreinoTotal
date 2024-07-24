@@ -148,25 +148,30 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         }
     }
 
+    /**
+ * Cadastra um novo aluno no banco de dados
+ * @param aluno Objeto Aluno contendo as informações a serem cadastradas
+ * @returns Boolean indicando se o cadastro foi bem-sucedido
+ */
     static async cadastrarAluno(aluno: Aluno): Promise<Boolean> {
         let insertResult = false;
 
         try {
             const queryInsertAluno = `
-                    INSERT INTO aluno (nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha)
-                    VALUES (
-                        '${aluno.getNome().toUpperCase()}',
-                        '${aluno.getCpf()}',
-                        ${aluno.getAltura()},
-                        ${aluno.getPeso()},
-                        ${aluno.getImc()},
-                        '${aluno.getDataNascimento()}',
-                        '${aluno.getCelular()}',
-                        '${aluno.getEndereco().toUpperCase()}',
-                        '${aluno.getEmail()}',
-                        '${aluno.getSenha()}'
-                    )
-                    RETURNING id_aluno;`;
+                INSERT INTO aluno (nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha)
+                VALUES (
+                    '${aluno.getNome().toUpperCase()}',
+                    '${aluno.getCpf()}',
+                    ${aluno.getAltura()},
+                    ${aluno.getPeso()},
+                    ${aluno.getImc()},
+                    '${aluno.getDataNascimento()}',
+                    '${aluno.getCelular()}',
+                    '${aluno.getEndereco().toUpperCase()}',
+                    '${aluno.getEmail()}',
+                    '${aluno.getSenha()}'
+                )
+                RETURNING id_aluno;`;
 
             const result = await database.query(queryInsertAluno);
 
@@ -183,6 +188,11 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         }
     }
 
+    /**
+     * Remove um aluno do banco de dados
+     * @param idAluno ID do aluno a ser removido
+     * @returns Boolean indicando se a remoção foi bem-sucedida
+     */
     static async removerAluno(idAluno: number): Promise<boolean> {
         let queryResult = false;
 
@@ -202,25 +212,27 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         }
     }
 
+    /**
+     * Atualiza as informações de um aluno no banco de dados
+     * @param aluno Objeto Aluno contendo as informações a serem atualizadas
+     * @returns Boolean indicando se a atualização foi bem-sucedida
+     */
     static async atualizarAluno(aluno: Aluno): Promise<boolean> {
         let queryResult = false;
 
-        // const dataNascimento = new Date(aluno.getDataNascimento());
-        //const dataNascimento = aluno.getDataNascimento().toISOString().split('T')[0]; // Formata a data para AAAA-MM-DD
-
         try {
             const queryUpdateAluno = `UPDATE Aluno SET 
-                                        nome='${aluno.getNome().toUpperCase()}',
-                                        cpf='${aluno.getCpf()}',
-                                        data_nascimento='${aluno.getDataNascimento()}',
-                                        celular='${aluno.getCelular()}',
-                                        endereco='${aluno.getEndereco().toUpperCase()}',
-                                        email='${aluno.getEmail().toUpperCase()}',
-                                        senha='${aluno.getSenha()}',
-                                        altura=${aluno.getAltura()},
-                                        peso=${aluno.getPeso()},
-                                        imc=${aluno.getImc()}
-                                        WHERE id_aluno=${aluno.getId()}`;
+                                    nome='${aluno.getNome().toUpperCase()}',
+                                    cpf='${aluno.getCpf()}',
+                                    data_nascimento='${aluno.getDataNascimento()}',
+                                    celular='${aluno.getCelular()}',
+                                    endereco='${aluno.getEndereco().toUpperCase()}',
+                                    email='${aluno.getEmail().toUpperCase()}',
+                                    senha='${aluno.getSenha()}',
+                                    altura=${aluno.getAltura()},
+                                    peso=${aluno.getPeso()},
+                                    imc=${aluno.getImc()}
+                                    WHERE id_aluno=${aluno.getId()}`;
 
             await database.query(queryUpdateAluno)
                 .then((result) => {

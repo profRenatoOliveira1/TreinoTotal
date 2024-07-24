@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ListarProfessor.module.css';
-import ProfessoresRequests from '../../../fetch/ProfessoresRequests';
+import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
+import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
