@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
+import InputMask from "react-input-mask";
 
 // Componente funcional CadastroProfessor
 function CadastroProfessor() {
@@ -27,13 +28,16 @@ function CadastroProfessor() {
             [name]: value
         }));
     };
+    const cleanCPF = formData.cpf.replace(/\D/g, ''); 
+    const cleanCelular = formData.celular.replace(/\D/g, ''); 
+    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
     // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne o comportamento padrão de recarregar a página
         try {
             // Envia os dados do formulário para a API
-            const response = await ProfessoresRequests.cadastrarProfessor(formData);
+            const response = await ProfessoresRequests.cadastrarProfessor(cleanData);
             console.log('Professor cadastrado com sucesso:', response);
             // Mostra um alerta de sucesso para o usuário
             window.alert(formData.nome + ': foi cadastrado com sucesso');
@@ -62,8 +66,9 @@ function CadastroProfessor() {
                     </div>
                     {/* Campo para CPF */}
                     <div className={styles.formGroup}>
-                        <input
+                        <InputMask
                             type="text"
+                            mask="999.999.999-99"
                             className={styles.formStyle}
                             placeholder="CPF"
                             value={formData.cpf}
@@ -74,9 +79,11 @@ function CadastroProfessor() {
                     {/* Campo para data de nascimento */}
                     <div className={styles.formGroup}>
                         <input
-                            type="date"
+                            type="text"
                             className={styles.formStyle}
                             placeholder="Data de Nascimento"
+                            onFocus={(e) => e.target.type = 'date'}
+                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                             value={formData.data_nascimento}
                             onChange={handleChange}
                             name="data_nascimento"
@@ -84,8 +91,9 @@ function CadastroProfessor() {
                     </div>
                     {/* Campo para número de celular */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="number"
+                        <InputMask
+                            mask="(99) 99999-9999"
+                            type="text"
                             className={styles.formStyle}
                             placeholder="Telefone"
                             value={formData.celular}
@@ -129,9 +137,11 @@ function CadastroProfessor() {
                     {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input
-                            type="date"
+                            type="text"
                             className={styles.formStyle}
-                            placeholder="Data Contratacao"
+                            placeholder="Data Contratação"
+                            onFocus={(e) => e.target.type = 'date'}
+                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                             value={formData.data_contratacao}
                             onChange={handleChange}
                             name="data_contratacao"

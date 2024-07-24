@@ -48,13 +48,13 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         _data_nascimento: Date,
         _celular: string,
         _endereco: string,
-        _email: string,
-        _senha: string,
+        // _email: string,
+        // _senha: string,
         _altura: number,
         _peso: number,
         _imc: number
     ) {
-        super(_id, _nome, _cpf, _data_nascimento, _celular, _endereco, _email, _senha,);
+        super(_id, _nome, _cpf, _data_nascimento, _celular, _endereco);
         this.altura = _altura;
         this.peso = _peso;
         this.imc = _imc;

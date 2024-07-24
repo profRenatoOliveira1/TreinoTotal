@@ -35,10 +35,10 @@ class ExercicioController extends Exercicio {
      */
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
-            const { id_exercicio, id_aparelho, exercicio, carga, repeticoes, series, regiao_corpo_ativa } = req.body;
+            const { id_exercicio, id_aparelho, exercicio, regiao_corpo_ativa } = req.body;
 
             // Instanciando objeto Exercicio
-            const novoExercicio = new Exercicio(id_exercicio, id_aparelho, exercicio, carga, repeticoes, series, regiao_corpo_ativa);
+            const novoExercicio = new Exercicio(id_exercicio, id_aparelho, exercicio, regiao_corpo_ativa);
 
             // Chama o método para persistir o exercicio no banco de dados
             const result = await Exercicio.cadastrarExercicio(novoExercicio);
@@ -90,17 +90,14 @@ class ExercicioController extends Exercicio {
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { id_aparelho, exercicio, carga, repeticoes, series, regiao_corpo_ativada } = req.body;
+            const { id_aparelho, exercicio, regiao_corpo_ativa } = req.body;
 
             // Instanciando objeto Exercício
             const novoExercicio = new Exercicio(
                 0,
                 id_aparelho,
                 exercicio,
-                carga,
-                repeticoes,
-                series,
-                regiao_corpo_ativada
+                regiao_corpo_ativa
             );
 
             novoExercicio.setIdExercicio(parseInt(req.query.id_exercicio as string));

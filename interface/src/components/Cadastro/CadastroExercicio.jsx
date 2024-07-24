@@ -1,47 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/StyleCadastro.module.css';
 import ExerciciosRequests from '../../fetch/ExerciciosRequests';
-
+import AparelhosRequests from '../../fetch/AparelhosRequests';
 // Componente funcional CadastroExercicio
 function CadastroExercicio() {
-    // Definição do estado inicial do formulário com useState
+   
     const [formData, setFormData] = useState({
         id_aparelho: '',
         exercicio: '',
-       // carga: '',
-       // repeticoes: '',
         regiao_corpo_ativa: ''
     });
 
-    // Função para lidar com mudanças nos campos do formulário
+    const [aparelhos, setAparelhos] = useState([]);
+
+    useEffect(() => {
+        const fetchAparelhos = async () => {
+            try {
+                const aparelhosData = await AparelhosRequests.listarAparelho();
+                if (aparelhosData) {
+                    setAparelhos(aparelhosData);
+                }
+            } catch (error) {
+                console.error('Erro ao buscar aparelhos:', error);
+            }
+        };
+
+        fetchAparelhos();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // Atualiza o estado com o novo valor do campo modificado
         setFormData(prevState => ({
             ...prevState,
             [name]: value
         }));
     };
 
-    // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Previne o comportamento padrão de recarregar a página
+        e.preventDefault();
         try {
-            // Envia os dados do formulário para a API
             const response = await ExerciciosRequests.cadastrarExercicio(formData);
             console.log('Exercício cadastrado com sucesso:', response);
-            // Mostra um alerta de sucesso para o usuário
             window.alert(formData.exercicio + ': foi cadastrado com sucesso');
-            // Reseta os campos do formulário
             setFormData({
                 id_aparelho: '',
                 exercicio: '',
-                carga: '',
-                repeticoes: '',
                 regiao_corpo_ativa: ''
             });
         } catch (error) {
-            // Mostra um alerta de erro para o usuário em caso de falha
             console.error('Erro ao cadastrar exercício:', error);
             window.alert('Erro ao cadastrar exercício');
         }
@@ -55,14 +61,20 @@ function CadastroExercicio() {
                 <form onSubmit={handleSubmit}>
                     {/* Campo para id_aparelho */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="number"
+                        <select
                             className={styles.formStyle}
-                            placeholder="id_aparelho"
                             value={formData.id_aparelho}
                             onChange={handleChange}
                             name="id_aparelho"
-                        />
+                            required
+                        >
+                            <option value="">Selecione o Aparelho</option>
+                            {aparelhos.map(aparelho => (
+                                <option key={aparelho.id_aparelho} value={aparelho.id_aparelho}>
+                                    {aparelho.nome_aparelho}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     {/* Campo para nome do exercício */}
                     <div className={styles.formGroup}>
@@ -75,28 +87,7 @@ function CadastroExercicio() {
                             name="exercicio"
                         />
                     </div>
-                   {/* Campo para carga */}
-                   { /*    <div className={styles.formGroup}>
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="carga"
-                            value={formData.carga}
-                            onChange={handleChange}
-                            name="carga"
-                        />
-                </div>    */ }
-                    {/* Campo para repetições */}
-                {/*   <div className={styles.formGroup}>
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="repeticoes"
-                            value={formData.repeticoes}
-                            onChange={handleChange}
-                            name="repeticoes"
-                        />
-            </div> */}
+                   
                     {/* Campo para região do corpo ativa */}
                     <div className={styles.formGroup}>
                         <input

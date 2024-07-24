@@ -89,7 +89,6 @@ function ListarAluno() {
                                 <th>Data de Nascimento</th>
                                 <th>Telefone</th>
                                 <th>Endereço</th>
-                                <th>Email</th>
                                 {/** <th>Altura</th> */}
                                 {/** <th>Peso</th> */}
                                 {/** <th>IMC</th> */}

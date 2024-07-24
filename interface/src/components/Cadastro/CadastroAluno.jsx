@@ -11,8 +11,6 @@ function CadastroAluno() {
         data_nascimento: '',
         celular: '',
         endereco: '',
-        // email: '',
-        // senha: '',
         altura: '',
         peso: '',
         imc: ''
@@ -36,16 +34,20 @@ function CadastroAluno() {
             return;
         }
 
+        const cleanCPF = formData.cpf.replace(/\D/g, ''); 
+        const cleanCelular = formData.celular.replace(/\D/g, ''); 
+        const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
+
         try {
-            // Envia os dados do formulário para a API e aguarda a resposta
-            const response = await AlunoRequests.cadastrarAluno(formData);
+            const response = await AlunoRequests.cadastrarAluno(cleanData);
             console.log('Aluno cadastrado com sucesso:', response);
-            window.alert(`${formData.nome} foi cadastrado com sucesso`); // Exibe uma mensagem de sucesso
+            window.alert(`${formData.nome} foi cadastrado com sucesso`);
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);
-            window.alert('Ocorreu um erro: ' + error.message); // Exibe uma mensagem de erro
+            window.alert('Ocorreu um erro: ' + error.message);
         }
     };
+
 
     // Função para capitalizar a primeira letra de cada palavra
 

@@ -1,0 +1,25 @@
+:root {
+    --amareloClaro: #ffeba7;
+    --cinzaEscuro: #212529;
+    --cinzaAzulado: #343A40;
+    --cinzaAvermelhado: #333;
+    --branco: #FFFFFF;
+    --cinzaClaro: #ccc;
+    --amareloEscuro: #b39f72;
+    --preto: #000000;
+}
+body {
+    justify-content: center;
+
+}
+
+.nomeAluno {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 20px;
+    color: var(--amareloClaro);
+    background-color: var(--cinzaEscuro);
+    width: 80%;
+    justify-content: center;
+
+}

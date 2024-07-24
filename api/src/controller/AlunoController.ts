@@ -36,7 +36,7 @@ class AlunoController extends Aluno {
     public async cadastrar(req: Request, res: Response) {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { id_aluno, nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha } = req.body;
+            const { id_aluno, nome, cpf, altura, peso, imc, data_nascimento, celular, endereco } = req.body;
 
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
@@ -46,8 +46,6 @@ class AlunoController extends Aluno {
                 data_nascimento,
                 celular,
                 endereco,
-                email,
-                senha,
                 altura,
                 peso,
                 imc
@@ -109,8 +107,6 @@ class AlunoController extends Aluno {
                 data_nascimento,
                 celular,
                 endereco,
-                email,
-                senha,
                 altura,
                 peso,
                 imc
