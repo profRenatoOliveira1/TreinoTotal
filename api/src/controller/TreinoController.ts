@@ -65,6 +65,7 @@ export class TreinoController extends Treino {
      */
     public async novo(req: Request, res: Response): Promise<Response> {
         try {
+            // Desestruturando objeto recebido pelo front-end
             const { id_aluno, id_professor, exercicios } = req.body;
 
             // Extraindo os IDs dos exercícios
