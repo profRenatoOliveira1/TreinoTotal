@@ -89,7 +89,7 @@ function CadastroExercicio() {
                         </select>
                     </div>
                     {/*
-                    <div className={styles.formGroup}>
+                    <div className={styles.formGroup}>   
                         <input
                             type="number"
                             className={styles.formStyle}
