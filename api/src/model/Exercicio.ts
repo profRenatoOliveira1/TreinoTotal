@@ -37,6 +37,11 @@ export class Exercicio {
     private repeticoes: number;
 
     /**
+     * O número de séries realizadas no exercício.
+     */
+    private series: number;
+
+    /**
      * A região do corpo ativada pelo exercício.
      */
     private regiao_corpo_ativa: string;
@@ -49,6 +54,7 @@ export class Exercicio {
      * @param _exercicio O nome do exercício.
      * @param _carga A carga utilizada no exercício (em kg).
      * @param _repeticoes O número de repetições realizadas no exercício.
+     * @param _series O número de séries do exercício.
      * @param _regiao_corpo_ativa A região do corpo ativada pelo exercício.
      */
     constructor(
@@ -57,6 +63,7 @@ export class Exercicio {
         _exercicio: string,
         _carga: number,
         _repeticoes: number,
+        _series: number,
         _regiao_corpo_ativa: string
     ) {
         this.id_exercicio = _id_exercicio;
@@ -64,11 +71,11 @@ export class Exercicio {
         this.exercicio = _exercicio;
         this.carga = _carga;
         this.repeticoes = _repeticoes;
+        this.series = _series;
         this.regiao_corpo_ativa = _regiao_corpo_ativa;
     }
 
     // Getters e Setters
-
     /**
      * Obtém o identificador do exercício.
      * 
@@ -157,6 +164,24 @@ export class Exercicio {
      */
     public setRepeticoes(repeticoes: number): void {
         this.repeticoes = repeticoes;
+    }
+
+    /**
+     * Obtém o número de séries realizadas no exercício.
+     * 
+     * @returns O número de séries realizadas.
+     */
+    public getSeries(): number {
+        return this.series;
+    }
+
+    /**
+     * Define o número de séries realizadas no exercício.
+     * 
+     * @param series O número de repetições a ser atribuído.
+     */
+    public setSeries(series: number): void {
+        this.series = series;
     }
 
     /**
