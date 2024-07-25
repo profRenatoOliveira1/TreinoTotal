@@ -55,6 +55,11 @@ function Navegacao() {
                             <NavDropdown.Item href="/Cadastro/Aparelho" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
                             <NavDropdown.Item href="/Listagem/Aparelho" className={styles.navDropdown}>Listagem</NavDropdown.Item>
                         </NavDropdown>
+                        <NavDropdown title="Treino" id="collapsible-nav-dropdown" className={styles.navbar}>
+                            {/* Links para as páginas de cadastro e listagem de aparelhos */}
+                            <NavDropdown.Item href="/Cadastro/Treino" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                            <NavDropdown.Item href="/Listagem/Treino" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
