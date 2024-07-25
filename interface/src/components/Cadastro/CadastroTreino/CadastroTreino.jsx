@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import AlunoModal from '../../Modal/AlunoModal/AlunoModal';
 import ProfessorModal from '../../Modal/ProfessorModal/ProfessorModal';
 import ExercicioModal from '../../Modal/ExercicioModal/ExercicioModal';
+import TreinoRequests from '../../../fetch/TreinoRequests';
 
 function CadastroTreino() {
     const [showAlunoModal, setShowAlunoModal] = useState(false);
@@ -54,6 +55,25 @@ function CadastroTreino() {
     const handleRemoveExercicio = (index) => {
         const newSelectedExercicios = selectedExercicios.filter((_, i) => i !== index);
         setSelectedExercicios(newSelectedExercicios);
+    };
+
+    const cadastrar = async () => {
+        const treino = {
+            id_aluno: selectedAluno.id_aluno,
+            id_professor: selectedProfessor.id_professor,
+            exercicios: selectedExercicios
+        };
+
+        console.log(treino);
+
+        try {
+            const result = await TreinoRequests.cadastrarTreino(treino);
+            if (result) {
+                alert('Treino cadastrado com sucesso!');
+            }
+        } catch (error) {
+            alert('Erro ao cadastrar treino!');
+        }
     };
 
     return (
@@ -118,14 +138,16 @@ function CadastroTreino() {
                                 />
                             </td>
                             <td>
-                                <FaTrash variant="danger" style={{ color: 'red'}} onClick={() => handleRemoveExercicio(index)}>
-                                    Remover
-                                </FaTrash>
+                                <Button variant="danger" onClick={() => handleRemoveExercicio(index)}>
+                                    <FaTrash />
+                                </Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
+
+            <Button variant="primary" onClick={cadastrar}>Cadastrar</Button>
 
             <AlunoModal
                 show={showAlunoModal}

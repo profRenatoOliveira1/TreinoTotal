@@ -69,9 +69,14 @@ export class TreinoController extends Treino {
             const { id_aluno, id_professor, exercicios } = req.body;
 
             // Extraindo os IDs dos exercícios
-            const idsExercicios = exercicios.map((exercicio: { id_exercicio: number }) => exercicio.id_exercicio);
+            const exerciciosDetalhados = exercicios.map((exercicio: { id: number, repeticoes: string, carga: string, series: string }) => ({
+                id_exercicio: exercicio.id,
+                repeticoes: exercicio.repeticoes,
+                carga: exercicio.carga,
+                series: exercicio.series
+            }));
 
-            const result = await Treino.cadastrarTreino(id_aluno, id_professor, idsExercicios);
+            const result = await Treino.cadastrarTreino(id_aluno, id_professor, exerciciosDetalhados);
 
             if (result) {
                 return res.status(200).json({ message: 'Treino cadastrado com sucesso' });

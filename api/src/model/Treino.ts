@@ -273,10 +273,10 @@ export class Treino {
     static async listarTreinoIDTreino(idTreino: number): Promise<any | null> {
         const condicao = `t.id_treino = ${idTreino}`;
         return this.listarTreino(condicao);
-    }    
+    }
 
     // Define uma função assíncrona chamada 'cadastrarTreino' que recebe um id de aluno, um id de professor e um array de exercícios.
-    static async cadastrarTreino(idAluno: number, idProfessor: number, idExercicios: Array<number>): Promise<boolean> {
+    static async cadastrarTreino(idAluno: number, idProfessor: number, exercicios: Array<any>): Promise<boolean> {
         // Inicializa a variável 'queryResult' como false para indicar se a operação foi bem-sucedida.
         let queryResult = false;
         // Conecta-se ao banco de dados e obtém um cliente.
@@ -297,11 +297,11 @@ export class Treino {
                 const idTreino = result.rows[0].id_treino;
 
                 // Mapeia os exercícios para criar um array de promessas de inserção na tabela 'exercicio_treino'.
-                const insertExercicioPromises = idExercicios.map((idExercicio) => {
+                const insertExercicioPromises = exercicios.map((exercicio) => {
                     // Define a query SQL para inserir um exercício na tabela 'exercicio_treino'.
-                    const queryInsertExercicio = 'INSERT INTO exercicio_treino (id_treino, id_exercicio) VALUES ($1, $2)';
+                    const queryInsertExercicio = 'INSERT INTO exercicio_treino (id_treino, id_exercicio, carga, repeticoes, series) VALUES ($1, $2, $3, $4, $5)';
                     // Retorna a promessa de execução da query com os valores de id do treino e id do exercício.
-                    return client.query(queryInsertExercicio, [idTreino, idExercicio]);
+                    return client.query(queryInsertExercicio, [idTreino, exercicio.id_exercicio, exercicio.carga, exercicio.repeticoes, exercicio.series]);
                 });
 
                 // Aguarda que todas as promessas de inserção dos exercícios sejam concluídas.
@@ -309,6 +309,10 @@ export class Treino {
 
                 // Confirma a transação.
                 await client.query('COMMIT');
+
+                console.log('tudo certo');
+
+
                 // Define 'queryResult' como true para indicar que a operação foi bem-sucedida.
                 queryResult = true;
             } else {

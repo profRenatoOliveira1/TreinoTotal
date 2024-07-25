@@ -30,9 +30,11 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                 {exercicios.length > 0 ? (
                     <table className="table table-striped">
                         <thead>
-                            <th hidden>ID</th>
-                            <th>Exercício</th>
-                            <th>Região ativada</th>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>Exercício</th>
+                                <th>Região ativada</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {exercicios.map((exercicio) => (
