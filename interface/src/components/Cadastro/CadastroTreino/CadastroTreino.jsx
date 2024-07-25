@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import AlunoModal from '../../Modal/AlunoModal/AlunoModal';  // Ajuste o caminho conforme necessário
+import { FaTrash } from "react-icons/fa";
+import AlunoModal from '../../Modal/AlunoModal/AlunoModal';
 import ProfessorModal from '../../Modal/ProfessorModal/ProfessorModal';
 import ExercicioModal from '../../Modal/ExercicioModal/ExercicioModal';
 
@@ -117,9 +118,9 @@ function CadastroTreino() {
                                 />
                             </td>
                             <td>
-                                <Button variant="danger" onClick={() => handleRemoveExercicio(index)}>
+                                <FaTrash variant="danger" style={{ color: 'red'}} onClick={() => handleRemoveExercicio(index)}>
                                     Remover
-                                </Button>
+                                </FaTrash>
                             </td>
                         </tr>
                     ))}
