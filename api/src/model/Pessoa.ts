@@ -35,12 +35,12 @@ export class Pessoa {
     /**
      * O email da pessoa.
      */
-    private email: string;
+    private email: string = '';
 
     /**
      * A senha da pessoa.
      */
-    private senha: string;
+    private senha: string = '';
 
     /**
      * Cria uma nova instância de Pessoa.
@@ -54,15 +54,13 @@ export class Pessoa {
      * @param _email O email da pessoa.
      * @param _senha A senha da pessoa.
      */
-    constructor(_id: number, _nome: string, _cpf: string, _data_nascimento: Date, _celular: string, _endereco: string, _email: string, _senha: string) {
+    constructor(_id: number, _nome: string, _cpf: string, _data_nascimento: Date, _celular: string, _endereco: string) {
         this.id = _id;
         this.nome = _nome;
         this.cpf = _cpf;
         this.data_nascimento = _data_nascimento;
         this.celular = _celular;
         this.endereco = _endereco;
-        this.email = _email;
-        this.senha = _senha;
     }
 
     // Getters e Setters

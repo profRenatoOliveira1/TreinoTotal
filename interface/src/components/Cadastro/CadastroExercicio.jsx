@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
+import styles from '../styles/StyleCadastro.module.css';
 import ExerciciosRequests from '../../fetch/ExerciciosRequests';
-import AparelhoRequests from '../../fetch/AparelhosRequests';
-
+import AparelhosRequests from '../../fetch/AparelhosRequests';
+// Componente funcional CadastroExercicio
 function CadastroExercicio() {
+   
     const [formData, setFormData] = useState({
         id_aparelho: '',
         exercicio: '',
-        // carga: '',
-        // repeticoes: '',
         regiao_corpo_ativa: ''
     });
 
@@ -17,7 +16,7 @@ function CadastroExercicio() {
     useEffect(() => {
         const fetchAparelhos = async () => {
             try {
-                const aparelhosData = await AparelhoRequests.listarAparelho();
+                const aparelhosData = await AparelhosRequests.listarAparelho();
                 if (aparelhosData) {
                     setAparelhos(aparelhosData);
                 }
@@ -46,8 +45,6 @@ function CadastroExercicio() {
             setFormData({
                 id_aparelho: '',
                 exercicio: '',
-                // carga: '',
-                // repeticoes: '',
                 regiao_corpo_ativa: ''
             });
         } catch (error) {
@@ -56,22 +53,13 @@ function CadastroExercicio() {
         }
     };
 
+    // Renderização do formulário
     return (
         <div className={styles.section}>
             <div className={styles.container}>
                 <h1 className={styles.h1}>Cadastro de Exercício</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Exercício"
-                            value={formData.exercicio}
-                            onChange={handleChange}
-                            name="exercicio"
-                            required
-                        />
-                    </div>
+                    {/* Campo para id_aparelho */}
                     <div className={styles.formGroup}>
                         <select
                             className={styles.formStyle}
@@ -88,41 +76,30 @@ function CadastroExercicio() {
                             ))}
                         </select>
                     </div>
-                    {/*
-                    <div className={styles.formGroup}>   
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="Carga"
-                            value={formData.carga}
-                            onChange={handleChange}
-                            name="carga"
-                            required
-                        />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="Repetições"
-                            value={formData.repeticoes}
-                            onChange={handleChange}
-                            name="repeticoes"
-                            required
-                        />
-                    </div> 
-                    */}
+                    {/* Campo para nome do exercício */}
                     <div className={styles.formGroup}>
                         <input
                             type="text"
                             className={styles.formStyle}
-                            placeholder="Região do Corpo Ativa"
+                            placeholder="exercicio"
+                            value={formData.exercicio}
+                            onChange={handleChange}
+                            name="exercicio"
+                        />
+                    </div>
+                   
+                    {/* Campo para região do corpo ativa */}
+                    <div className={styles.formGroup}>
+                        <input
+                            type="text"
+                            className={styles.formStyle}
+                            placeholder="regiao_corpo_ativa"
                             value={formData.regiao_corpo_ativa}
                             onChange={handleChange}
                             name="regiao_corpo_ativa"
-                            required
                         />
                     </div>
+                    {/* Botão para enviar o formulário */}
                     <button type="submit" className={styles.btn}>
                         Cadastrar
                     </button>

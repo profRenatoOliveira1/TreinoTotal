@@ -86,7 +86,6 @@ function ListarProfessor() {
                             <th>Data de Nascimento</th>
                             <th>Telefone</th>
                             <th>Endereço</th>
-                            <th>Email</th>
                             <th>Data de Contratação</th>
                             <th>Formação</th>
                             <th>Especialidade</th>
@@ -102,7 +101,6 @@ function ListarProfessor() {
                                 <td>{formatarData(professor.data_nascimento)}</td>
                                 <td>{formatarTelefone(professor.celular)}</td>
                                 <td>{professor.endereco}</td>
-                                <td>{professor.email}</td>
                                 <td>{formatarData(professor.data_contratacao)}</td>
                                 <td>{professor.formacao}</td>
                                 <td>{professor.especialidade}</td>

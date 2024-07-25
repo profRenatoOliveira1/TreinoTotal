@@ -28,13 +28,16 @@ function CadastroProfessor() {
             [name]: value
         }));
     };
+    const cleanCPF = formData.cpf.replace(/\D/g, ''); 
+    const cleanCelular = formData.celular.replace(/\D/g, ''); 
+    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
     // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne o comportamento padrão de recarregar a página
         try {
             // Envia os dados do formulário para a API
-            const response = await ProfessoresRequests.cadastrarProfessor(formData);
+            const response = await ProfessoresRequests.cadastrarProfessor(cleanData);
             console.log('Professor cadastrado com sucesso:', response);
             // Mostra um alerta de sucesso para o usuário
             window.alert(formData.nome + ': foi cadastrado com sucesso');
@@ -43,6 +46,7 @@ function CadastroProfessor() {
             console.error('Erro ao cadastrar professor:', error);
         }
     };
+
     // Renderização do formulário
     return (
         <div className={styles.section}>
@@ -108,8 +112,8 @@ function CadastroProfessor() {
                             name="endereco"
                         />
                     </div>
-                    {/* 
-                    <div className={styles.formGroup}>
+                    {/* Campo para email */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="email"
                             className={styles.formStyle}
@@ -118,8 +122,9 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="email"
                         />
-                    </div>
-                    <div className={styles.formGroup}>
+                    </div> */}
+                    {/* Campo para senha */}
+                    {/* <div className={styles.formGroup}>
                         <input
                             type="password"
                             className={styles.formStyle}
@@ -128,14 +133,13 @@ function CadastroProfessor() {
                             onChange={handleChange}
                             name="senha"
                         />
-                    </div>
-                    */}
+                    </div> */}
                     {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input
                             type="text"
                             className={styles.formStyle}
-                            placeholder="Data de Contratação"
+                            placeholder="Data Contratação"
                             onFocus={(e) => e.target.type = 'date'}
                             onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                             value={formData.data_contratacao}

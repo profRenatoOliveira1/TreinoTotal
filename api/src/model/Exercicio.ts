@@ -29,17 +29,17 @@ export class Exercicio {
     /**
      * A carga utilizada no exercício (em kg).
      */
-    private carga: number;
+    private carga: number = 0;
 
     /**
      * O número de repetições realizadas no exercício.
      */
-    private repeticoes: number;
+    private repeticoes: number = 0;
 
     /**
      * O número de séries realizadas no exercício.
      */
-    private series: number;
+    private series: number = 0;
 
     /**
      * A região do corpo ativada pelo exercício.
@@ -61,17 +61,11 @@ export class Exercicio {
         _id_exercicio: number,
         _id_aparelho: number,
         _exercicio: string,
-        _carga: number,
-        _repeticoes: number,
-        _series: number,
         _regiao_corpo_ativa: string
     ) {
         this.id_exercicio = _id_exercicio;
         this.id_aparelho = _id_aparelho;
         this.exercicio = _exercicio;
-        this.carga = _carga;
-        this.repeticoes = _repeticoes;
-        this.series = _series;
         this.regiao_corpo_ativa = _regiao_corpo_ativa;
     }
 
@@ -238,12 +232,10 @@ export class Exercicio {
 
         try {
             const queryInsertExercicio = `
-                INSERT INTO exercicio (id_aparelho, exercicio, carga, repeticoes, regiao_corpo_ativa)
+                INSERT INTO exercicio (id_aparelho, exercicio, regiao_corpo_ativa)
                 VALUES (
                     ${exercicio.getIdAparelho()},
                     '${exercicio.getExercicio().toUpperCase()}',
-                    ${exercicio.getCarga()},
-                    ${exercicio.getRepeticoes()},
                     '${exercicio.getRegiaoCorpoAtiva().toUpperCase()}'
                 )
                 RETURNING id_exercicio;`;
