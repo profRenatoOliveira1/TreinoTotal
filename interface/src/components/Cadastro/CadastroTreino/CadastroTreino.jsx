@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import AlunoModal from '../../Modal/AlunoModal/AlunoModal';  // Certifique-se de ajustar o caminho de importação conforme necessário
+import Table from 'react-bootstrap/Table';
+import AlunoModal from '../../Modal/AlunoModal/AlunoModal';  // Ajuste o caminho conforme necessário
 import ProfessorModal from '../../Modal/ProfessorModal/ProfessorModal';
 import ExercicioModal from '../../Modal/ExercicioModal/ExercicioModal';
 
@@ -11,7 +12,7 @@ function CadastroTreino() {
 
     const [selectedAluno, setSelectedAluno] = useState(null);
     const [selectedProfessor, setSelectedProfessor] = useState(null);
-    const [selectedExercicio, setSelectedExercicio] = useState(null);
+    const [selectedExercicios, setSelectedExercicios] = useState([]);
 
     const handleShowAlunoModal = () => setShowAlunoModal(true);
     const handleCloseAlunoModal = () => setShowAlunoModal(false);
@@ -32,9 +33,26 @@ function CadastroTreino() {
         handleCloseProfessorModal();
     };
 
-    const handleSelectExercício = (exercicio) => {
-        setSelectedExercicio(exercicio);
+    const handleSelectExercicio = (exercicio) => {
+        setSelectedExercicios([...selectedExercicios, {
+            id: exercicio.id_exercicio,
+            nome: exercicio.exercicio,
+            repeticoes: '',
+            carga: '',
+            series: ''
+        }]);
         handleCloseExercicioModal();
+    };
+
+    const handleInputChange = (index, field, value) => {
+        const newSelectedExercicios = [...selectedExercicios];
+        newSelectedExercicios[index][field] = value;
+        setSelectedExercicios(newSelectedExercicios);
+    };
+
+    const handleRemoveExercicio = (index) => {
+        const newSelectedExercicios = selectedExercicios.filter((_, i) => i !== index);
+        setSelectedExercicios(newSelectedExercicios);
     };
 
     return (
@@ -56,12 +74,57 @@ function CadastroTreino() {
             </div>
 
             <div className='select-exercicio'>
-                <p hidden>{selectedExercicio?.id_exercicio}</p>
-                <p>{selectedExercicio?.exercicio}</p>
                 <Button variant="primary" onClick={handleShowExercicioModal}>
                     Selecionar Exercício
                 </Button>
             </div>
+
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>Exercício</th>
+                        <th>Repetições</th>
+                        <th>Carga</th>
+                        <th>Séries</th>
+                        <th>Remover</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {selectedExercicios.map((exercicio, index) => (
+                        <tr key={index}>
+                            <td hidden>{exercicio.id}</td>
+                            <td>{exercicio.nome}</td>
+                            <td>
+                                <input
+                                    type="number"
+                                    value={exercicio.repeticoes}
+                                    onChange={(e) => handleInputChange(index, 'repeticoes', e.target.value)}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="number"
+                                    value={exercicio.carga}
+                                    onChange={(e) => handleInputChange(index, 'carga', e.target.value)}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="number"
+                                    value={exercicio.series}
+                                    onChange={(e) => handleInputChange(index, 'series', e.target.value)}
+                                />
+                            </td>
+                            <td>
+                                <Button variant="danger" onClick={() => handleRemoveExercicio(index)}>
+                                    Remover
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
 
             <AlunoModal
                 show={showAlunoModal}
@@ -78,7 +141,7 @@ function CadastroTreino() {
             <ExercicioModal 
                 show={showExercicioModal}
                 handleClose={handleCloseExercicioModal}
-                onSelectProfessor={handleSelectExercício}
+                onSelectExercicio={handleSelectExercicio}
             />
         </>
     );

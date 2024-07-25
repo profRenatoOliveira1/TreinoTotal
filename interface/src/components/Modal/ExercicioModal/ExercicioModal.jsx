@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ExercicioRequests from '../../../fetch/ExerciciosRequests';
 
-function ExercicioModal({ show, handleClose, onSelectProfessor }) {
+function ExercicioModal({ show, handleClose, onSelectExercicio }) {
     const [exercicios, setExercicios] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ function ExercicioModal({ show, handleClose, onSelectProfessor }) {
                 const exercicios = await ExercicioRequests.listarExercicio();
                 setExercicios(exercicios);
             } catch (error) {
-                console.error('Erro ao buscar exercicios: ', error);
+                console.error('Erro ao buscar exercícios: ', error);
             }
         };
 
@@ -28,21 +28,32 @@ function ExercicioModal({ show, handleClose, onSelectProfessor }) {
             </Modal.Header>
             <Modal.Body>
                 {exercicios.length > 0 ? (
-                    <ul style={{ listStyleType: 'none' }}>
-                        {exercicios.map((exercicio) => (
-                            <li key={exercicio.id_aluno}>
-                                {exercicio.exercicio}
-                                <Button
-                                    variant="link"
-                                    onClick={() => onSelectProfessor(exercicio)}
-                                >
-                                    Selecionar
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
+                    <table className="table table-striped">
+                        <thead>
+                            <th hidden>ID</th>
+                            <th>Exercício</th>
+                            <th>Região ativada</th>
+                        </thead>
+                        <tbody>
+                            {exercicios.map((exercicio) => (
+                                <tr key={exercicio.id_exercicio}>
+                                    <td hidden>{exercicio.id_exercicio}</td>
+                                    <td>{exercicio.exercicio}</td>
+                                    <td>{exercicio.regiao_corpo_ativada}</td>
+                                    <td>
+                                        <Button
+                                            variant="link"
+                                            onClick={() => onSelectExercicio(exercicio)}
+                                        >
+                                            Selecionar
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
-                    <p>Carregando exercicios...</p>
+                    <p>Carregando exercícios...</p>
                 )}
             </Modal.Body>
             <Modal.Footer>

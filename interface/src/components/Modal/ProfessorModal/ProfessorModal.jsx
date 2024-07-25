@@ -9,8 +9,8 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
     useEffect(() => {
         const fetchProfessores = async () => {
             try {
-                const aluno = await ProfessoresRequests.listarProfessor();
-                setProfessores(aluno);
+                const professor = await ProfessoresRequests.listarProfessor();
+                setProfessores(professor);
             } catch (error) {
                 console.error('Erro ao buscar professores: ', error);
             }
@@ -28,21 +28,26 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
             </Modal.Header>
             <Modal.Body>
                 {professores.length > 0 ? (
-                    <ul style={{ listStyleType: 'none' }}>
-                        {professores.map((professor) => (
-                            <li key={professor.id_aluno}>
-                                {professor.nome}
-                                <Button
-                                    variant="link"
-                                    onClick={() => onSelectProfessor(professor)}
-                                >
-                                    Selecionar
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
+                    <table className="table table-striped">
+                        <tbody>
+                            {professores.map((professor) => (
+                                <tr key={professor.id_professor}>
+                                    <td hidden>{professor.id_professor}</td>
+                                    <td>{professor.nome}</td>
+                                    <td>
+                                        <Button
+                                            variant="link"
+                                            onClick={() => onSelectProfessor(professor)}
+                                        >
+                                            Selecionar
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
-                    <p>Carregando alunos...</p>
+                    <p>Carregando professores...</p>
                 )}
             </Modal.Body>
             <Modal.Footer>

@@ -28,19 +28,24 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
             </Modal.Header>
             <Modal.Body>
                 {alunos.length > 0 ? (
-                    <ul style={{ listStyleType: 'none' }}>
-                        {alunos.map((aluno) => (
-                            <li key={aluno.id_aluno}>
-                                {aluno.nome}
-                                <Button
-                                    variant="link"
-                                    onClick={() => onSelectAluno(aluno)}
-                                >
-                                    Selecionar
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
+                    <table className="table table-striped">
+                        <tbody>
+                            {alunos.map((aluno) => (
+                                <tr key={aluno.id_aluno}>
+                                    <td hidden>{aluno.id_aluno}</td>
+                                    <td>{aluno.nome}</td>
+                                    <td>
+                                        <Button
+                                            variant="link"
+                                            onClick={() => onSelectAluno(aluno)}
+                                        >
+                                            Selecionar
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
                     <p>Carregando alunos...</p>
                 )}
