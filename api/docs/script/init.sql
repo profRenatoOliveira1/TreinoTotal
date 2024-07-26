@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS professor (id_professor SERIAL NOT NULL PRIMARY KEY,
 					senha VARCHAR(50) NOT NULL,
 					data_contratacao DATE NOT NULL,
 					formacao VARCHAR(70) NOT NULL,
-					especialidade VARCHAR(70));
+					especialidade VARCHAR(70),
+					situacao BOOLEAN DEFAULT TRUE);
 					
 CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY, 
 					nome VARCHAR(100) NOT NULL,
@@ -21,7 +22,9 @@ CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY,
 					senha VARCHAR(50) NOT NULL,
 					altura DECIMAL(5,2),
 					peso DECIMAL(5,2),
-					imc DECIMAL(5,2));
+					imc DECIMAL(5,2),
+					situacao BOOLEAN DEFAULT TRUE);
+
 
 -- CREATE TABLE users (id_user SERIAL PRIMARY KEY,
 -- 					--username VARCHAR(50) NOT NULL UNIQUE,
@@ -33,7 +36,8 @@ CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY,
 
 CREATE TABLE IF NOT EXISTS aparelho (id_aparelho SERIAL NOT NULL PRIMARY KEY,  
 					nome_aparelho VARCHAR(80) NOT NULL,
-					musculo_ativado VARCHAR(80));
+					musculo_ativado VARCHAR(80),
+					situacao BOOLEAN DEFAULT TRUE);
 					
 CREATE TABLE IF NOT EXISTS exercicio (id_exercicio SERIAL NOT NULL PRIMARY KEY,
 					id_aparelho INT,
@@ -41,13 +45,15 @@ CREATE TABLE IF NOT EXISTS exercicio (id_exercicio SERIAL NOT NULL PRIMARY KEY,
 					--carga INT NOT NULL,
 					--repeticoes INT  NOT NULL,
 					regiao_corpo_ativada VARCHAR(70),
-					FOREIGN KEY (id_aparelho) REFERENCES aparelho(id_aparelho));
+					FOREIGN KEY (id_aparelho) REFERENCES aparelho(id_aparelho),
+					situacao BOOLEAN DEFAULT TRUE);
 
 CREATE TABLE IF NOT EXISTS treino (id_treino SERIAL NOT NULL PRIMARY KEY,
     id_aluno INT NOT NULL,
     id_professor INT NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES aluno(id_aluno),
-    FOREIGN KEY (id_professor) REFERENCES professor(id_professor));
+    FOREIGN KEY (id_professor) REFERENCES professor(id_professor),
+	situacao BOOLEAN DEFAULT TRUE);
 
 CREATE TABLE IF NOT EXISTS exercicio_treino(id_exercicio_treino SERIAL NOT NULL PRIMARY KEY,
 						   id_treino INT,
@@ -56,7 +62,8 @@ CREATE TABLE IF NOT EXISTS exercicio_treino(id_exercicio_treino SERIAL NOT NULL 
 						   carga INT NOT NULL DEFAULT 0,
 						   series INT DEFAULT 3,
 						   FOREIGN KEY (id_treino) REFERENCES treino(id_treino),
-						   FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio));
+						   FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio),
+						   situacao BOOLEAN DEFAULT TRUE);
 
 			
 INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao, especialidade)
@@ -150,7 +157,7 @@ INSERT INTO treino (id_aluno, id_professor)
 	(2,5), -- 4
 	(4,4); -- 5
 
-INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga, series)
+INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga)
 	VALUES
 	(1, 1, 10, 30),
 	(1, 2, 10, 30),

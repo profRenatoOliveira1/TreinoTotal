@@ -93,7 +93,7 @@ function CadastroExercicio() {
                         <input
                             type="text"
                             className={styles.formStyle}
-                            placeholder="regiao_corpo_ativa"
+                            placeholder="Região do corpo ativada"
                             value={formData.regiao_corpo_ativa}
                             onChange={handleChange}
                             name="regiao_corpo_ativa"

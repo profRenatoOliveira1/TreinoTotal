@@ -107,7 +107,7 @@ export class Aparelho {
         const listaDeAparelhos: Array<Aparelho> = [];
 
         // Construção da query para selecionar as informações de um Aparelho
-        const querySelectAparelho = `SELECT * FROM Aparelho;`;
+        const querySelectAparelho = `SELECT * FROM Aparelho WHERE situacao = true;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -168,8 +168,19 @@ export class Aparelho {
         let queryResult = false;
 
         try {
-            const queryDeleteAparelho = `DELETE FROM aparelho WHERE id_aparelho=${idAparelho}`;
-            await database.query(queryDeleteAparelho)
+
+
+            // const queryDeleteTreino = `DELETE FROM treino WHERE id_aparelho=${idAparelho}`;
+            //     await database.query(queryDeleteTreino);
+
+            // const queryDeleteExercicio = `DELETE FROM exercicio WHERE id_aparelho=${idAparelho}`;
+            //     await database.query(queryDeleteExercicio);
+            const queryUpdateSituacaoAparelho = `
+            UPDATE aparelho 
+            SET situacao = false 
+            WHERE id_aparelho = $1
+        `;
+        const result = await database.query(queryUpdateSituacaoAparelho, [idAparelho])
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;

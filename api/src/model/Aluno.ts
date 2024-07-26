@@ -128,7 +128,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         const listaDeAlunos: Array<Aluno> = [];
 
         // Construção da query para selecionar as informações de um Aluno
-        const querySelectAparelho = `SELECT * FROM Aluno;`;
+        const querySelectAparelho = `SELECT * FROM Aluno WHERE situacao = true;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -157,6 +157,8 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         let insertResult = false;
 
         try {
+            const alturaQuadrado = aluno.getAltura() * aluno.getAltura();
+            const imcCalculado = aluno.getPeso() / alturaQuadrado;
             const queryInsertAluno = `
                 INSERT INTO aluno (nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha)
                 VALUES (
@@ -164,7 +166,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
                     '${aluno.getCpf()}',
                     ${aluno.getAltura()},
                     ${aluno.getPeso()},
-                    ${aluno.getImc()},
+                    ${imcCalculado.toFixed(2)},
                     '${aluno.getDataNascimento()}',
                     '${aluno.getCelular()}',
                     '${aluno.getEndereco().toUpperCase()}',
@@ -195,22 +197,31 @@ export class Aluno extends Pessoa { // Herança de Pessoa
      */
     static async removerAluno(idAluno: number): Promise<boolean> {
         let queryResult = false;
-
+    
         try {
-            const queryRemoveAluno = `DELETE FROM aluno WHERE id_aluno=${idAluno}`;
-
-            const queryReturn = await database.query(queryRemoveAluno);
-            if (queryReturn.rowCount != 0) {
+            // Atualiza a situação do aluno para inativo
+            const queryUpdateSituacaoAluno = `
+                UPDATE aluno 
+                SET situacao = false
+                WHERE id_aluno = $1
+            `;
+            const result = await database.query(queryUpdateSituacaoAluno, [idAluno]);
+            
+            // Verifica se a atualização foi bem-sucedida
+            if (result.rowCount != 0) {
                 console.log(`Aluno removido com sucesso. ID: ${idAluno}`);
                 queryResult = true;
+            } else {
+                console.log(`Aluno não encontrado. ID: ${idAluno}`);
             }
-
+    
             return queryResult;
         } catch (error) {
             console.log(`Erro no modelo: ${error}`);
             return queryResult;
         }
     }
+    
 
     /**
      * Atualiza as informações de um aluno no banco de dados

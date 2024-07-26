@@ -207,7 +207,7 @@ export class Exercicio {
         const listaDeExercicios: Array<Exercicio> = [];
 
         // Construção da query para selecionar as informações de um Exercicio
-        const querySelectExercicio = `SELECT * FROM Exercicio;`;
+        const querySelectExercicio = `SELECT * FROM Exercicio WHERE situacao = true;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -232,7 +232,7 @@ export class Exercicio {
 
         try {
             const queryInsertExercicio = `
-                INSERT INTO exercicio (id_aparelho, exercicio, regiao_corpo_ativa)
+                INSERT INTO exercicio (id_aparelho, exercicio, regiao_corpo_ativada)
                 VALUES (
                     ${exercicio.getIdAparelho()},
                     '${exercicio.getExercicio().toUpperCase()}',
@@ -259,8 +259,19 @@ export class Exercicio {
         let queryResult = false;
 
         try {
-            const queryDeleteExercicio = `DELETE FROM exercicio WHERE id_exercicio=${idExercicio}`;
-            await database.query(queryDeleteExercicio)
+            // const queryDeleteExercicioTreino = `DELETE FROM exercicio_treino WHERE id_exercicio = ${idExercicio}`;
+            // await database.query(queryDeleteExercicioTreino, [idExercicio]);
+    
+            // // Remover registros da tabela exercicio
+            // const queryDeleteExercicio = `DELETE  FROM exercicio WHERE id_exercicio = ${idExercicio}`;
+            // const result = await database.query(queryDeleteExercicio, [idExercicio]);
+            const queryUpdateSituacaoExercicio = `
+            UPDATE exercicio 
+            SET situacao = false 
+            WHERE id_exercicio = $1
+        `;
+        const result = await database.query(queryUpdateSituacaoExercicio, [idExercicio]);
+            await database.query(queryUpdateSituacaoExercicio)
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;

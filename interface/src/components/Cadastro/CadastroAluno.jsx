@@ -12,8 +12,7 @@ function CadastroAluno() {
         celular: '',
         endereco: '',
         altura: '',
-        peso: '',
-        imc: ''
+        peso: ''
     });
 
     // Função para atualizar o estado do formulário conforme o usuário digita
@@ -34,14 +33,16 @@ function CadastroAluno() {
             return;
         }
 
-        const cleanCPF = formData.cpf.replace(/\D/g, ''); 
-        const cleanCelular = formData.celular.replace(/\D/g, ''); 
+        const cleanCPF = formData.cpf.replace(/\D/g, '');
+        const cleanCelular = formData.celular.replace(/\D/g, '');
         const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
         try {
             const response = await AlunoRequests.cadastrarAluno(cleanData);
             console.log('Aluno cadastrado com sucesso:', response);
-            window.alert(`${formData.nome} foi cadastrado com sucesso`);
+            if(response){
+                window.alert(`${formData.nome} foi cadastrado com sucesso`);
+            }
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);
             window.alert('Ocorreu um erro: ' + error.message);
@@ -56,7 +57,7 @@ function CadastroAluno() {
             <div className={styles.container}>
                 <h1 className={styles.h1}>Cadastro de Aluno</h1>
                 <form onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
+                    <div className={styles.formGroup}>
                         <input
                             type="text"
                             className={styles.formStyle}
@@ -141,7 +142,7 @@ function CadastroAluno() {
                         <input
                             type="number"
                             className={styles.formStyle}
-                            placeholder="Altura"
+                            placeholder="Altura/m"
                             value={formData.altura}
                             onChange={handleChange}
                             name="altura"
@@ -149,26 +150,18 @@ function CadastroAluno() {
                     </div>
                     {/* Campo para formação */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="Peso"
-                            value={formData.peso}
-                            onChange={handleChange}
-                            name="peso"
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                type="number"
+                                className={styles.formStyle}
+                                placeholder="Peso/Kg"
+                                value={formData.peso}
+                                onChange={handleChange}
+                                name="peso"
+                            />
+                        </div>
                     </div>
-                    {/* Campo para especialidade */}
-                    <div className={styles.formGroup}>
-                        <input
-                            type="number"
-                            className={styles.formStyle}
-                            placeholder="Imc"
-                            value={formData.imc}
-                            onChange={handleChange}
-                            name="imc"
-                        />
-                    </div>
+
                     <button type="submit" className={styles.btn}>
                         Cadastrar-se
                     </button>

@@ -126,7 +126,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
         const listaDeProfessores: Array<Professor> = [];
 
         // Construção da query para selecionar as informações de um Professor
-        const querySelectProfessor = `SELECT * FROM Professor;`;
+        const querySelectProfessor = `SELECT * FROM Professor WHERE situacao = true;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -197,8 +197,14 @@ export class Professor extends Pessoa { // Herança de Pessoa
         let queryResult = false;
 
         try {
-            const queryDeleteProfessor = `DELETE FROM Professor WHERE id_professor=${idProfessor}`;
-            await database.query(queryDeleteProfessor)
+            
+            const queryUpdateSituacaoProfessor = `
+            UPDATE professor 
+            SET situacao = false 
+            WHERE id_professor = $1
+        `;
+        const result = await database.query(queryUpdateSituacaoProfessor, [idProfessor]);
+            await database.query(queryUpdateSituacaoProfessor)
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;

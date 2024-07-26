@@ -67,7 +67,6 @@ class ProfessoresRequests {
         } catch (error) {
             // caso ocorra algum erro na comunicação
             console.error('Erro: ', error);
-            window.alert('Erro ao remover aluno');
             return null;
         }
     }
@@ -101,7 +100,7 @@ class ProfessoresRequests {
         } catch (error) {
             // caso ocorra algum erro na comunicação
             console.error('Erro: ', error);
-            window.alert('Erro ao ataulizar animal');
+            window.alert('Erro ao atualizar animal');
             return null;
         }
     }
