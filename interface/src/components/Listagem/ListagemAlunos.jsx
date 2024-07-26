@@ -104,7 +104,7 @@ function ListarAluno() {
                                     <td>{formatarData(aluno.data_nascimento)}</td>
                                     <td>{formatarTelefone(aluno.celular)}</td>
                                     <td>{aluno.endereco}</td>
-                                    <td>{aluno.email}</td>
+                                    {/* <td>{aluno.email}</td> */}
                                     {/** <td>{aluno.altura}</td> */}
                                     {/** <td>{aluno.peso}</td> */}
                                     {/** <td>{aluno.imc}</td> */}

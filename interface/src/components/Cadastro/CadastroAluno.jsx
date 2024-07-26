@@ -26,6 +26,11 @@ function CadastroAluno() {
 
     // Função para lidar com a submissão do formulário
     const handleSubmit = async (e) => {
+        const dt_nasc = new Date(formData.data_nascimento);
+        const hoje = new Date();
+        if(dt_nasc.getFullYear() > hoje.getFullYear()) {
+
+        }
         e.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
         // Validação básica para garantir que os campos obrigatórios estão preenchidos
         if (!formData.nome || !formData.cpf /*|| !formData.email || !formData.senha*/) {
@@ -50,7 +55,14 @@ function CadastroAluno() {
     };
 
 
-    // Função para capitalizar a primeira letra de cada palavra
+    const dt_nasc = new Date(formData.data_nascimento);
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    if (dt_nasc > hoje) {
+        setErrorMessage('A data de nascimento não pode ser uma data futura.');
+        return;
+    }
 
     return (
         <div className={styles.section}>
@@ -87,6 +99,7 @@ function CadastroAluno() {
                             value={formData.data_nascimento}
                             onChange={handleChange}
                             name="data_nascimento"
+                            max={hoje.toISOString().split('T')[0]} 
                         />
                     </div>
                     {/* Campo para número de celular */}
