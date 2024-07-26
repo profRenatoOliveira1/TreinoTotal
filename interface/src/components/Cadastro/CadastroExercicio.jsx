@@ -56,8 +56,9 @@ function CadastroExercicio() {
     // Renderização do formulário
     return (
         <div className={styles.section}>
-            <div className={styles.container}>
                 <h1 className={styles.h1}>Cadastro de Exercício</h1>
+
+            <div className={styles.container}>
                 <form onSubmit={handleSubmit}>
                     {/* Campo para id_aparelho */}
                     <div className={styles.formGroup}>

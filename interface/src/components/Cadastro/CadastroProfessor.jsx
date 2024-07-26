@@ -28,8 +28,8 @@ function CadastroProfessor() {
             [name]: value
         }));
     };
-    const cleanCPF = formData.cpf.replace(/\D/g, ''); 
-    const cleanCelular = formData.celular.replace(/\D/g, ''); 
+    const cleanCPF = formData.cpf.replace(/\D/g, '');
+    const cleanCelular = formData.celular.replace(/\D/g, '');
     const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
     // Função para lidar com o envio do formulário
@@ -50,8 +50,9 @@ function CadastroProfessor() {
     // Renderização do formulário
     return (
         <div className={styles.section}>
+            <h1 className={styles.h1}>Cadastro de Professor</h1>
+
             <div className={styles.container}>
-                <h1 className={styles.h1}>Cadastro de Professor</h1>
                 <form onSubmit={handleSubmit}>
                     {/* Campo para nome completo */}
                     <div className={styles.formGroup}>
@@ -69,18 +70,15 @@ function CadastroProfessor() {
                         <InputMask
                             type="text"
                             mask="999.999.999-99"
-                            className={styles.formStyle}
+                            className={styles.formStyleEsquerda}
                             placeholder="CPF"
                             value={formData.cpf}
                             onChange={handleChange}
                             name="cpf"
                         />
-                    </div>
-                    {/* Campo para data de nascimento */}
-                    <div className={styles.formGroup}>
                         <input
                             type="text"
-                            className={styles.formStyle}
+                            className={styles.formStyleDireita}
                             placeholder="Data de Nascimento"
                             onFocus={(e) => e.target.type = 'date'}
                             onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
@@ -94,11 +92,21 @@ function CadastroProfessor() {
                         <InputMask
                             mask="(99) 99999-9999"
                             type="text"
-                            className={styles.formStyle}
+                            className={styles.formStyleEsquerda}
                             placeholder="Telefone"
                             value={formData.celular}
                             onChange={handleChange}
                             name="celular"
+                        /> 
+                        <input
+                            type="text"
+                            className={styles.formStyleDireita}
+                            placeholder="Data Contratação"
+                            onFocus={(e) => e.target.type = 'date'}
+                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
+                            value={formData.data_contratacao}
+                            onChange={handleChange}
+                            name="data_contratacao"
                         />
                     </div>
                     {/* Campo para endereço */}
@@ -110,41 +118,6 @@ function CadastroProfessor() {
                             value={formData.endereco}
                             onChange={handleChange}
                             name="endereco"
-                        />
-                    </div>
-                    {/* Campo para email */}
-                    {/* <div className={styles.formGroup}>
-                        <input
-                            type="email"
-                            className={styles.formStyle}
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            name="email"
-                        />
-                    </div> */}
-                    {/* Campo para senha */}
-                    {/* <div className={styles.formGroup}>
-                        <input
-                            type="password"
-                            className={styles.formStyle}
-                            placeholder="Senha"
-                            value={formData.senha}
-                            onChange={handleChange}
-                            name="senha"
-                        />
-                    </div> */}
-                    {/* Campo para data de contratação */}
-                    <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Data Contratação"
-                            onFocus={(e) => e.target.type = 'date'}
-                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
-                            value={formData.data_contratacao}
-                            onChange={handleChange}
-                            name="data_contratacao"
                         />
                     </div>
                     {/* Campo para formação */}

@@ -40,7 +40,7 @@ function CadastroAluno() {
         try {
             const response = await AlunoRequests.cadastrarAluno(cleanData);
             console.log('Aluno cadastrado com sucesso:', response);
-            if(response){
+            if (response) {
                 window.alert(`${formData.nome} foi cadastrado com sucesso`);
             }
         } catch (error) {
@@ -54,8 +54,8 @@ function CadastroAluno() {
 
     return (
         <div className={styles.section}>
+            <h1 className={styles.h1}>Cadastro de Aluno</h1>
             <div className={styles.container}>
-                <h1 className={styles.h1}>Cadastro de Aluno</h1>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         <input
@@ -72,18 +72,15 @@ function CadastroAluno() {
                         <InputMask
                             type="text"
                             mask="999.999.999-99"
-                            className={styles.formStyle}
+                            className={styles.formStyleEsquerda}
                             placeholder="CPF"
                             value={formData.cpf}
                             onChange={handleChange}
                             name="cpf"
                         />
-                    </div>
-                    {/* Campo para data de nascimento */}
-                    <div className={styles.formGroup}>
                         <input
                             type="text"
-                            className={styles.formStyle}
+                            className={styles.formStyleDireita}
                             placeholder="Data de Nascimento"
                             onFocus={(e) => e.target.type = 'date'}
                             onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
@@ -141,25 +138,20 @@ function CadastroAluno() {
                     <div className={styles.formGroup}>
                         <input
                             type="number"
-                            className={styles.formStyle}
+                            className={styles.formStyleEsquerda}
                             placeholder="Altura/m"
                             value={formData.altura}
                             onChange={handleChange}
                             name="altura"
                         />
-                    </div>
-                    {/* Campo para formação */}
-                    <div className={styles.formGroup}>
-                        <div className={styles.inputWrapper}>
-                            <input
-                                type="number"
-                                className={styles.formStyle}
-                                placeholder="Peso/Kg"
-                                value={formData.peso}
-                                onChange={handleChange}
-                                name="peso"
-                            />
-                        </div>
+                        <input
+                            type="number"
+                            className={styles.formStyleDireita}
+                            placeholder="Peso/Kg"
+                            value={formData.peso}
+                            onChange={handleChange}
+                            name="peso"
+                        />
                     </div>
 
                     <button type="submit" className={styles.btn}>
