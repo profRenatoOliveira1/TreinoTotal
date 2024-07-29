@@ -227,6 +227,11 @@ export class Exercicio {
         }
     }
 
+    /**
+     * Cadastra um novo exercício no banco de dados
+     * @param exercicio  Objeto contendo as informações do exercício
+     * @returns Boolean indicando se o cadastro foi bem-sucedido
+     */
     static async cadastrarExercicio(exercicio: Exercicio): Promise<Boolean> {
         let insertResult = false;
 
@@ -255,6 +260,11 @@ export class Exercicio {
         }
     }
 
+    /**
+     * Remove um exercício do banco de dados
+     * @param idExercicio ID do exercício a ser removido
+     * @returns Boolean indicando se a remoção foi bem-sucedida
+     */
     static async removerExercicio(idExercicio: number): Promise<boolean> {
         let queryResult = false;
 
@@ -282,6 +292,11 @@ export class Exercicio {
         }
     }
 
+    /**
+     * Atualiza as informações de um exercício no banco de dados
+     * @param exercicio Objeto contendo as informações a serem atualizadas
+     * @returns Boolean indicando se a atualização foi bem-sucedida
+     */
     static async atualizarExercicio(exercicio: Exercicio): Promise<boolean> {
         let queryResult = false;
 

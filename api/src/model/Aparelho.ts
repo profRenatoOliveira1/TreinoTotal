@@ -128,21 +128,21 @@ export class Aparelho {
     }
 
     /**
- * Cadastra um novo aparelho no banco de dados
- * @param aparelho Objeto Aparelho contendo as informações a serem cadastradas
- * @returns Boolean indicando se o cadastro foi bem-sucedido
- */
+     * Cadastra um novo aparelho no banco de dados
+     * @param aparelho Objeto Aparelho contendo as informações a serem cadastradas
+     * @returns Boolean indicando se o cadastro foi bem-sucedido
+     */
     static async cadastrarAparelho(aparelho: Aparelho): Promise<Boolean> {
         let insertResult = false;
 
         try {
             const queryInsertAparelho = `
             INSERT INTO aparelho (nome_aparelho, musculo_ativado)
-            VALUES (
-                '${aparelho.getNomeAparelho().toUpperCase()}',
-                '${aparelho.getMusculoAtivado().toUpperCase()}'
-            )
-            RETURNING id_aparelho;`;
+                    VALUES (
+                        '${aparelho.getNomeAparelho().toUpperCase()}',
+                        '${aparelho.getMusculoAtivado().toUpperCase()}'
+                    )
+                    RETURNING id_aparelho;`;
 
             const result = await database.query(queryInsertAparelho);
 

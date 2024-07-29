@@ -57,7 +57,6 @@ export class Professor extends Pessoa { // Herança de Pessoa
     }
 
     // Getters e Setters
-
     /**
      * Obtém a data de contratação do professor.
      * 
