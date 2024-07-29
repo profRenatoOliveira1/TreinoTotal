@@ -1,5 +1,5 @@
 import React from 'react';
-// import **** from '../../components/****';
+import CadastroTreino from '../../components/Cadastro/CadastroTreino/CadastroTreino';
 
 import Navegacao from '../../components/Navegacao/Navegacao';
 
@@ -7,7 +7,7 @@ function CriarTreino() {
     return (
         <div>
             <Navegacao />
-            {/* <**** /> */}
+            <CadastroTreino />
         </div>
     );
 }

@@ -6,6 +6,8 @@ import AlunoModal from '../../Modal/AlunoModal/AlunoModal';
 import ProfessorModal from '../../Modal/ProfessorModal/ProfessorModal';
 import ExercicioModal from '../../Modal/ExercicioModal/ExercicioModal';
 import TreinoRequests from '../../../fetch/TreinoRequests';
+import styles from '../../styles/CadastroTreino.module.css';
+
 
 function CadastroTreino() {
     const [showAlunoModal, setShowAlunoModal] = useState(false);
@@ -77,77 +79,84 @@ function CadastroTreino() {
     };
 
     return (
-        <>
-            <div className='select-aluno'>
-                <p hidden>{selectedAluno?.id_aluno}</p>
-                <p>{selectedAluno?.nome}</p>
-                <Button variant="primary" onClick={handleShowAlunoModal}>
-                    Selecionar Aluno
-                </Button>
+        <div className={styles.cadastroTreino}>
+            <div className={styles.header}>
+                <h1 className={styles.h1}>Cadastro Treino</h1>
             </div>
 
-            <div className='select-professor'>
-                <p hidden>{selectedProfessor?.id_professor}</p>
-                <p>{selectedProfessor?.nome}</p>
-                <Button variant="primary" onClick={handleShowProfessorModal}>
-                    Selecionar Professor
-                </Button>
+            <div className={styles.selections}>
+                <div className={styles.selectionBox}>
+                    <Button variant="outline-light" onClick={handleShowAlunoModal} className={styles.botaoSelecao}>
+                        Escolher Aluno
+                    </Button>
+                    <div className={styles.selected}>{selectedAluno?.nome}</div>
+                </div>
+
+                <div className={styles.selectionBox}>
+                    <Button variant="outline-light" onClick={handleShowProfessorModal} className={styles.botaoSelecao}>
+                        Escolher Professor
+                    </Button>
+                    <div className={styles.selected}>{selectedProfessor?.nome}</div>
+                </div>
+
+                <div className={styles.selectionBox}>
+                    <Button variant="outline-light" onClick={handleShowExercicioModal} className={styles.botaoSelecao}>
+                        Escolher Exercício
+                    </Button>
+                </div>
             </div>
 
-            <div className='select-exercicio'>
-                <Button variant="primary" onClick={handleShowExercicioModal}>
-                    Selecionar Exercício
-                </Button>
-            </div>
-
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th hidden>ID</th>
-                        <th>Exercício</th>
-                        <th>Repetições</th>
-                        <th>Carga</th>
-                        <th>Séries</th>
-                        <th>Remover</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {selectedExercicios.map((exercicio, index) => (
-                        <tr key={index}>
-                            <td hidden>{exercicio.id}</td>
-                            <td>{exercicio.nome}</td>
-                            <td>
-                                <input
-                                    type="number"
-                                    value={exercicio.repeticoes}
-                                    onChange={(e) => handleInputChange(index, 'repeticoes', e.target.value)}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    type="number"
-                                    value={exercicio.carga}
-                                    onChange={(e) => handleInputChange(index, 'carga', e.target.value)}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    type="number"
-                                    value={exercicio.series}
-                                    onChange={(e) => handleInputChange(index, 'series', e.target.value)}
-                                />
-                            </td>
-                            <td>
-                                <Button variant="danger" onClick={() => handleRemoveExercicio(index)}>
-                                    <FaTrash />
-                                </Button>
-                            </td>
+            {selectedExercicios.length > 0 && (
+                <Table  className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Exercício</th>
+                            <th>Repetições</th>
+                            <th>Carga</th>
+                            <th>Séries</th>
+                            <th>Remover</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {selectedExercicios.map((exercicio, index) => (
+                            <tr key={index}>
+                                <td>{exercicio.nome}</td>
+                                <td>
+                                    <input
+                                        type="number"
+                                        value={exercicio.repeticoes}
+                                        onChange={(e) => handleInputChange(index, 'repeticoes', e.target.value)}
+                                        className={styles.input}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="number"
+                                        value={exercicio.carga}
+                                        onChange={(e) => handleInputChange(index, 'carga', e.target.value)}
+                                        className={styles.input}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="number"
+                                        value={exercicio.series}
+                                        onChange={(e) => handleInputChange(index, 'series', e.target.value)}
+                                        className={styles.input}
+                                    />
+                                </td>
+                                <td>
+                                    <Button variant="danger" onClick={() => handleRemoveExercicio(index)} className={styles.removeButton}>
+                                        <FaTrash />
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            )}
 
-            <Button variant="primary" onClick={cadastrar}>Cadastrar</Button>
+            <Button variant="primary" onClick={cadastrar} className={styles.cadastrarButton}>Cadastrar</Button>
 
             <AlunoModal
                 show={showAlunoModal}
@@ -166,7 +175,7 @@ function CadastroTreino() {
                 handleClose={handleCloseExercicioModal}
                 onSelectExercicio={handleSelectExercicio}
             />
-        </>
+        </div>
     );
 }
 
