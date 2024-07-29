@@ -157,7 +157,7 @@ export class Treino {
             const queryReturn = await database.query(querySelectTreinoNomeAluno);
             return queryReturn.rows;
         } catch (error) {
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
             return null;
         }
     }
@@ -260,7 +260,7 @@ export class Treino {
 
             return response;
         } catch (error) {
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
             return null;
         }
     }
@@ -360,7 +360,7 @@ export class Treino {
         } catch (error) {
             // Em caso de erro, reverte a transação.
             await client.query('ROLLBACK');
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
         } finally {
             // Libera o cliente de volta para o pool de conexões.
             client.release();

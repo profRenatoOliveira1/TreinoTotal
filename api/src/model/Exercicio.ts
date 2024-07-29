@@ -222,7 +222,7 @@ export class Exercicio {
             return listaDeExercicios;
         } catch (error) {
             // Caso dê algum erro na query do banco, é lançado o erro para quem chamou a função
-            console.log(`Erro no modelo\n${error}`);
+            console.error(`Erro no modelo\n${error}`);
             return "error, verifique os logs do servidor";
         }
     }
@@ -250,7 +250,7 @@ export class Exercicio {
 
             return insertResult;
         } catch (error) {
-            console.log(`Erro ao cadastrar exercicio: ${error}`);
+            console.error(`Erro ao cadastrar exercicio: ${error}`);
             return insertResult;
         }
     }
@@ -265,11 +265,9 @@ export class Exercicio {
             // // Remover registros da tabela exercicio
             // const queryDeleteExercicio = `DELETE  FROM exercicio WHERE id_exercicio = ${idExercicio}`;
             // const result = await database.query(queryDeleteExercicio, [idExercicio]);
-            const queryUpdateSituacaoExercicio = `
-            UPDATE exercicio 
-            SET situacao = false 
-            WHERE id_exercicio = $1
-        `;
+            const queryUpdateSituacaoExercicio = `UPDATE exercicio 
+                                                    SET situacao = false 
+                                                    WHERE id_exercicio = $1`;
         const result = await database.query(queryUpdateSituacaoExercicio, [idExercicio]);
             await database.query(queryUpdateSituacaoExercicio)
                 .then((result) => {
@@ -279,7 +277,7 @@ export class Exercicio {
                 })
             return queryResult;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return queryResult;
         }
     }
@@ -305,7 +303,7 @@ export class Exercicio {
 
             return queryResult;
         } catch (error) {
-            console.log(error, queryResult);
+            console.error(error, queryResult);
             return queryResult;
         }
     }

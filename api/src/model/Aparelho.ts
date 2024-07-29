@@ -122,7 +122,7 @@ export class Aparelho {
             return listaDeAparelhos;
         } catch (error) {
             // Caso dê algum erro na query do banco, é lançado o erro para quem chamou a função
-            console.log(`Erro no modelo\n${error}`);
+            console.error(`Erro no modelo\n${error}`);
             return "error, verifique os logs do servidor";
         }
     }
@@ -154,7 +154,7 @@ export class Aparelho {
 
             return insertResult;
         } catch (error) {
-            console.log(`Erro ao cadastrar aparelho: ${error}`);
+            console.error(`Erro ao cadastrar aparelho: ${error}`);
             return insertResult;
         }
     }
@@ -168,19 +168,15 @@ export class Aparelho {
         let queryResult = false;
 
         try {
-
-
             // const queryDeleteTreino = `DELETE FROM treino WHERE id_aparelho=${idAparelho}`;
             //     await database.query(queryDeleteTreino);
 
             // const queryDeleteExercicio = `DELETE FROM exercicio WHERE id_aparelho=${idAparelho}`;
             //     await database.query(queryDeleteExercicio);
-            const queryUpdateSituacaoAparelho = `
-            UPDATE aparelho 
-            SET situacao = false 
-            WHERE id_aparelho = $1
-        `;
-        const result = await database.query(queryUpdateSituacaoAparelho, [idAparelho])
+            const queryUpdateSituacaoAparelho = `UPDATE aparelho 
+                                                    SET situacao = false 
+                                                    WHERE id_aparelho = $1`;
+            await database.query(queryUpdateSituacaoAparelho, [idAparelho])
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;
@@ -188,7 +184,7 @@ export class Aparelho {
                 })
             return queryResult;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return queryResult;
         }
     }
@@ -203,9 +199,9 @@ export class Aparelho {
 
         try {
             const queryUpdateAparelho = `UPDATE aparelho SET 
-                                    nome_aparelho='${aparelho.getNomeAparelho().toUpperCase()}',
-                                    musculo_ativado='${aparelho.getMusculoAtivado().toUpperCase()}'
-                                    WHERE id_aparelho=${aparelho.getIdAparelho()}`;
+                                            nome_aparelho='${aparelho.getNomeAparelho().toUpperCase()}',
+                                            musculo_ativado='${aparelho.getMusculoAtivado().toUpperCase()}'
+                                            WHERE id_aparelho=${aparelho.getIdAparelho()}`;
 
             await database.query(queryUpdateAparelho)
                 .then((result) => {
@@ -216,7 +212,7 @@ export class Aparelho {
 
             return queryResult;
         } catch (error) {
-            console.log(error, queryResult);
+            console.error(error, queryResult);
             return queryResult;
         }
     }
