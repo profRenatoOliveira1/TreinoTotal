@@ -222,11 +222,16 @@ export class Exercicio {
             return listaDeExercicios;
         } catch (error) {
             // Caso dê algum erro na query do banco, é lançado o erro para quem chamou a função
-            console.log(`Erro no modelo\n${error}`);
+            console.error(`Erro no modelo\n${error}`);
             return "error, verifique os logs do servidor";
         }
     }
 
+    /**
+     * Cadastra um novo exercício no banco de dados
+     * @param exercicio  Objeto contendo as informações do exercício
+     * @returns Boolean indicando se o cadastro foi bem-sucedido
+     */
     static async cadastrarExercicio(exercicio: Exercicio): Promise<Boolean> {
         let insertResult = false;
 
@@ -250,11 +255,16 @@ export class Exercicio {
 
             return insertResult;
         } catch (error) {
-            console.log(`Erro ao cadastrar exercicio: ${error}`);
+            console.error(`Erro ao cadastrar exercicio: ${error}`);
             return insertResult;
         }
     }
 
+    /**
+     * Remove um exercício do banco de dados
+     * @param idExercicio ID do exercício a ser removido
+     * @returns Boolean indicando se a remoção foi bem-sucedida
+     */
     static async removerExercicio(idExercicio: number): Promise<boolean> {
         let queryResult = false;
 
@@ -265,11 +275,9 @@ export class Exercicio {
             // // Remover registros da tabela exercicio
             // const queryDeleteExercicio = `DELETE  FROM exercicio WHERE id_exercicio = ${idExercicio}`;
             // const result = await database.query(queryDeleteExercicio, [idExercicio]);
-            const queryUpdateSituacaoExercicio = `
-            UPDATE exercicio 
-            SET situacao = false 
-            WHERE id_exercicio = $1
-        `;
+            const queryUpdateSituacaoExercicio = `UPDATE exercicio 
+                                                    SET situacao = false 
+                                                    WHERE id_exercicio = $1`;
         const result = await database.query(queryUpdateSituacaoExercicio, [idExercicio]);
             await database.query(queryUpdateSituacaoExercicio)
                 .then((result) => {
@@ -279,11 +287,16 @@ export class Exercicio {
                 })
             return queryResult;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return queryResult;
         }
     }
 
+    /**
+     * Atualiza as informações de um exercício no banco de dados
+     * @param exercicio Objeto contendo as informações a serem atualizadas
+     * @returns Boolean indicando se a atualização foi bem-sucedida
+     */
     static async atualizarExercicio(exercicio: Exercicio): Promise<boolean> {
         let queryResult = false;
 
@@ -305,7 +318,7 @@ export class Exercicio {
 
             return queryResult;
         } catch (error) {
-            console.log(error, queryResult);
+            console.error(error, queryResult);
             return queryResult;
         }
     }

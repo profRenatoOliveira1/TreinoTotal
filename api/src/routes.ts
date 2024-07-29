@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
     res.json("ola"); // Retorna uma resposta JSON com a mensagem "ola"
 });
 
+// Rota para fazer login e autenticação
 router.post('/login', Authentication.validacaoUsuarioAluno);
 
 /**

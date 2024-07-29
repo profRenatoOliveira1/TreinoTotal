@@ -5,6 +5,9 @@ import { DatabaseModel } from '../model/DatabaseModel';
 const SECRET = process.env.SECRET_KEY || 'MundoSENAI2024';
 const database = new DatabaseModel().pool;
 
+/**
+ * Interface para representar um Payload do JWT
+ */
 interface JwtPayload {
     id: number;
     nome: string;
@@ -12,6 +15,9 @@ interface JwtPayload {
     exp: number;
 }
 
+/**
+ * Gera e trata um token de autenticação para o sistema
+ */
 export class Authentication {
 
     /**

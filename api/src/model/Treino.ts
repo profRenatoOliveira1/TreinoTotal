@@ -124,6 +124,11 @@ export class Treino {
         this.exercicios = exercicios;
     }
 
+    /**
+     * Lista o treino a partir do nome do aluno
+     * @param nomeAluno 
+     * @returns Ficha de treino do aluno informado
+     */
     static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
 
         const querySelectTreinoNomeAluno = `SELECT 
@@ -157,7 +162,7 @@ export class Treino {
             const queryReturn = await database.query(querySelectTreinoNomeAluno);
             return queryReturn.rows;
         } catch (error) {
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
             return null;
         }
     }
@@ -199,6 +204,11 @@ export class Treino {
     //     }
     // }
 
+    /**
+     * Lista a ficha de treino de acordo com a condição informada
+     * @param condicao **ID aluno** ou **ID treino**
+     * @returns Ficha de treino
+     */
     static async listarTreino(condicao: string): Promise<any | null> {
         const querySelectTreino = `SELECT 
                                         a.id_aluno,
@@ -260,22 +270,38 @@ export class Treino {
 
             return response;
         } catch (error) {
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
             return null;
         }
     }
 
+    /**
+     * Chama a função listarTreino passando o ID do aluno como parâmetro
+     * @param idAluno 
+     * @returns Ficha de treino (ID aluno)
+     */
     static async listarTreinoIDAluno(idAluno: number): Promise<any | null> {
         const condicao = `a.id_aluno = ${idAluno}`;
         return this.listarTreino(condicao);
     }
 
+    /**
+     * Chama a função listarTreino passando o ID do treino como parâmetro
+     * @param idAlidTreinouno 
+     * @returns Ficha de treino (ID treino)
+     */
     static async listarTreinoIDTreino(idTreino: number): Promise<any | null> {
         const condicao = `t.id_treino = ${idTreino}`;
         return this.listarTreino(condicao);
     }
 
-    // Define uma função assíncrona chamada 'cadastrarTreino' que recebe um id de aluno, um id de professor e um array de exercícios.
+    /**
+     * Cadastra o treino de um aluno no banco de dados
+     * @param idAluno ID do aluno
+     * @param idProfessor ID do professor que montou o treino
+     * @param exercicios Lista de exercícios
+     * @returns Booleano indicando se o cadastro foi bem-sucedido
+     */
     static async cadastrarTreino(idAluno: number, idProfessor: number, exercicios: Array<any>): Promise<boolean> {
         // Inicializa a variável 'queryResult' como false para indicar se a operação foi bem-sucedida.
         let queryResult = false;
@@ -333,6 +359,11 @@ export class Treino {
         return queryResult;
     }
 
+    /**
+     * Remove um treino do banco de dados
+     * @param idTreino 
+     * @returns Booleano indicando se a remoção foi bem-sucedida
+     */
     static async removerTreino(idTreino: number): Promise<boolean> {
         let queryResult = false;
         const client = await database.connect(); // Conecta-se ao banco de dados e obtém um cliente.
@@ -360,7 +391,7 @@ export class Treino {
         } catch (error) {
             // Em caso de erro, reverte a transação.
             await client.query('ROLLBACK');
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
         } finally {
             // Libera o cliente de volta para o pool de conexões.
             client.release();
@@ -369,8 +400,16 @@ export class Treino {
         return queryResult;
     }
 
-    static async atualizarTreino(idAluno: number, idProfessor: number, idExercicios: Array<number>, idTreino: number): Promise<boolean> {
-        console.log(idAluno, idProfessor, idTreino, idExercicios);
+    /**
+     * Atualiza o treino de um aluno no banco de dados
+     * @param idAluno 
+     * @param idProfessor 
+     * @param exercicios Lista de exercícios
+     * @param idTreino 
+     * @returns Booleano indicando se a atualização foi bem-sucedida
+     */
+    static async atualizarTreino(idAluno: number, idProfessor: number, exercicios: Array<number>, idTreino: number): Promise<boolean> {
+        console.log(idAluno, idProfessor, idTreino, exercicios);
 
         // Inicializa a variável 'queryResult' como false para indicar se a operação foi bem-sucedida.
         let queryResult = false;
@@ -393,7 +432,7 @@ export class Treino {
                 await client.query(queryDeleteExercicios, [idTreino]);
 
                 // Mapeia os exercícios para criar um array de promessas de inserção na tabela 'exercicio_treino'.
-                const insertExercicioPromises = idExercicios.map((idExercicio) => {
+                const insertExercicioPromises = exercicios.map((idExercicio) => {
                     // Define a query SQL para inserir um exercício na tabela 'exercicio_treino'.
                     const queryInsertExercicio = 'INSERT INTO exercicio_treino (id_treino, id_exercicio) VALUES ($1, $2)';
                     // Retorna a promessa de execução da query com os valores de id do treino e id do exercício.

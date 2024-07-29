@@ -35,8 +35,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
      * @param _data_nascimento A data de nascimento do aluno.
      * @param _celular O número de telefone do aluno.
      * @param _endereco O endereço do aluno.
-     * @param _email O email do aluno.
-     * @param _senha A senha do aluno.
      * @param _altura A altura do aluno.
      * @param _peso O peso do aluno.
      * @param _imc O índice de massa corporal (IMC) do aluno.
@@ -48,8 +46,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         _data_nascimento: Date,
         _celular: string,
         _endereco: string,
-        // _email: string,
-        // _senha: string,
         _altura: number,
         _peso: number,
         _imc: number
@@ -116,7 +112,16 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         this.imc = imc;
     }
 
-
+    /**
+     * Calcula o IMC da pessoa
+     * 
+     * @param peso peso da pessoa (em kg)
+     * @param altura altura da pessoa (em metros)
+     * @returns valor do IMC
+     */
+    public static calculaIMC(peso: number, altura: number): number {
+        return peso / (altura * altura);
+    }
 
     /**
      * Retorna uma lista com todos os alunos cadastrados no banco de dados
@@ -143,22 +148,21 @@ export class Aluno extends Pessoa { // Herança de Pessoa
             return listaDeAlunos;
         } catch (error) {
             // Caso dê algum erro na query do banco, é lançado o erro para quem chamou a função
-            console.log(`Erro no modelo\n${error}`);
+            console.error(`Erro no modelo\n${error}`);
             return "error, verifique os logs do servidor";
         }
     }
 
     /**
- * Cadastra um novo aluno no banco de dados
- * @param aluno Objeto Aluno contendo as informações a serem cadastradas
- * @returns Boolean indicando se o cadastro foi bem-sucedido
- */
+     * Cadastra um novo aluno no banco de dados
+     * @param aluno Objeto Aluno contendo as informações a serem cadastradas
+     * @returns Boolean indicando se o cadastro foi bem-sucedido
+     */
     static async cadastrarAluno(aluno: Aluno): Promise<Boolean> {
         let insertResult = false;
+        const imcCalculado = this.calculaIMC(aluno.getPeso(), aluno.getAltura());
 
         try {
-            const alturaQuadrado = aluno.getAltura() * aluno.getAltura();
-            const imcCalculado = aluno.getPeso() / alturaQuadrado;
             const queryInsertAluno = `
                 INSERT INTO aluno (nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha)
                 VALUES (
@@ -185,7 +189,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
 
             return insertResult;
         } catch (error) {
-            console.log(`Erro ao cadastrar aluno: ${error}`);
+            console.error(`Erro ao cadastrar aluno: ${error}`);
             return insertResult;
         }
     }
@@ -217,7 +221,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
     
             return queryResult;
         } catch (error) {
-            console.log(`Erro no modelo: ${error}`);
+            console.error(`Erro no modelo: ${error}`);
             return queryResult;
         }
     }
@@ -254,7 +258,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
 
             return queryResult;
         } catch (error) {
-            console.log(error, queryResult);
+            console.error(error, queryResult);
             return queryResult;
         }
     }

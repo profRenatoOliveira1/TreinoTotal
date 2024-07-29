@@ -35,8 +35,6 @@ export class Professor extends Pessoa { // Herança de Pessoa
      * @param _data_nascimento A data de nascimento do professor.
      * @param _celular O número de telefone do professor.
      * @param _endereco O endereço do professor.
-     * @param _email O email do professor.
-     * @param _senha A senha do professor.
      * @param _data_contratacao A data de contratação do professor.
      * @param _formacao A formação do professor.
      * @param _especialidade A especialidade do professor.
@@ -59,7 +57,6 @@ export class Professor extends Pessoa { // Herança de Pessoa
     }
 
     // Getters e Setters
-
     /**
      * Obtém a data de contratação do professor.
      * 
@@ -114,8 +111,6 @@ export class Professor extends Pessoa { // Herança de Pessoa
         this.especialidade = especialidade;
     }
 
-
-
     /**
      * Retorna uma lista com todos os Professores cadastrados no banco de dados
      * 
@@ -141,11 +136,10 @@ export class Professor extends Pessoa { // Herança de Pessoa
             return listaDeProfessores;
         } catch (error) {
             // Caso dê algum erro na query do banco, é lançado o erro para quem chamou a função
-            console.log(`Erro no modelo\n${error}`);
+            console.error(`Erro no modelo\n${error}`);
             return "error, verifique os logs do servidor";
         }
     }
-
 
     /**
      * Cadastra um objeto do tipo Professor no banco de dados
@@ -183,7 +177,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
 
             return insertResult;
         } catch (error) {
-            console.log(`Erro ao cadastrar professor: ${error}`);
+            console.error(`Erro ao cadastrar professor: ${error}`);
             return insertResult;
         }
     }
@@ -197,14 +191,11 @@ export class Professor extends Pessoa { // Herança de Pessoa
         let queryResult = false;
 
         try {
-            
-            const queryUpdateSituacaoProfessor = `
-            UPDATE professor 
-            SET situacao = false 
-            WHERE id_professor = $1
-        `;
-        const result = await database.query(queryUpdateSituacaoProfessor, [idProfessor]);
-            await database.query(queryUpdateSituacaoProfessor)
+            const queryUpdateSituacaoProfessor = `UPDATE professor 
+                                                    SET situacao = false 
+                                                    WHERE id_professor = $1`;
+            //const result = await database.query(queryUpdateSituacaoProfessor, [idProfessor]);
+            await database.query(queryUpdateSituacaoProfessor, [idProfessor])
                 .then((result) => {
                     if (result.rowCount != 0) {
                         queryResult = true;
@@ -212,7 +203,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
                 })
             return queryResult;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return queryResult;
         }
     }
@@ -251,9 +242,8 @@ export class Professor extends Pessoa { // Herança de Pessoa
 
             return queryResult;
         } catch (error) {
-            console.log(error, queryResult);
+            console.error(error, queryResult);
             return queryResult;
         }
     }
-
 }
