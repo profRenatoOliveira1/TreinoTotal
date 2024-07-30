@@ -1,7 +1,9 @@
 import React from 'react';
-import Navegacao from '../../components/Navegacao/Navegacao';
 import FichaTreino from '../../components/FichaTreino/FichaTreino';
-function FichaDeTreino() {
+
+import Navegacao from '../../components/Navegacao/Navegacao';
+
+function CriarTreino() {
     return (
         <div>
             <Navegacao />
@@ -10,4 +12,4 @@ function FichaDeTreino() {
     );
 }
 
-export default FichaDeTreino;
+export default CriarTreino;
