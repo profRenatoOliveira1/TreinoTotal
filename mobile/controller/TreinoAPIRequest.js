@@ -1,7 +1,7 @@
 class TreinoAPIRequest {
 
     constructor() {
-        this.serverURL = 'http://10.90.14.252:3003';
+        this.serverURL = 'http://localhost:3000';
         this.routeListTreinos = '/lista/treinos';
         this.routeListTreino = '/lista/treino';
         this.routeListTreinoAluno = '/lista/treinoaluno';
