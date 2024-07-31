@@ -77,7 +77,7 @@ function ListarProfessor() {
             </div>
 
             {/* Tabela para listar os professores */}
-            <div className={styles.cntTb}>
+            <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
                 <table className={`${styles.table} ${styles.tabela}`}>
                     <thead>
                         <tr className={styles.tabelaHeader}>
@@ -105,10 +105,10 @@ function ListarProfessor() {
                                 <td>{professor.formacao}</td>
                                 <td>{professor.especialidade}</td>
                                 <td>
-                                    <FaTrash onClick={() => deletar(professor)}/>
+                                    <FaTrash onClick={() => deletar(professor)} style={{ color: '#DB0135' }}/>
                                 </td> {/* Botão para deletar um professor */}
                                 <td>
-                                    <MdEdit onClick={() => atualizar(professor)} />
+                                    <MdEdit onClick={() => atualizar(professor)} style={{ color: '#EAEEE7' }} />
                                 </td>
                             </tr>
                         ))}

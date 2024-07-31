@@ -111,10 +111,10 @@ function CadastroTreino() {
                     <thead>
                         <tr>
                             <th>Exercício</th>
-                            <th>Repetições</th>
-                            <th>Carga</th>
-                            <th>Séries</th>
-                            <th>Remover</th>
+                            <th style={{ width: '10%'}}>Repetições</th>
+                            <th style={{ width: '10%'}}>Carga</th>
+                            <th style={{ width: '10%'}}>Séries</th>
+                            <th style={{ width: '10%'}}>Remover</th>
                         </tr>
                     </thead>
                     <tbody>

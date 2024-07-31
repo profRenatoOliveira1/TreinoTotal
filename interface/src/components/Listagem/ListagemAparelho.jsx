@@ -62,13 +62,13 @@ function ListarAparelho() {
             </div>
             
             {/* Tabela para listar os aparelhos */}
-            <div className={styles.cntTb}>
-                <table className={`${styles.table} ${styles.tabela}`}>
+            <div className={styles.cntTb} style={{ width: '90%', margin: 'auto auto'}}>
+                <table className={`${styles.table} ${styles.tabela}`} style={{ width: '80%', margin: 'auto auto'}}>
                     <thead>
                         <tr className={styles.tabelaHeader}>
-                            <th>Nome</th>
-                            <th>Músculo Ativado</th>
-                            <th colSpan={2}>Ação</th>
+                            <th style={{ width: '20%'}}>Nome</th>
+                            <th style={{ width: '10%'}}>Músculo Ativado</th>
+                            <th style={{ width: '3%'}} colSpan={2}>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,10 +78,10 @@ function ListarAparelho() {
                                 <td>{aparelho.nome_aparelho}</td>
                                 <td>{aparelho.musculo_ativado}</td>
                                 <td>
-                                    <FaTrash onClick={() => deletar(aparelho)} />
+                                    <FaTrash onClick={() => deletar(aparelho)} style={{ color: '#DB0135' }} />
                                 </td> {/* Botão para deletar um aparelho */}
                                 <td>
-                                    <MdEdit onClick={() => atualizar(aparelho)} />
+                                    <MdEdit onClick={() => atualizar(aparelho)} style={{ color: '#EAEEE7' }} />
                                 </td>
                             </tr>
                         ))}

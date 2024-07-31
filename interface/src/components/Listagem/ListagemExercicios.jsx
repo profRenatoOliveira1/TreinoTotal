@@ -61,15 +61,15 @@ function ListagemExercicios() {
             <h1 className={styles.titulo}>Tabela de Exercícios</h1>
 
             {/* Tabela para listar os exercícios */}
-            <div className={styles.cntTb}>
+            <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
                 {/* Verifica se há exercícios a serem exibidos */}
                 {exercicios.length > 0 ? (
-                    <table className={`${styles.table} ${styles.tabela}`}>
+                    <table className={`${styles.table} ${styles.tabela}`} style={{ width: '75%', margin: 'auto auto'}}>
                         <thead>
                             <tr className={styles.tabelaHeader}>
-                                <th>Nome do Exercício</th>
-                                <th>Aparelho</th>
-                                <th colSpan={2}>Ação</th>
+                                <th style={{ width: '20%'}}>Nome do Exercício</th>
+                                <th style={{ width: '10%'}}>Aparelho</th>
+                                <th colSpan={2} style={{ width: '5%'}}>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,10 +79,10 @@ function ListagemExercicios() {
                                     <td>{exercicio.exercicio}</td>
                                     <td>{exercicio.nome_aparelho}</td>
                                     <td>
-                                        <FaTrash onClick={() => deletar(exercicio)} />
+                                        <FaTrash onClick={() => deletar(exercicio)} style={{ color: '#DB0135' }} />
                                     </td> {/* Botão para deletar um exercício */}
                                     <td>
-                                        <MdEdit onClick={() => atualizar(exercicio)} />
+                                        <MdEdit onClick={() => atualizar(exercicio)} style={{ color: '#EAEEE7' }}/>
                                     </td>
                                 </tr>
                             ))}

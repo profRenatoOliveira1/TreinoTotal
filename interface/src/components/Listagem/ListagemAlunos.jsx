@@ -78,12 +78,13 @@ function ListarAluno() {
             </div>
 
             {/* Tabela para listar os alunos */}
-            <div className={styles.cntTb}>
+            <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
                 {/* Verifica se há alunos a serem exibidos */}
                 {alunos.length > 0 ? (
                     <table className={`${styles.table} ${styles.tabela}`}>
                         <thead>
                             <tr className={styles.tabelaHeader}>
+                                <th>Matricula</th>
                                 <th>Nome</th>
                                 <th>CPF</th>
                                 <th>Data de Nascimento</th>
@@ -99,6 +100,7 @@ function ListarAluno() {
                             {/* Mapeia os alunos e renderiza cada um como uma linha na tabela */}
                             {alunos.map(aluno => (
                                 <tr key={aluno.id_aluno} className={styles.tabelaCorpo}>
+                                    <td>{aluno.matricula}</td>
                                     <td>{aluno.nome}</td>
                                     <td>{formatarCPF(aluno.cpf)}</td>
                                     <td>{formatarData(aluno.data_nascimento)}</td>
@@ -109,10 +111,10 @@ function ListarAluno() {
                                     {/** <td>{aluno.peso}</td> */}
                                     {/** <td>{aluno.imc}</td> */}
                                     <td>
-                                        <FaTrash onClick={() => deletar(aluno)} />
+                                        <FaTrash onClick={() => deletar(aluno)} style={{ color: '#DB0135' }}/>
                                     </td> {/* Botão para deletar um aluno */}
                                     <td>
-                                        <MdEdit onClick={() => atualizar(aluno)} />
+                                        <MdEdit onClick={() => atualizar(aluno)} style={{ color: '#EAEEE7' }}/>
                                     </td>
                                 </tr>
                             ))}

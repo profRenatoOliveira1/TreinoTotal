@@ -81,7 +81,7 @@ td, th {
 
 .removeButton {
     background-color: var(--cinzaAzulado) !important;
-    border: none;
+    border: none !important;
     color: #ff4d4d !important;
     border-radius: 5px;
     padding: 5px 10px;
