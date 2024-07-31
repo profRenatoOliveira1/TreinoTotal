@@ -26,7 +26,7 @@ export class Authentication {
      * @param res Resposta enviada a quem requisitou o login
      * @returns Token de autenticação caso o usuário seja válido, mensagem de login não autorizado caso negativo
      */
-    static async validacaoUsuarioAluno(req: Request, res: Response): Promise<any> {
+    static async validacaoUsuario(req: Request, res: Response): Promise<any> {      
         const { email, password } = req.body;
 
         const querySelectUser = `SELECT id_professor, nome, email FROM professor WHERE email=$1 AND senha=$2;`;
@@ -43,7 +43,7 @@ export class Authentication {
 
                 const tokenAluno = Authentication.generateToken(parseInt(professor.id_professor), professor.nome, professor.email);
 
-                return res.status(200).json({ auth: true, token: tokenAluno, aluno: professor });
+                return res.status(200).json({ auth: true, token: tokenAluno, professor: professor });
             } else {
                 return res.status(401).json({ auth: false, token: null, message: "Usuário e/ou senha incorretos" });
             }

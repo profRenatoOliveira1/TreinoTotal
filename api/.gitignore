@@ -1,6 +1,6 @@
 node_modules
 dist
 .env
-routes-auth.ts
+routes-*.ts
 insert.sql
 triggers.sql
