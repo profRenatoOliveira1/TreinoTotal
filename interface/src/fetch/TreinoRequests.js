@@ -14,8 +14,8 @@ class TreinoRequests {
         try {
             const token = this.getAuthToken();
             let url = `${this.serverURL}`;
-            if (tipoBusca === 'id') {
-                url += `${this.routeListarTreinoId}?id_aluno=${valorBusca}`, {
+            if (tipoBusca === 'matricula') {
+                url += `${this.routeListarTreinoId}?matricula=${valorBusca}`, {
                     headers: {
                         'x-access-token': `${token}`
                     }
@@ -28,6 +28,7 @@ class TreinoRequests {
                 };
             }
 
+            console.log(url);
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Erro ao buscar treinos');
