@@ -121,7 +121,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
         const listaDeProfessores: Array<Professor> = [];
 
         // Construção da query para selecionar as informações de um Professor
-        const querySelectProfessor = `SELECT * FROM Professor WHERE situacao = true;`;
+        const querySelectProfessor = `SELECT * FROM Professor WHERE situacao = true AND nome != UPPER('admin');`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
