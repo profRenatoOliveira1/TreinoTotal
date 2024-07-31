@@ -22,6 +22,7 @@ function Login() {
             const response = await AuthRequests.login(formLogin);
             if(response) {
                 AuthRequests.persistToken(response.token);
+                window.location.href = '/';
             }
         } catch (error) {
             console.error('Erro ao tentar realizar login:', error);
