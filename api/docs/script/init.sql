@@ -1,71 +1,97 @@
 -- CRIANDO TABELAS
-CREATE TABLE IF NOT EXISTS professor (id_professor SERIAL NOT NULL PRIMARY KEY,  
-					nome VARCHAR(100) NOT NULL,
-					cpf VARCHAR(11) NOT NULL UNIQUE,
-					data_nascimento DATE NOT NULL,
-					celular VARCHAR(14) NOT NULL UNIQUE,
-					endereco VARCHAR(100) NOT NULL,
-					email VARCHAR(50) NOT NULL,
-					senha VARCHAR(50) NOT NULL,
-					data_contratacao DATE NOT NULL,
-					formacao VARCHAR(70) NOT NULL,
-					especialidade VARCHAR(70),
-					situacao BOOLEAN DEFAULT TRUE);
-					
-CREATE TABLE IF NOT EXISTS aluno (id_aluno SERIAL NOT NULL PRIMARY KEY, 
-					nome VARCHAR(100) NOT NULL,
-					cpf VARCHAR(11) NOT NULL UNIQUE,
-					data_nascimento DATE NOT NULL,
-					celular VARCHAR(14) NOT NULL UNIQUE,
-					endereco VARCHAR(100) NOT NULL,
-					email VARCHAR (50) NOT NULL,
-					senha VARCHAR(50) NOT NULL,
-					altura DECIMAL(5,2),
-					peso DECIMAL(5,2),
-					imc DECIMAL(5,2),
-					situacao BOOLEAN DEFAULT TRUE);
-
+CREATE TABLE IF NOT EXISTS professor (
+	id_professor SERIAL NOT NULL PRIMARY KEY,  
+	nome VARCHAR(100) NOT NULL,
+	cpf VARCHAR(11) NOT NULL UNIQUE,
+	data_nascimento DATE NOT NULL,
+	celular VARCHAR(14) NOT NULL UNIQUE,
+	endereco VARCHAR(100) NOT NULL,
+	email VARCHAR(50),
+	senha VARCHAR(50),
+	data_contratacao DATE NOT NULL,
+	formacao VARCHAR(70) NOT NULL,
+	especialidade VARCHAR(70),
+	situacao BOOLEAN DEFAULT TRUE);
+	
+CREATE TABLE IF NOT EXISTS aluno (
+    id_aluno SERIAL NOT NULL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    matricula VARCHAR(8) NOT NULL UNIQUE DEFAULT '',
+    data_nascimento DATE NOT NULL,
+    celular VARCHAR(14) NOT NULL UNIQUE,
+    endereco VARCHAR(100) NOT NULL,
+    email VARCHAR(50),
+    senha VARCHAR(50),
+    altura DECIMAL(5,2),
+    peso DECIMAL(5,2),
+    imc DECIMAL(5,2),
+    situacao BOOLEAN DEFAULT TRUE
+);
 
 -- CREATE TABLE users (id_user SERIAL PRIMARY KEY,
--- 					--username VARCHAR(50) NOT NULL UNIQUE,
--- 					cpf VARCHAR(11),
--- 					email VARCHAR(50) NOT NULL UNIQUE,
--- 					password VARCHAR(255) NOT NULL,
--- 					role VARCHAR(50) NOT NULL CHECK (role IN ('Professor', 'Aluno')),
--- 					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+-- 	--username VARCHAR(50) NOT NULL UNIQUE,
+-- 	cpf VARCHAR(11),
+-- 	email VARCHAR(50) NOT NULL UNIQUE,
+-- 	password VARCHAR(255) NOT NULL,
+-- 	role VARCHAR(50) NOT NULL CHECK (role IN ('Professor', 'Aluno')),
+-- 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-CREATE TABLE IF NOT EXISTS aparelho (id_aparelho SERIAL NOT NULL PRIMARY KEY,  
-					nome_aparelho VARCHAR(80) NOT NULL,
-					musculo_ativado VARCHAR(80),
-					situacao BOOLEAN DEFAULT TRUE);
-					
-CREATE TABLE IF NOT EXISTS exercicio (id_exercicio SERIAL NOT NULL PRIMARY KEY,
-					id_aparelho INT,
-					exercicio VARCHAR (100) NOT NULL,
-					--carga INT NOT NULL,
-					--repeticoes INT  NOT NULL,
-					regiao_corpo_ativada VARCHAR(70),
-					FOREIGN KEY (id_aparelho) REFERENCES aparelho(id_aparelho),
-					situacao BOOLEAN DEFAULT TRUE);
+CREATE TABLE IF NOT EXISTS aparelho (
+	id_aparelho SERIAL NOT NULL PRIMARY KEY,  
+	nome_aparelho VARCHAR(80) NOT NULL,
+	musculo_ativado VARCHAR(80),
+	situacao BOOLEAN DEFAULT TRUE);
+	
+CREATE TABLE IF NOT EXISTS exercicio (
+	id_exercicio SERIAL NOT NULL PRIMARY KEY,
+	id_aparelho INT,
+	exercicio VARCHAR (100) NOT NULL,
+	--carga INT NOT NULL,
+	--repeticoes INT  NOT NULL,
+	regiao_corpo_ativada VARCHAR(70),
+	FOREIGN KEY (id_aparelho) REFERENCES aparelho(id_aparelho),
+	situacao BOOLEAN DEFAULT TRUE);
 
-CREATE TABLE IF NOT EXISTS treino (id_treino SERIAL NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS treino (
+	id_treino SERIAL NOT NULL PRIMARY KEY,
     id_aluno INT NOT NULL,
     id_professor INT NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES aluno(id_aluno),
     FOREIGN KEY (id_professor) REFERENCES professor(id_professor),
 	situacao BOOLEAN DEFAULT TRUE);
 
-CREATE TABLE IF NOT EXISTS exercicio_treino(id_exercicio_treino SERIAL NOT NULL PRIMARY KEY,
-						   id_treino INT,
-						   id_exercicio INT,
-						   repeticoes INT  NOT NULL DEFAULT 10,
-						   carga INT NOT NULL DEFAULT 0,
-						   series INT DEFAULT 3,
-						   FOREIGN KEY (id_treino) REFERENCES treino(id_treino),
-						   FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio),
-						   situacao BOOLEAN DEFAULT TRUE);
+CREATE TABLE IF NOT EXISTS exercicio_treino(
+	id_exercicio_treino SERIAL NOT NULL PRIMARY KEY,
+	id_treino INT,
+	id_exercicio INT,
+	repeticoes INT  NOT NULL DEFAULT 10,
+	carga INT NOT NULL DEFAULT 0,
+	series INT DEFAULT 3,
+	FOREIGN KEY (id_treino) REFERENCES treino(id_treino),
+	FOREIGN KEY (id_exercicio) REFERENCES exercicio(id_exercicio),
+	situacao BOOLEAN DEFAULT TRUE);
 
-			
+-- Função para gerar matrícula
+CREATE OR REPLACE FUNCTION generate_matricula() RETURNS TRIGGER AS $$
+DECLARE
+    new_matricula VARCHAR(8);
+BEGIN
+    -- Obter o ano atual
+    new_matricula := TO_CHAR(NOW(), 'YYYY') || LPAD((SELECT COUNT(*) + 1001 FROM aluno)::TEXT, 4, '0');
+    -- Atribuir a matrícula gerada ao novo registro
+    NEW.matricula := new_matricula;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger
+CREATE TRIGGER set_matricula
+BEFORE INSERT ON aluno
+FOR EACH ROW
+EXECUTE FUNCTION generate_matricula();
+
+-- INSERTS
 INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao, especialidade)
 VALUES
 (UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), 'ricardo_carvalho@camilapassos.com.br', 'bWS0ZB1Ego', '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
@@ -73,14 +99,6 @@ VALUES
 (UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), 'arthur.miguel.dacruz@abcautoservice.net', 'ub7xFEMRHB', '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
 (UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), 'rodrigorobertoaparicio@picolotoengenharia.com.br', '6deaHr6beu', '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
 (UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), 'alessandra_almeida@unifesp.br', 'UgyyMl9fiW', '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
--- INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade)
--- VALUES
--- (UPPER('Ricardo Cláudio Isaac Carvalho'), '45764338654', '1961-03-01', '86984481466', UPPER('Rua Aldir da Silva Costa'), '2023-01-10', UPPER('Mestrado em Educação Física'), UPPER('Treinamento Funcional')),
--- (UPPER('Sara Sueli Juliana Alves'), '95456722771', '1994-07-12', '98983607930', UPPER('Avenida das Barras Paralelas'), '2022-05-20', UPPER('Graduação em Nutrição'), UPPER('Nutrição Esportiva')),
--- (UPPER('Arthur Miguel Igor da Cruz'), '47849401387', '1980-02-22', '71984280637', UPPER('Rua dos Exercícios Físicos'), '2020-08-30', UPPER('Doutorado em Fisiologia do Exercício'), UPPER('Fisiologia do Treinamento')),
--- (UPPER('Rodrigo Roberto Aparício'), '34744224059', '1952-05-08', '83998808822', UPPER('Avenida da Academia'), '2019-03-25', UPPER('Mestrado em Educação Física'), UPPER('Psicologia do Esporte')),
--- (UPPER('Alessandra Daniela Amanda Almeida'), '06929104680', '1971-07-03', '84984799214', UPPER('Rua das Ciências do Esporte'), '2017-10-05', UPPER('Pós-graduação em Nutrição Esportiva'), UPPER('Suplementação Alimentar'));
-
 
 INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco, email, senha)
 VALUES
@@ -94,18 +112,6 @@ VALUES
 (UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II'), 'rafael-darocha71@nhrtaxiaereo.com', 'tUWQMw6DOg'),
 (UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha'), 'matheus_bernardes@gigaonline.com.br', 'yuZGhfDr3m'),
 (UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'), 'antonio_otavio_dapaz@unicamp.br', 'cxWDlLsqjq');
--- INSERT INTO aluno (nome, cpf, data_nascimento, celular, endereco)
--- VALUES
--- (UPPER('Bianca Lara Sandra Pinto'), '26346906739', '2000-09-12', '86987715691', UPPER('Rua dos Estudantes')),
--- (UPPER('Rosa Valentina Jesus'), '11246284286', '1998-07-25', '43986050742', UPPER('Avenida do Conhecimento')),
--- (UPPER('Jorge Marcelo Dias'), '17725616730', '2001-03-18', '98997328207', UPPER('Rua da Biblioteca')),
--- (UPPER('Regina Simone Fogaça'), '05216881166', '1999-11-05', '84985894692', UPPER('Avenida do Saber')),
--- (UPPER('Lívia Agatha da Rosa'), '12154778488', '1969-01-15', '65999783586', UPPER('Rua São Fábio')),
--- (UPPER('Murilo Igor Oliveira'), '82882018495', '1975-06-23', '79992475149', UPPER('Rua Doutor Jorge Ricardo Rocha')),
--- (UPPER('Emily Stella das Neves'), '71150317205', '1987-01-05', '44988247764', UPPER('Rua Francisca de Almeida')),
--- (UPPER('Rafael Fernando Bruno da Rocha'), '44774263052', '1972-07-10', '68999700922', UPPER('Travessa Wilson Ribeiro II')),
--- (UPPER('Matheus Enrico Augusto Bernardes'), '52374659941', '2000-05-15', '84993210418', UPPER('Rua João Vilar da Cunha')),
--- (UPPER('Antonio Otávio César da Paz'), '67404799848', '2002-05-20', '67995888670', UPPER('Rua da Aprendizagem'));
 
 INSERT INTO aparelho (nome_aparelho, musculo_ativado)
 VALUES
@@ -214,11 +220,11 @@ INSERT INTO exercicio_treino (id_treino, id_exercicio, repeticoes, carga)
 	(5, 18, 10, 12),
 	(5, 15, 30, 0);
 
-
 -- CONSULTAS
 -- Ficha de treino (id aluno)
 SELECT 
     a.id_aluno,
+	a.matricula,
     a.nome AS nome_aluno,
     p.id_professor,
     p.nome AS nome_professor,
@@ -242,4 +248,4 @@ JOIN
     exercicio e ON et.id_exercicio = e.id_exercicio
 JOIN 
     aparelho ap ON e.id_aparelho = ap.id_aparelho
-WHERE a.id_aluno = 1;
+WHERE a.matricula = '20241001';
