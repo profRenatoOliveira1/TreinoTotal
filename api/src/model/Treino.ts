@@ -129,43 +129,43 @@ export class Treino {
      * @param nomeAluno 
      * @returns Ficha de treino do aluno informado
      */
-    static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
+    // static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
 
-        const querySelectTreinoNomeAluno = `SELECT 
-                                                a.id_aluno,
-                                                a.nome AS nome_aluno,
-                                                p.id_professor,
-                                                p.nome AS nome_professor,
-                                                t.id_treino,
-                                                e.id_exercicio,
-                                                e.exercicio,
-                                                e.carga,
-                                                e.repeticoes,
-                                                ap.id_aparelho,
-                                                ap.nome_aparelho
-                                            FROM 
-                                                aluno a
-                                            JOIN 
-                                                treino t ON a.id_aluno = t.id_aluno
-                                            JOIN 
-                                                professor p ON t.id_professor = p.id_professor
-                                            JOIN 
-                                                exercicio_treino et ON t.id_treino = et.id_treino
-                                            JOIN 
-                                                exercicio e ON et.id_exercicio = e.id_exercicio
-                                            JOIN 
-                                                aparelho ap ON e.id_aparelho = ap.id_aparelho
-                                            WHERE 
-                                                a.nome = UPPER('${nomeAluno.toUpperCase()}');`
+    //     const querySelectTreinoNomeAluno = `SELECT 
+    //                                             a.id_aluno,
+    //                                             a.nome AS nome_aluno,
+    //                                             p.id_professor,
+    //                                             p.nome AS nome_professor,
+    //                                             t.id_treino,
+    //                                             e.id_exercicio,
+    //                                             e.exercicio,
+    //                                             e.carga,
+    //                                             e.repeticoes,
+    //                                             ap.id_aparelho,
+    //                                             ap.nome_aparelho
+    //                                         FROM 
+    //                                             aluno a
+    //                                         JOIN 
+    //                                             treino t ON a.id_aluno = t.id_aluno
+    //                                         JOIN 
+    //                                             professor p ON t.id_professor = p.id_professor
+    //                                         JOIN 
+    //                                             exercicio_treino et ON t.id_treino = et.id_treino
+    //                                         JOIN 
+    //                                             exercicio e ON et.id_exercicio = e.id_exercicio
+    //                                         JOIN 
+    //                                             aparelho ap ON e.id_aparelho = ap.id_aparelho
+    //                                         WHERE 
+    //                                             a.nome LIKE UPPER(%'${nomeAluno.toUpperCase()}'%);`
 
-        try {
-            const queryReturn = await database.query(querySelectTreinoNomeAluno);
-            return queryReturn.rows;
-        } catch (error) {
-            console.error(`Erro no modelo: ${error}`);
-            return null;
-        }
-    }
+    //     try {
+    //         const queryReturn = await database.query(querySelectTreinoNomeAluno);
+    //         return queryReturn.rows;
+    //     } catch (error) {
+    //         console.error(`Erro no modelo: ${error}`);
+    //         return null;
+    //     }
+    // }
 
     // deixar para mostrar para os alunos
     // static async listarTreinoIDAluno(idAluno: number): Promise<any | null> {
@@ -276,22 +276,22 @@ export class Treino {
     }
 
     /**
-     * Chama a função listarTreino passando o ID do aluno como parâmetro
-     * @param idAluno 
-     * @returns Ficha de treino (ID aluno)
-     */
-    static async listarTreinoIDAluno(idAluno: number): Promise<any | null> {
-        const condicao = `a.id_aluno = ${idAluno}`;
-        return this.listarTreino(condicao);
-    }
-
-    /**
      * Chama a função listarTreino passando o ID do treino como parâmetro
      * @param idAlidTreinouno 
      * @returns Ficha de treino (ID treino)
      */
     static async listarTreinoIDTreino(idTreino: number): Promise<any | null> {
         const condicao = `t.id_treino = ${idTreino}`;
+        return this.listarTreino(condicao);
+    }
+
+    static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
+        const condicao = `a.nome LIKE '%${nomeAluno}%'`;
+        return this.listarTreino(condicao);
+    }
+
+    static async listarTreinoMatriculaAluno(matricula: number): Promise<any | null> {
+        const condicao = `a.matricula = '${matricula}'`;
         return this.listarTreino(condicao);
     }
 

@@ -32,11 +32,12 @@ export class TreinoController extends Treino {
      */
     public async listarTreino(req: Request, res: Response): Promise<Response> {
         try {
-            const idAluno = req.query.id_aluno;
+            const matricula = req.query.matricula;
             const idTreino = req.query.id_treino;
-
-            if (idAluno && !isNaN(parseInt(idAluno as string))) {
-                const treinoAluno = await Treino.listarTreinoIDAluno(parseInt(idAluno as string));
+            const nomeAluno = req.query.nome_aluno;
+            
+            if (matricula && !isNaN(parseInt(matricula as string))) {
+                const treinoAluno = await Treino.listarTreinoMatriculaAluno(parseInt(matricula as string));
                 if (!treinoAluno) {
                     return res.status(404).json({ error: "Treino não encontrado para o aluno especificado" });
                 }
@@ -47,7 +48,14 @@ export class TreinoController extends Treino {
                     return res.status(404).json({ error: "Treino não encontrado para o ID especificado" });
                 }
                 return res.status(200).json(treinoAluno);
-            } else {
+            } else if (nomeAluno && typeof nomeAluno === 'string') {
+                const treinoAluno = await Treino.listarTreinoNomeAluno(nomeAluno.toUpperCase());
+                if (!treinoAluno) {
+                    return res.status(404).json({ error: "Treino não encontrado para o nome especificado" });
+                }
+                return res.status(200).json(treinoAluno);
+            }
+             else {
                 return res.status(400).json({ error: "Parâmetro inválido. Forneça um id_aluno ou id_treino válido." });
             }
         } catch (error) {
