@@ -23,10 +23,10 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Modal.Title>Lista de alunos</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 {alunos.length > 0 ? (
                     <table className="table table-striped">
                         <tbody>
@@ -36,7 +36,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                                     <td>{aluno.nome}</td>
                                     <td>
                                         <Button
-                                            variant="link"
+                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
                                             onClick={() => onSelectAluno(aluno)}
                                         >
                                             Selecionar
@@ -50,7 +50,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                     <p>Carregando alunos...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>

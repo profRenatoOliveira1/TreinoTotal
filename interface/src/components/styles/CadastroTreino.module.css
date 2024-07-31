@@ -45,14 +45,20 @@
     margin-bottom: 10px;
 }
 
-td, th {
+td  {
     color: var(--amareloClaro) !important;
     font-size: 1.2rem !important;
     background-color: var(--cinzaAzulado) !important;
     margin: 0;
     border: 2px solid var(--amareloClaro) !important;
 }
-
+th {
+    color: var(--branco) !important;
+    font-size: 1.2rem !important;
+    background-color: var(--cinzaAzulado) !important;
+    margin: 0;
+    border: 2px solid var(--amareloClaro) !important;
+}
 .selected {
     padding: 10px 15px;
     border-radius: 5px;
@@ -95,7 +101,7 @@ td, th {
 .cadastrarButton {
     display: inline-block !important;
     margin-top: 3%;
-    width: 15% !important;
+    width: 25% !important;
     padding: 15px 25px !important;
     background-color: var(--cinzaAzulado) !important;
     font-size: 2rem !important;

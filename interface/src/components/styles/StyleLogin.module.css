@@ -1,0 +1,66 @@
+:root {
+    --amareloClaro: #ffeba7;
+    --cinzaEscuro: #212529;
+    --cinzaAzulado: #343A40;
+    --cinzaAvermelhado: #333;
+    --branco: #FFFFFF;
+    --cinzaClaro: #ccc;
+    --amareloEscuro: #b39f72;
+    --preto: #000000;
+}
+
+.containerLogin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 85vh;
+    margin-top: 1%;
+    background-color: var(--cinzaAzulado);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.inpuLogin {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin: 10px ;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.buttonLogin {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin: 20px 0;
+    background-color: var(--amareloClaro);
+    border: none;
+    border-radius: 5px;
+    color: var(--preto);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttonLogin:hover {
+    background-color: var(--amareloEscuro);
+}
+
+.h1 {
+    text-align: center;
+    color: var(--amareloClaro);
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 2% 0;
+}

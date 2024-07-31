@@ -92,7 +92,7 @@ function CadastroTreino() {
                     <div className={styles.selected}>{selectedAluno?.nome}</div>
                 </div>
 
-                <div className={styles.selectionBox}>
+                <div className={styles.selectionBox} style={{marginLeft: '6%', marginRight: '6%'}}>
                     <Button variant="outline-light" onClick={handleShowProfessorModal} className={styles.botaoSelecao}>
                         Escolher Professor
                     </Button>
