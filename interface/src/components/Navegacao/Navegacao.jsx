@@ -62,10 +62,11 @@ function Navegacao() {
                                     <NavDropdown.Item href="/Cadastro/Treino" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
                                     <NavDropdown.Item href="/Listagem/Treino" className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
-                                <Button onClick={handleLogout}>Sair</Button>
+                             
+                                <Button onClick={handleLogout} className={styles.botao}>Sair</Button>
                             </>
                         ) : (
-                            <Button onClick={handleLogin} variant="primary">Login</Button>
+                            <Button onClick={handleLogin} className={styles.botao} variant="primary">Login</Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>

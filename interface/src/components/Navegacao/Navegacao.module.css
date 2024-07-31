@@ -72,3 +72,9 @@ a {
   background-color: white; /* Cor de fundo */
   border: none; /* Se você quiser remover a borda */
 }
+
+.botao{
+  color:var(--amareloClaro)!important;
+  background-color: var(--cinzaAvermelhado)!important;
+  border-color: var(--amareloClaro)!important;
+}
