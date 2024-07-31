@@ -5,7 +5,7 @@ import ProfessoresRequests from '../../fetch/ProfessoresRequests'; // Certifique
 import styles from '../styles/FichaTreino.module.css';
 
 function FichaTreino() {
-    const [searchType, setSearchType] = useState('id'); // Pode ser 'id' ou 'nome'
+    const [searchType, setSearchType] = useState('matricula'); // Pode ser 'id' ou 'nome'
     const [searchValue, setSearchValue] = useState('');
     const [exercicios, setExercicios] = useState([]);
     const [aluno, setAluno] = useState({ nome: 'Nome não encontrado' });

@@ -33,6 +33,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                             {alunos.map((aluno) => (
                                 <tr key={aluno.id_aluno}>
                                     <td hidden>{aluno.id_aluno}</td>
+                                    <td>{aluno.matricula}</td>
                                     <td>{aluno.nome}</td>
                                     <td>
                                         <Button
