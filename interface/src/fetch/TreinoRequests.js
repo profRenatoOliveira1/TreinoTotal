@@ -6,13 +6,26 @@ class TreinoRequests {
         this.routeListarTreinoId = '/listar/treino/id';
     }
 
+    getAuthToken() {
+        return localStorage.getItem('token');
+    }
+
     async listarTreino(tipoBusca, valorBusca) { 
         try {
+            const token = this.getAuthToken();
             let url = `${this.serverURL}`;
             if (tipoBusca === 'id') {
-                url += `${this.routeListarTreinoId}?id_aluno=${valorBusca}`;
+                url += `${this.routeListarTreinoId}?id_aluno=${valorBusca}`, {
+                    headers: {
+                        'x-access-token': `${token}`
+                    }
+                };
             } else {
-                url += `${this.routeListarTreinoNome}?nome_aluno=${valorBusca}`;
+                url += `${this.routeListarTreinoNome}?nome_aluno=${valorBusca}`, {
+                    headers: {
+                        'x-access-token': `${token}`
+                    }
+                };
             }
 
             const response = await fetch(url);
@@ -27,10 +40,12 @@ class TreinoRequests {
 
     async cadastrarTreino(treino) {
         try {
+            const token = this.getAuthToken();
             const response = await fetch(`${this.serverURL}${this.routeCadastrarTreino}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
                 },
                 body: JSON.stringify(treino)
             });

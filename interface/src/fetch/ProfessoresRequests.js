@@ -8,10 +8,19 @@ class ProfessoresRequests {
         this.routeAtualizarProfessor = '/update/professor';
     }
 
+    getAuthToken() {
+        return localStorage.getItem('token');
+    }
+
     async listarProfessor() { // Método assíncrono para listar professores
         try {
+            const token = this.getAuthToken();
             // Realiza uma requisição GET para obter a lista de professores
-            const response = await fetch(`${this.serverUrl}${this.routeListarProfessor}`);
+            const response = await fetch(`${this.serverUrl}${this.routeListarProfessor}`, {
+                headers: {
+                    'x-access-token': `${token}`,
+                }
+            });
             if (!response.ok) {
                 throw new Error('Erro ao buscar professores');
             }
@@ -25,11 +34,13 @@ class ProfessoresRequests {
 
     async cadastrarProfessor(professor) { // Método assíncrono para cadastrar um professor
         try {
+            const token = this.getAuthToken();
             // Realiza uma requisição POST para cadastrar um professor
             const response = await fetch(`${this.serverUrl}${this.routeCadastrarProfessor}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
                 },
                 body: JSON.stringify(professor)
             });
@@ -52,10 +63,14 @@ class ProfessoresRequests {
      */
     async deletarProfessor(idProfessor) {
         try {
+            const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverProfessor}?id_professor=${idProfessor}`, {
                 // Informa o verbo a ser acessado
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'x-access-token': `${token}`
+                }
             });
             // Verifica se a resposta não foi bem sucedida ...
             if (!response.ok) {
@@ -79,13 +94,15 @@ class ProfessoresRequests {
      */
     async atualizarProfessor(professor) {
         try {
+            const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeAtualizarProfessor}?id_professor=${professor.idProfessor}`, {
                 // Informa o verbo a ser acessado
                 method: 'PUT',
                 // informa os cabeçalhos da requisição
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
                 },
                 // informa o corpo da requisição, contendo as informações do aluno
                 body: JSON.stringify(professor)

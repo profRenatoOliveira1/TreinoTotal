@@ -8,10 +8,19 @@ class AparelhoRequests {
         this.routeAtualizarAparelho = '/update/aparelho';
     }
 
+    getAuthToken() {
+        return localStorage.getItem('token');
+    }
+
     async listarAparelho() { // Método assíncrono para listar aparelhos
         try {
+            const token = this.getAuthToken();
             // Realiza uma requisição GET para obter a lista de aparelhos
-            const response = await fetch(`${this.serverUrl}${this.routeListarAparelho}`);
+            const response = await fetch(`${this.serverUrl}${this.routeListarAparelho}`, {
+                headers: {
+                    'x-access-token': `${token}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Erro ao buscar aparelhos');
             }
@@ -25,11 +34,13 @@ class AparelhoRequests {
 
     async cadastrarAparelho(aparelho) { // Método assíncrono para cadastrar um aparelho
         try {
+            const token = this.getAuthToken();
             // Realiza uma requisição POST para cadastrar um aparelho
             const response = await fetch(`${this.serverUrl}${this.routeCadastrarAparelho}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
                 },
                 body: JSON.stringify(aparelho)
             });
@@ -52,10 +63,14 @@ class AparelhoRequests {
      */
     async deletarAparelho(idAparelho) {
         try {
+            const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?id_aparelho=${idAparelho}`, {
                 // Informa o verbo a ser acessado
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'x-access-token': `${token}`
+                }
             });
             // Verifica se a resposta não foi bem sucedida ...
             if (!response.ok) {
@@ -80,13 +95,15 @@ class AparelhoRequests {
      */
     async atualizarAparelho(aparelho) {
         try {
+            const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?id_aparelho=${aparelho.idAparelho}`, {
                 // Informa o verbo a ser acessado
                 method: 'PUT',
                 // informa os cabeçalhos da requisição
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
                 },
                 // informa o corpo da requisição, contendo as informações do aluno
                 body: JSON.stringify(aparelho)
