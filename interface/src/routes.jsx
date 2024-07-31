@@ -10,6 +10,7 @@ import CadastroProfessor from './pages/Professor/ProfessorCadastro'; // Importa 
 import ListarProfessor from './pages/Professor/ProfessorListagem'; // Importa o componente ListarProfessor
 import CadastroTreino from './pages/CriarTreino/CriarTreino';
 import ListarTreino from './pages/FichaTreino/FichaTreino';
+import Login from './components/Login/Login';
 // Componente de roteamento da aplicação
 export default function AppRouter() {
     return (
@@ -26,6 +27,7 @@ export default function AppRouter() {
                 <Route path="/Listagem/Aparelho" element={<ListarAparelho />} /> {/* Rota para listar aparelhos */}
                 <Route path="/Cadastro/Treino" element={<CadastroTreino />} /> {/* Rota para listar aparelhos */}
                 <Route path="/Listagem/Treino" element={<ListarTreino />} /> {/* Rota para listar aparelhos */}
+                <Route path="/Login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     );
