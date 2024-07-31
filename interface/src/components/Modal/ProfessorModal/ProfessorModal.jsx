@@ -23,10 +23,10 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Modal.Title>Lista de professores</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 {professores.length > 0 ? (
                     <table className="table table-striped">
                         <tbody>
@@ -36,7 +36,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                                     <td>{professor.nome}</td>
                                     <td>
                                         <Button
-                                            variant="link"
+                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
                                             onClick={() => onSelectProfessor(professor)}
                                         >
                                             Selecionar
@@ -50,7 +50,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                     <p>Carregando professores...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>

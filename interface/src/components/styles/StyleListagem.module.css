@@ -28,6 +28,9 @@
   top: 0;
   z-index: 1;
 }
+th {
+  color: var(--branco)!important;
+}
 
 .tabelaCorpo {
   color: var(--preto);

@@ -23,17 +23,17 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Modal.Title>Lista de Exercícios</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 {exercicios.length > 0 ? (
                     <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th hidden>ID</th>
                                 <th>Exercício</th>
-                                <th>Região ativada</th>
+                                <th colSpan={2}>Região ativada</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,7 +44,7 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                                     <td>{exercicio.regiao_corpo_ativada}</td>
                                     <td>
                                         <Button
-                                            variant="link"
+                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
                                             onClick={() => onSelectExercicio(exercicio)}
                                         >
                                             Selecionar
@@ -58,7 +58,7 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                     <p>Carregando exercícios...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>
