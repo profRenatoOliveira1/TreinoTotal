@@ -70,7 +70,6 @@ class AlunoRequests {
             return true;
         } catch (error) {
             console.error('Erro: ', error);
-            window.alert('Erro ao remover aluno');
             return null;
         }
     }

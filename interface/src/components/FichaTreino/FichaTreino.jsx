@@ -79,12 +79,12 @@ function FichaTreino() {
             <div className={styles.searchSection}>
                 <label htmlFor="searchType">Buscar por:</label>
                 <select id="searchType" value={searchType} onChange={handleSearchTypeChange}>
-                    <option value="id">ID do Aluno</option>
+                    <option value="matricula">Matricula do Aluno</option>
                     <option value="nome">Nome do Aluno</option>
                 </select>
 
                 <input
-                    type={searchType === 'id' ? 'number' : 'text'}
+                    type={searchType === 'matricula' ? 'number' : 'text'}
                     value={searchValue}
                     onChange={handleSearchValueChange}
                 />
