@@ -1,18 +1,18 @@
 import AuthRequests from "../../fetch/AuthRequests";
 import { useState } from 'react';
+import styles from '../styles/StyleLogin.module.css';
 
 function Login() {
     const [formLogin, setFormLogin] = useState({
         email: '',
         password: ''
-    })
+    });
 
-    // Função para atualizar o estado do formulário conforme o usuário digita
     const handleChange = (e) => {
-        const { name, value } = e.target; // Obtém o nome e o valor do campo que foi alterado
+        const { name, value } = e.target;
         setFormLogin(prevState => ({
-            ...prevState, // Mantém os valores atuais do estado
-            [name]: value // Atualiza o valor do campo específico
+            ...prevState,
+            [name]: value
         }));
     };
 
@@ -20,38 +20,40 @@ function Login() {
         e.preventDefault();
         try {
             const response = await AuthRequests.login(formLogin);
-            if(response) {
+            if (response) {
                 AuthRequests.persistToken(response.token);
             }
         } catch (error) {
             console.error('Erro ao tentar realizar login:', error);
             window.alert('Ocorreu um erro: ' + error.message);
         }
-    }
+    };
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="E-mail"
-                    value={formLogin.email}
-                    onChange={handleChange}
-                    name="email"
-                />
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={formLogin.password}
-                    onChange={handleChange}
-                    name="password"
-                />
-
-                <button type="submit">
-                    Login
-                </button>
-            </form>
-        </>
+        <div className={styles.containerLogin}>
+        <form className={styles.formLogin} onSubmit={handleSubmit}>
+            <h1 className={styles.h1}>Login</h1>
+            <input
+                type="text"
+                className={styles.inpuLogin}
+                placeholder="E-mail"
+                value={formLogin.email}
+                onChange={handleChange}
+                name="email"
+            />
+            <input
+                type="password"
+                className={styles.inpuLogin}
+                placeholder="Senha"
+                value={formLogin.password}
+                onChange={handleChange}
+                name="password"
+            />
+            <button className={styles.buttonLogin} type="submit">
+                Login
+            </button>
+        </form>
+        </div>
     );
 }
 
