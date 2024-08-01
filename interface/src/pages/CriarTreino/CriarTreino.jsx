@@ -1,5 +1,5 @@
 import React from 'react';
-import CadastroTreino from '../../components/Cadastro/CadastroTreino/CadastroTreino';
+import CadastroTreino from '../../components/Cadastro/CadastroTreino';
 
 import Navegacao from '../../components/Navegacao/Navegacao';
 

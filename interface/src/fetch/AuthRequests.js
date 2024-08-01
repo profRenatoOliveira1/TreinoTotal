@@ -34,6 +34,7 @@ class AuthRequests {
 
     removeToken() {
         localStorage.removeItem('token');
+        window.location.href = '/'
     }
 
     checkTokenExpiry() {

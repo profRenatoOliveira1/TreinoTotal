@@ -2,11 +2,11 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { FaTrash } from "react-icons/fa";
-import AlunoModal from '../../Modal/AlunoModal/AlunoModal';
-import ProfessorModal from '../../Modal/ProfessorModal/ProfessorModal';
-import ExercicioModal from '../../Modal/ExercicioModal/ExercicioModal';
-import TreinoRequests from '../../../fetch/TreinoRequests';
-import styles from '../../styles/CadastroTreino.module.css';
+import AlunoModal from '../Modal/AlunoModal/AlunoModal';
+import ProfessorModal from '../Modal/ProfessorModal/ProfessorModal';
+import ExercicioModal from '../Modal/ExercicioModal/ExercicioModal';
+import TreinoRequests from '../../fetch/TreinoRequests';
+import styles from '../styles/CadastroTreino.module.css';
 
 
 function CadastroTreino() {
