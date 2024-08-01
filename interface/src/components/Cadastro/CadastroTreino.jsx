@@ -72,6 +72,7 @@ function CadastroTreino() {
             const result = await TreinoRequests.cadastrarTreino(treino);
             if (result) {
                 alert('Treino cadastrado com sucesso!');
+                location.reload();
             }
         } catch (error) {
             alert('Erro ao cadastrar treino!');

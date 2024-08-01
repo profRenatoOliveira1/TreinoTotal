@@ -47,6 +47,7 @@ function CadastroExercicio() {
                 exercicio: '',
                 regiao_corpo_ativa: ''
             });
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao cadastrar exercício:', error);
             window.alert('Erro ao cadastrar exercício');

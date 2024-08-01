@@ -249,3 +249,7 @@ JOIN
 JOIN 
     aparelho ap ON e.id_aparelho = ap.id_aparelho
 WHERE a.matricula = '20241001';
+
+INSERT INTO professor (nome, cpf, data_nascimento, celular, endereco, email, senha, data_contratacao, formacao)
+VALUES
+(UPPER('admin'), '00000000000', '1999-01-01', '00000000000', UPPER('-'), 'admin', 'admin', '2000-01-01', UPPER('-'));

@@ -47,6 +47,7 @@ function CadastroAluno() {
             console.log('Aluno cadastrado com sucesso:', response);
             if (response) {
                 window.alert(`${formData.nome} foi cadastrado com sucesso`);
+                window.location.reload();
             }
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);

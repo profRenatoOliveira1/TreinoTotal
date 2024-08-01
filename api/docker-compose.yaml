@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres_ranks
+    container_name: postgres_senai
     restart: always
     environment:
       - NODE_ENV=production
@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - "6005:5432"
+      - "5433:5432"
     volumes:
       - ${DOCKER_VOLUME}:/var/lib/postgresql/data
       - ./docs/script:/docker-entrypoint-initdb.d
@@ -17,7 +17,8 @@ services:
       - app-network
 
   node:
-    container_name: "api-treinototal-ranks"
+    container_name: "api-treinototal-senai"
+    restart: always
     build: .
     command: "npm run start"
     working_dir: /home/node/app
@@ -26,7 +27,7 @@ services:
     expose:
       - "3000"
     ports:
-      - "3005:3000"
+      - "3000:3000"
     depends_on:
       - postgres
     networks:
