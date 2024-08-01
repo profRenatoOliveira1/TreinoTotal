@@ -14,13 +14,16 @@ class AuthRequests {
                 body: JSON.stringify(login)
             });
             if (!response.ok) {
-                console.log('erro na autenticação');
+                console.log('Erro na autenticação');
                 throw new Error('Falha no login');
             }
             const data = await response.json();
+            console.log('Login bem-sucedido, dados recebidos:', data);
             if (data.auth) {
-                this.persistToken(data.token);
+                console.log('Chamando persistToken com:', data.token, data.professor.nome);
+                this.persistToken(data.token, data.professor.nome);
             }
+
             return data;
         } catch (error) {
             console.error('Erro: ', error);
@@ -28,13 +31,15 @@ class AuthRequests {
         }
     }
 
-    persistToken(token) {
+    persistToken(token, username) {
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
     }
 
     removeToken() {
         localStorage.removeItem('token');
-        window.location.href = '/'
+        localStorage.removeItem('username');
+        window.location.href = '/';
     }
 
     checkTokenExpiry() {

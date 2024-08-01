@@ -22,7 +22,9 @@ function Login() {
         try {
             const response = await AuthRequests.login(formLogin);
             if (response.auth) {
-                AuthRequests.persistToken(response.token);
+                setTimeout(() => {
+                    AuthRequests.persistToken(response.token);
+                }, 1000);
                 window.location.href = '/';
             } else {
                 setErrorMessage('Autenticação falhou. Por favor, verifique suas credenciais.');
