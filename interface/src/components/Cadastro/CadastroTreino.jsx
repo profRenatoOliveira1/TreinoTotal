@@ -8,35 +8,68 @@ import ExercicioModal from '../Modal/ExercicioModal/ExercicioModal';
 import TreinoRequests from '../../fetch/TreinoRequests';
 import styles from '../styles/CadastroTreino.module.css';
 
-
+/**
+ * Componente responsável por montar o formulário de cadastro do treino
+ * @returns web component
+ */
 function CadastroTreino() {
+    /**
+     * Controla o estado de exibição dos modais
+     */
     const [showAlunoModal, setShowAlunoModal] = useState(false);
     const [showProfessorModal, setShowProfessorModal] = useState(false);
     const [showExercicioModal, setShowExercicioModal] = useState(false);
 
+    /**
+     * Controla os valores selecionados das entidades
+     */
     const [selectedAluno, setSelectedAluno] = useState(null);
     const [selectedProfessor, setSelectedProfessor] = useState(null);
     const [selectedExercicios, setSelectedExercicios] = useState([]);
 
+    /**
+     * Atualiza o estado do modal Aluno
+     * @returns **true** habilita o modal, **false** desabilita o modal
+     */
     const handleShowAlunoModal = () => setShowAlunoModal(true);
     const handleCloseAlunoModal = () => setShowAlunoModal(false);
 
+    /**
+     * Atualiza o estado do modal Professor
+     * @returns **true** habilita o modal, **false** desabilita o modal
+     */
     const handleShowProfessorModal = () => setShowProfessorModal(true);
     const handleCloseProfessorModal = () => setShowProfessorModal(false);
 
+    /**
+     * Atualiza o estado do modal Exercício
+     * @returns **true** habilita o modal, **false** desabilita o modal
+     */
     const handleShowExercicioModal = () => setShowExercicioModal(true);
     const handleCloseExercicioModal = () => setShowExercicioModal(false);
 
+    /**
+     * Atualiza o estado do aluno selecionado modal
+     * @param {*} aluno selecionado
+     */
     const handleSelectAluno = (aluno) => {
         setSelectedAluno(aluno);
         handleCloseAlunoModal();
     };
 
+    /**
+     * Atualiza o estado do professor selecionado modal
+     * @param {*} professor selecionado
+     */
     const handleSelectProfessor = (professor) => {
         setSelectedProfessor(professor);
         handleCloseProfessorModal();
     };
 
+    /**
+     * Atualiza o estado do exercício selecionado modal
+     * @param {*} exercicio selecionado
+     */
     const handleSelectExercicio = (exercicio) => {
         setSelectedExercicios([...selectedExercicios, {
             id: exercicio.id_exercicio,
@@ -48,17 +81,30 @@ function CadastroTreino() {
         handleCloseExercicioModal();
     };
 
+    /**
+     * Atualiza o estado do formulário conforme o preenchimento do usuário
+     * @param {*} e evento de atualização
+     */
     const handleInputChange = (index, field, value) => {
         const newSelectedExercicios = [...selectedExercicios];
         newSelectedExercicios[index][field] = value;
         setSelectedExercicios(newSelectedExercicios);
     };
 
+    /**
+     * Remove o exercício da lista
+     * @param {*} index índice da lista
+     */
     const handleRemoveExercicio = (index) => {
         const newSelectedExercicios = selectedExercicios.filter((_, i) => i !== index);
         setSelectedExercicios(newSelectedExercicios);
     };
 
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const cadastrar = async () => {
         const treino = {
             id_aluno: selectedAluno.id_aluno,

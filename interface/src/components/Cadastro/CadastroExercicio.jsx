@@ -2,17 +2,29 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/StyleCadastro.module.css';
 import ExerciciosRequests from '../../fetch/ExerciciosRequests';
 import AparelhosRequests from '../../fetch/AparelhosRequests';
-// Componente funcional CadastroExercicio
+
+/**
+ * Componente responsável por montar o formulário de cadastro do exercicio
+ * @returns web component
+ */
 function CadastroExercicio() {
-   
+   /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [formData, setFormData] = useState({
         id_aparelho: '',
         exercicio: '',
         regiao_corpo_ativa: ''
     });
 
+    /**
+     * Define o estado inicial da lista de aparelhos
+     */
     const [aparelhos, setAparelhos] = useState([]);
 
+    /**
+     * Busca os aparelhos cadastrados no servidor
+     */
     useEffect(() => {
         const fetchAparelhos = async () => {
             try {
@@ -28,6 +40,10 @@ function CadastroExercicio() {
         fetchAparelhos();
     }, []);
 
+    /**
+     * Atualiza o valor do input
+     * @param {*} e evento de atualização
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -36,6 +52,11 @@ function CadastroExercicio() {
         }));
     };
 
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -54,7 +75,6 @@ function CadastroExercicio() {
         }
     };
 
-    // Renderização do formulário
     return (
         <div className={styles.section}>
                 <h1 className={styles.h1}>Cadastro de Exercício</h1>

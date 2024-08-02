@@ -1,6 +1,12 @@
+/**
+ * Classe para requisição de professores
+ */
 class ProfessoresRequests {
+
+    /**
+     * Construtor das rotas e do endereço do servidor
+     */
     constructor() {
-        // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarProfessor = '/listar/professores';
         this.routeCadastrarProfessor = '/novo/professor';
@@ -8,10 +14,18 @@ class ProfessoresRequests {
         this.routeAtualizarProfessor = '/update/professor';
     }
 
+    /**
+     * Recupera um token salvo no localStorage
+     * @returns token armazenado
+     */
     getAuthToken() {
         return localStorage.getItem('token');
     }
 
+    /**
+     * Faz a busca dos alunos no servidor
+     * @returns lista de alunos
+     */
     async listarProfessor() { // Método assíncrono para listar professores
         try {
             const token = this.getAuthToken();
@@ -32,6 +46,11 @@ class ProfessoresRequests {
         }
     }
 
+    /**
+     * Faz o cadastro de um professor no servidor
+     * @param {*} professor 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async cadastrarProfessor(professor) { // Método assíncrono para cadastrar um professor
         try {
             const token = this.getAuthToken();
@@ -56,8 +75,7 @@ class ProfessoresRequests {
     }
 
     /**
-     * Deleta um professor do servidor
-     * 
+     * Remove um professor do servidor
      * @param {*} idProfessor ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
@@ -88,7 +106,6 @@ class ProfessoresRequests {
 
     /**
      * Atualiza o registro de um professor no servidor
-     * 
      * @param {*} professor animal Objeto com as informações do animal
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
@@ -123,5 +140,4 @@ class ProfessoresRequests {
     }
 }
 
-// Exporta uma instância da classe ProfessoresRequests para ser utilizada em outras partes do código
 export default new ProfessoresRequests();

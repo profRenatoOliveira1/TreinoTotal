@@ -1,8 +1,11 @@
 import React from 'react';
 import Login from '../../components/Login/Login';
-
 import Navegacao from '../../components/Navegacao/Navegacao';
 
+/**
+ * Página de login
+ * @returns web page
+ */
 function PaginaLogin() {
     return (
         <div>

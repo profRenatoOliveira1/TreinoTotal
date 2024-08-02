@@ -1,10 +1,16 @@
-import React, { useState } from 'react'; // Importa React e useState hook para gerenciar o estado do componente
-import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
-import AlunoRequests from '../../fetch/AlunoRequests'; // Importa o módulo de requisições para a API
+import React, { useState } from 'react';
+import styles from '../styles/StyleCadastro.module.css';
+import AlunoRequests from '../../fetch/AlunoRequests';
 import InputMask from "react-input-mask";
 
+/**
+ * Componente responsável por montar o formulário de cadastro do aluno
+ * @returns web component
+ */
 function CadastroAluno() {
-    // Define o estado inicial do formulário com todos os campos vazios
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
@@ -15,7 +21,10 @@ function CadastroAluno() {
         peso: ''
     });
 
-    // Função para atualizar o estado do formulário conforme o usuário digita
+    /**
+     * Atualiza o estado do formulário conforme o preenchimento do usuário
+     * @param {*} e evento de atualização
+     */
     const handleChange = (e) => {
         const { name, value } = e.target; // Obtém o nome e o valor do campo que foi alterado
         setFormData(prevState => ({
@@ -24,7 +33,11 @@ function CadastroAluno() {
         }));
     };
 
-    // Função para lidar com a submissão do formulário
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const handleSubmit = async (e) => {
         const dt_nasc = new Date(formData.data_nascimento);
         const hoje = new Date();
@@ -55,11 +68,13 @@ function CadastroAluno() {
         }
     };
 
-
     const dt_nasc = new Date(formData.data_nascimento);
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
 
+    /**
+     * Valida a data para não ultrapassar a data atual
+     */
     if (dt_nasc > hoje) {
         setErrorMessage('A data de nascimento não pode ser uma data futura.');
         return;
@@ -126,28 +141,6 @@ function CadastroAluno() {
                             name="endereco"
                         />
                     </div>
-                    {/* Campo para email */}
-                    {/* <div className={styles.formGroup}>
-                        <input
-                            type="email"
-                            className={styles.formStyle}
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            name="email"
-                        />
-                    </div> */}
-                    {/* Campo para senha */}
-                    {/* <div className={styles.formGroup}>
-                        <input
-                            type="password"
-                            className={styles.formStyle}
-                            placeholder="Senha"
-                            value={formData.senha}
-                            onChange={handleChange}
-                            name="senha"
-                        />
-                    </div> */}
                     {/* Campo para data de contratação */}
                     <div className={styles.formGroup}>
                         <input

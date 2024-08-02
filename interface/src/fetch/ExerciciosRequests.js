@@ -1,6 +1,12 @@
+/**
+ * Classe para requisição de exercícios
+ */
 class ExerciciosRequests {
+
+    /**
+     * Construtor das rotas e do endereço do servidor
+     */
     constructor() {
-        // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarExercicio = '/listar/exercicios';
         this.routeCadastrarExercicio = '/novo/exercicio';
@@ -8,11 +14,19 @@ class ExerciciosRequests {
         this.routeAtualizarExercicio = '/update/exercicio';
     }
 
+    /**
+     * Recupera um token salvo no localStorage
+     * @returns token armazenado
+     */
     getAuthToken() {
         return localStorage.getItem('token');
     }
 
-    async listarExercicio() { // Método assíncrono para listar exercícios
+    /**
+     * Faz a busca dos exercícios no servidor
+     * @returns lista de exercícios
+     */
+    async listarExercicio() {
         try {
             const token = this.getAuthToken();
             // Realiza uma requisição GET para obter a lista de exercícios
@@ -33,6 +47,11 @@ class ExerciciosRequests {
         }
     }
 
+    /**
+     * Faz o cadastro de um exercício no servidor
+     * @param {*} exercicio 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async cadastrarExercicio(exercicio) { // Método assíncrono para cadastrar um exercício
         try {
             const token = this.getAuthToken();
@@ -59,7 +78,6 @@ class ExerciciosRequests {
 
     /**
      * Deleta um exercicio do servidor
-     * 
      * @param {*} idExercicio ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
@@ -90,7 +108,6 @@ class ExerciciosRequests {
 
     /**
      * Atualiza o registro de um aluno no servidor
-     * 
      * @param {*} exercicio animal Objeto com as informações do animal
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */

@@ -1,14 +1,11 @@
 import React from 'react';
-// Importa a biblioteca React, necessária para criar componentes funcionais em React.
-
 import ListagemExercicio from '../../components/Listagem/ListagemExercicios';
-// Importa o componente ListagemExercicio, que está localizado na pasta '../../components/TabelaListagemExercicios/TabelaListagemExercicios'.
-// Este componente é responsável por exibir a tabela de listagem de exercícios.
-
 import Navegacao from '../../components/Navegacao/Navegacao';
-// Importa o componente Navegacao, localizado na pasta '../../components/Navegacao/Navegacao'.
-// Este componente provavelmente contém a barra de navegação ou menu do aplicativo.
 
+/**
+ * Página de listagem de exercício
+ * @returns web page
+ */
 function ExercicioListagem() {
     // Define um componente funcional chamado ExercicioListagem.
     return (
@@ -21,4 +18,3 @@ function ExercicioListagem() {
 }
 
 export default ExercicioListagem;
-// Exporta o componente ExercicioListagem como padrão, permitindo que ele seja importado e usado em outras partes da aplicação.

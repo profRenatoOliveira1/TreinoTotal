@@ -1,6 +1,12 @@
+/**
+ * Classe para requisição de aparelho
+ */
 class AparelhoRequests {
+
+    /**
+     * Construtor das rotas e do endereço do servidor
+     */
     constructor() {
-        // Inicializa as rotas e o URL do servidor
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarAparelho = '/listar/aparelhos';
         this.routeCadastrarAparelho = '/novo/aparelho';
@@ -8,10 +14,18 @@ class AparelhoRequests {
         this.routeAtualizarAparelho = '/update/aparelho';
     }
 
+    /**
+     * Recupera um token salvo no localStorage
+     * @returns token armazenado
+     */
     getAuthToken() {
         return localStorage.getItem('token');
     }
 
+    /**
+     * Faz a busca dos aparelhos no servidor
+     * @returns lista de aparelhos
+     */
     async listarAparelho() { // Método assíncrono para listar aparelhos
         try {
             const token = this.getAuthToken();
@@ -32,6 +46,11 @@ class AparelhoRequests {
         }
     }
 
+    /**
+     * Faz o cadastro de um aparelho no servidor
+     * @param {*} aparelho 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async cadastrarAparelho(aparelho) { // Método assíncrono para cadastrar um aparelho
         try {
             const token = this.getAuthToken();
@@ -56,8 +75,7 @@ class AparelhoRequests {
     }
 
     /**
-     * Deleta um aluno do servidor
-     * 
+     * Remove um aluno do servidor
      * @param {*} idAparelho ID do aluno a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */

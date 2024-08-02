@@ -1,14 +1,11 @@
 import React from 'react';
-// Importa a biblioteca React, que é necessária para criar componentes funcionais em React.
-
 import CadastroAluno from '../../components/Cadastro/CadastroAluno';
-// Importa o componente CadastroAluno, que está localizado na pasta '../../components/CadastroAluno/CadastroAluno'.
-// Este componente é responsável pelo formulário ou funcionalidade de cadastro de aluno.
-
 import Navegacao from '../../components/Navegacao/Navegacao';
-// Importa o componente Navegacao, que está localizado na pasta '../../components/Navegacao/Navegacao'.
-// Este componente provavelmente contém a barra de navegação ou menu do aplicativo.
 
+/**
+ * Página de cadastro de aluno
+ * @returns web page
+ */
 function AlunoCadastro() {
     // Define um componente funcional chamado AlunoCadastro.
     return (
@@ -21,4 +18,3 @@ function AlunoCadastro() {
 }
 
 export default AlunoCadastro;
-// Exporta o componente AlunoCadastro como padrão, permitindo que ele seja importado e usado em outras partes da aplicação.

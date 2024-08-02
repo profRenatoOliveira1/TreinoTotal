@@ -1,9 +1,10 @@
-// Importa o arquivo de estilos CSS específico para a imagem da pagina home
 import './ImgFundoHome.css'
-// Importa a imagem do logo da aplicação
 import imgFundo from '../../assets/imgFundo.png'
 
-// Define a função Navegacao, que é um componente React responsável pela imagem da pagina home
+/**
+ * Componente responsável por montar o conteúdo da página home
+ * @returns web component
+ */
 function ImgFundoHome() {
 
   return (
@@ -15,10 +16,6 @@ function ImgFundoHome() {
       </div>
     </>
   );
-
-
-
-
 }
 // Exporta a função ImgFundoHome para que possa ser utilizada em outras partes do código
 export default ImgFundoHome;

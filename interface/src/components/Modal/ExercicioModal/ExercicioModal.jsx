@@ -3,9 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ExercicioRequests from '../../../fetch/ExerciciosRequests';
 
+/**
+ * Componente responsável por montar o modal do exercício
+ * @returns web component
+ */
 function ExercicioModal({ show, handleClose, onSelectExercicio }) {
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [exercicios, setExercicios] = useState([]);
 
+    /**
+     * Busca lista de exercícios no servidor
+     */
     useEffect(() => {
         const fetchExercicios = async () => {
             try {

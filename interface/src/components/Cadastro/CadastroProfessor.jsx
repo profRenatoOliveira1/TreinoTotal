@@ -1,25 +1,45 @@
 import React, { useState } from 'react';
-import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
+import styles from '../styles/StyleCadastro.module.css'; 
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import InputMask from "react-input-mask";
 
-// Componente funcional CadastroProfessor
+/**
+ * Componente responsável por montar o formulário de cadastro do professor
+ * @returns web component
+ */
 function CadastroProfessor() {
-    // Definição do estado inicial do formulário com useState
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
         data_nascimento: '',
         celular: '',
         endereco: '',
-        // email: '',
-        // senha: '',
         data_contratacao: '',
         formacao: '',
         especialidade: ''
     });
 
-    // Função para lidar com mudanças nos campos do formulário
+    /**
+     * Máscara CPF
+     */
+    const cleanCPF = formData.cpf.replace(/\D/g, '');
+    /**
+     * Máscata celular
+     */
+    const cleanCelular = formData.celular.replace(/\D/g, '');
+    /**
+     * Reseta valores
+     */
+    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
+
+
+    /**
+     * Atualiza o estado do formulário conforme o preenchimento do usuário
+     * @param {*} e evento de atualização
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         // Atualiza o estado com o novo valor do campo modificado
@@ -28,11 +48,12 @@ function CadastroProfessor() {
             [name]: value
         }));
     };
-    const cleanCPF = formData.cpf.replace(/\D/g, '');
-    const cleanCelular = formData.celular.replace(/\D/g, '');
-    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
-    // Função para lidar com o envio do formulário
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne o comportamento padrão de recarregar a página
         try {
@@ -48,7 +69,6 @@ function CadastroProfessor() {
         }
     };
 
-    // Renderização do formulário
     return (
         <div className={styles.section}>
             <h1 className={styles.h1}>Cadastro de Professor</h1>

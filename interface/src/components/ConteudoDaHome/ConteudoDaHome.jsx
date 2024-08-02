@@ -1,6 +1,9 @@
-import './ConteudoDaHome.css'; // Importa os estilos CSS específicos para este componente
+import './ConteudoDaHome.css';
 
-// Definição do componente 'conteudoDaHome'
+/**
+ * Componente responsável por montar o conteúdo da página home
+ * @returns web component
+ */
 function conteudoDaHome() {
     return (
         <>

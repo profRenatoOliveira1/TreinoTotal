@@ -14,6 +14,9 @@ const exercicioController = new ExercicioController(0, 0, '', '');
 const professorController = new ProfessorController(0, '', '', new Date(), '', '', new Date(), '', '');
 const treinoController = new TreinoController(0, 0, 0, []);
 
+/**
+ * Configura o roteador
+ */
 const router = express.Router();
 
 // Rota padrão para testar se o servidor está rodando

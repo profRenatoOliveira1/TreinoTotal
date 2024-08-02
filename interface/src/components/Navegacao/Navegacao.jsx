@@ -9,10 +9,23 @@ import imagemLogo from '../../assets/imgLogoProSaude.png';
 import AuthRequests from '../../fetch/AuthRequests';
 import { MdLogout } from "react-icons/md";
 
+/**
+ * Componente responsável por montar a barra de navegação
+ * @returns web component
+ */
 function Navegacao() {
+    /**
+     * Define o estado de autenticação do usuário
+     */
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    /**
+     * Define informações do usuário
+     */
     const [username, setUsername] = useState('');
 
+    /**
+     * Realiza a autenticação do usuário
+     */
     useEffect(() => {
         const token = localStorage.getItem('token');
         const storedUsername = localStorage.getItem('username');
@@ -24,10 +37,16 @@ function Navegacao() {
         }
     }, []);
 
+    /**
+     * Lida com o login
+     */
     const handleLogin = () => {
         window.location.href = '/login';
     };
 
+    /**
+     * Lida com o logout
+     */
     const handleLogout = () => {
         AuthRequests.removeToken();
         setIsAuthenticated(false);

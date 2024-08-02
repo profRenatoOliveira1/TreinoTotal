@@ -4,11 +4,19 @@ import AlunoRequests from '../../fetch/AlunoRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
+/**
+ * Componente responsável por listar os alunos
+ * @returns web component
+ */
 function ListarAluno() {
-    // Define o estado inicial para armazenar os alunos
+    /**
+     * Define o estado inicial para armazenar os alunos
+     */
     const [alunos, setAlunos] = useState([]);
 
-    // useEffect para carregar os alunos quando o componente é montado
+    /**
+     * Busca lista de alunos no servidor
+     */
     useEffect(() => {
         // Função assíncrona para buscar os alunos da API
         const fetchAlunos = async () => {
@@ -27,22 +35,37 @@ function ListarAluno() {
         fetchAlunos();
     }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
 
-    // Função para formatar a data no formato brasileiro
+    /**
+     * Formata datas no padrão brasileiro
+     * @param {*} data 
+     * @returns data formatada DD/MM/AAAA
+     */
     const formatarData = (data) => {
         return new Date(data).toLocaleDateString('pt-br');
     };
 
-    // Função para formatar o CPF
+    /**
+     * Máscara CPF
+     * @param {*} cpf 
+     * @returns cpf formatado xxx.xxx.xxx.-xx
+     */
     const formatarCPF = (cpf) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     };
 
-    // Função para formatar o número de telefone
+    /**
+     * Máscara telefone
+     * @param {*} telefone 
+     * @returns telefone formatado (xx) xxxxx-xxxx
+     */
     const formatarTelefone = (telefone) => {
         return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     };
 
-    // Função para deletar um aluno (ainda não implementada)
+    /**
+     * Lida com a remoção de um aluno
+     * @param {*} aluno 
+     */
     const deletar = (aluno) => {
         //window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
         const deletar = window.confirm(`Tem certeza que deseja remover o aluno ${aluno.nome}?`);
@@ -57,11 +80,14 @@ function ListarAluno() {
         }
     };
 
+    /**
+     * Lida com a atualização de um aluno
+     * @param {*} aluno 
+     */
     const atualizar = (aluno) => {
         window.alert('Atualizar');
     }
 
-    // Renderização do componente
     return (
         <>
             {/* Cabeçalho da seção */}

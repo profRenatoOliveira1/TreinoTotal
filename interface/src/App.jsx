@@ -1,7 +1,10 @@
-import './App.css'; // Importa o arquivo CSS para estilizar o componente
+import './App.css'; 
+import AppRouter from './routes'; 
 
-import AppRouter from './routes'; // Importa o componente de roteamento AppRouter do arquivo routes.js
-
+/**
+ * Main app
+ * @returns web page
+ */
 function App() {
   return (
     <>

@@ -1,14 +1,22 @@
-import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
+import styles from '../styles/StyleListagem.module.css'; 
 import React, { useState, useEffect } from 'react';
-import AparelhoRequests from '../../fetch/AparelhosRequests'; // Importa as requisições para buscar aparelhos
-import { FaTrash } from "react-icons/fa"; // Importa o ícone de lixeira da biblioteca react-icons
+import AparelhoRequests from '../../fetch/AparelhosRequests'; 
+import { FaTrash } from "react-icons/fa"; 
 import { MdEdit } from "react-icons/md";
 
+/**
+ * Componente responsável por listar os aparelhos
+ * @returns web component
+ */
 function ListarAparelho() {
-    // Define o estado inicial para armazenar os aparelhos
+    /**
+     * Define o estado inicial para armazenar os alunos
+     */
     const [aparelhos, setAparelho] = useState([]);
 
-    // useEffect para carregar os aparelhos quando o componente é montado
+    /**
+     * Busca lista de aparelhos no servidor
+     */
     useEffect(() => {
         // Função assíncrona para buscar os aparelhos da API
         const fetchAparelho = async () => {
@@ -27,7 +35,10 @@ function ListarAparelho() {
         fetchAparelho();
     }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
 
-    // Função para deletar um aparelho (ainda não implementada)
+    /**
+     * Lida com a remoção de um aparelho
+     * @param {*} aparelho 
+     */
     const deletar = (aparelho) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o aparelho ${aparelho.nome_aparelho}`)
     
@@ -41,11 +52,14 @@ function ListarAparelho() {
         }
     };
     
+    /**
+     * Lida com a atualização do aparelho
+     * @param {*} aparelho 
+     */
     const atualizar = (aparelho) => {
         window.alert('Atualizar');
     }
 
-    // Renderização do componente
     return (
         <>
             {/* Cabeçalho da seção */}

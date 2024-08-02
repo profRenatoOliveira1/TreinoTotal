@@ -1,14 +1,11 @@
 import React from 'react';
-// Importa a biblioteca React, necessária para criar componentes funcionais em React.
-
 import ListarAluno from '../../components/Listagem/ListagemAlunos';
-// Importa o componente ListarAluno, que está localizado na pasta '../../components/TabelaListagemAlunos/TabelaListagemAlunos'.
-// Este componente é responsável por exibir a tabela de listagem de alunos.
-
 import Navegacao from '../../components/Navegacao/Navegacao';
-// Importa o componente Navegacao, localizado na pasta '../../components/Navegacao/Navegacao'.
-// Este componente provavelmente contém a barra de navegação ou menu do aplicativo.
 
+/**
+ * Página de listagem de aluno
+ * @returns web page
+ */
 function AlunoListagem() {
     // Define um componente funcional chamado AlunoListagem.
     return (
@@ -21,4 +18,3 @@ function AlunoListagem() {
 }
 
 export default AlunoListagem;
-// Exporta o componente AlunoListagem como padrão, permitindo que ele seja importado e usado em outras partes da aplicação.

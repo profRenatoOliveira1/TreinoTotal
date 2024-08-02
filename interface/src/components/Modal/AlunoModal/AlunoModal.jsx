@@ -3,9 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import AlunoRequests from '../../../fetch/AlunoRequests';
 
+/**
+ * Componente responsável por montar o modal do aluno
+ * @returns web component
+ */
 function AlunoModal({ show, handleClose, onSelectAluno }) {
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [alunos, setAlunos] = useState([]);
 
+    /**
+     * Busca lista de alunos no servidor
+     */
     useEffect(() => {
         const fetchAlunos = async () => {
             try {

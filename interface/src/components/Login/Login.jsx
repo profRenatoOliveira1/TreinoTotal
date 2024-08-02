@@ -2,13 +2,28 @@ import AuthRequests from "../../fetch/AuthRequests";
 import { useState } from 'react';
 import styles from '../styles/StyleLogin.module.css';
 
+/**
+ * Componente responsável pelo formulário de login
+ * @returns web component
+ */
 function Login() {
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [formLogin, setFormLogin] = useState({
         email: '',
         password: ''
     });
+
+    /**
+     * Define o estado de erro da aplicação
+     */
     const [errorMessage, setErrorMessage] = useState('');
 
+    /**
+     * Atualiza o estado do formulário conforme o preenchimento do usuário
+     * @param {*} e evento de atualização
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormLogin(prevState => ({
@@ -17,6 +32,11 @@ function Login() {
         }));
     };
 
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

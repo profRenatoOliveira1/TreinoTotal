@@ -3,35 +3,66 @@ import TreinoRequests from '../../fetch/TreinoRequests';
 import styles from '../styles/FichaTreino.module.css';
 import AlunoModal from '../Modal/AlunoModal/AlunoModal';
 
+/**
+ * Componente responsável por exibir a lista de treino
+ * @returns web component
+ */
 function FichaTreino() {
+    /**
+     * Define o estado dos inputs e valores da ficha de treino
+     */
     const [searchType, setSearchType] = useState('matricula');
     const [searchValue, setSearchValue] = useState('');
     const [exercicios, setExercicios] = useState([]);
     const [aluno, setAluno] = useState('');
     const [professor, setProfessor] = useState('');
 
+    /**
+     * Controla o estado do modal aluno
+     */
     const [showAlunoModal, setShowAlunoModal] = useState(false);
+    /**
+     * Controla o aluno selecionado
+     */
     const [selectedAluno, setSelectedAluno] = useState(null);
 
+    /**
+     * Atualiza o estado do modal Aluno
+     * @returns **true** habilita o modal, **false** desabilita o modal
+     */
     const handleShowAlunoModal = () => setShowAlunoModal(true);
     const handleCloseAlunoModal = () => setShowAlunoModal(false);
 
+    /**
+     * Lida com a atualização do campo de pesquisa
+     * @param {*} event evento gerado
+     */
     const handleSearchValueChange = (event) => {
         setSearchValue(event.target.value);
     };
 
+    /**
+     * Lida com a atualização do campo aluno
+     * @param {*} event evento gerado
+     */
     const handleSelectAluno = (aluno) => {
         setSelectedAluno(aluno);
         setSearchValue(aluno.matricula);
         handleCloseAlunoModal();
     };
 
+    /**
+     * Atualiza o estado do aluno caso a pesquisa esteja vazia
+     */
     useEffect(() => {
         if (selectedAluno) {
             handleSearch();
         }
     }, [selectedAluno]);
 
+    /**
+     * Lida com a busca dos valores da ficha de treino
+     */
     const handleSearch = async () => {
         if (searchValue === '') {
             handleShowAlunoModal();

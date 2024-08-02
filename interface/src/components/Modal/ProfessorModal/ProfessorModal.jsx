@@ -3,9 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ProfessoresRequests from '../../../fetch/ProfessoresRequests';
 
+/**
+ * Componente responsável por montar o modal do aluno
+ * @returns web component
+ */
 function ProfessorModal({ show, handleClose, onSelectProfessor }) {
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [professores, setProfessores] = useState([]);
 
+    /**
+     * Busca lista de professores no servidor
+     */
     useEffect(() => {
         const fetchProfessores = async () => {
             try {

@@ -1,4 +1,11 @@
+/**
+ * Classe para requisição de aluno
+ */
 class AlunoRequests {
+
+    /**
+     * Construtor das rotas e do endereço do servidor
+     */
     constructor() {
         this.serverUrl = import.meta.env.VITE_API_URL;
         this.routeListarAluno = '/listar/alunos';
@@ -7,10 +14,18 @@ class AlunoRequests {
         this.routeAtualizarAluno = '/update/aluno';
     }
 
+    /**
+     * Recupera um token salvo no localStorage
+     * @returns token armazenado
+     */
     getAuthToken() {
         return localStorage.getItem('token');
     }
 
+    /**
+     * Faz a busca dos alunos no servidor
+     * @returns lista de alunos
+     */
     async listarAlunos() {
         try {
             const token = this.getAuthToken();
@@ -33,6 +48,11 @@ class AlunoRequests {
         }
     }
 
+    /**
+     * Faz o cadastro de um aluno no servidor
+     * @param {*} aluno 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async cadastrarAluno(aluno) {
         try {
             const token = this.getAuthToken();
@@ -55,6 +75,11 @@ class AlunoRequests {
         }
     }
 
+    /**
+     * Remove um aluno do servidor
+     * @param {*} idAluno 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async deletarAluno(idAluno) {
         try {
             const token = this.getAuthToken();
@@ -74,6 +99,11 @@ class AlunoRequests {
         }
     }
 
+    /**
+     * Atualiza um aluno no servidor
+     * @param {*} aluno 
+     * @returns **true** caso sucesso, **false** caso erro
+     */
     async atualizarAluno(aluno) {
         try {
             const token = this.getAuthToken();

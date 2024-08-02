@@ -4,11 +4,19 @@ import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
+/**
+ * Componente responsável por listar os professores
+ * @returns web component
+ */
 function ListarProfessor() {
-    // Define o estado inicial para armazenar os professores
+    /**
+     * Define o estado inicial para armazenar os professores
+     */
     const [professores, setProfessor] = useState([]);
 
-    // useEffect para carregar os professores quando o componente é montado
+    /**
+     * Busca lista de professores no servidor
+     */
     useEffect(() => {
         // Função assíncrona para buscar os professores da API
         const fetchProfessor = async () => {
@@ -27,22 +35,37 @@ function ListarProfessor() {
         fetchProfessor();
     }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
 
-    // Função para formatar a data no formato brasileiro
+    /**
+     * Formata datas no padrão brasileiro
+     * @param {*} data 
+     * @returns data formatada DD/MM/AAAA
+     */
     const formatarData = (data) => {
         return new Date(data).toLocaleDateString('pt-br');
     }
 
-    // Função para formatar o CPF
+    /**
+     * Máscara CPF
+     * @param {*} cpf 
+     * @returns cpf formatado xxx.xxx.xxx.-xx
+     */
     const formatarCPF = (cpf) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     };
 
-    // Função para formatar o número de telefone
+    /**
+     * Máscara telefone
+     * @param {*} telefone 
+     * @returns telefone formatado (xx) xxxxx-xxxx
+     */
     const formatarTelefone = (telefone) => {
         return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     };
 
-    // Função para deletar um professor (ainda não implementada)
+    /**
+     * Lida com a remoção de um prfessor
+     * @param {*} aluno 
+     */
     const deletar = (professor) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o professor ${professor.nome}?`);
 
@@ -56,11 +79,14 @@ function ListarProfessor() {
         }
     };
 
+    /**
+     * Lida com a atualização de um aluno
+     * @param {*} aluno 
+     */
     const atualizar = (aluno) => {
         window.alert('Atualizar');
     }
 
-    // Renderização do componente
     return (
         <>
             {/* Cabeçalho da seção */}

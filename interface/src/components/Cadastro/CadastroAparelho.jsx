@@ -1,16 +1,25 @@
-import React, { useState } from 'react'; // Importa React e useState hook para gerenciar o estado do componente
-import styles from '../styles/StyleCadastro.module.css'; // Importa estilos CSS específicos para este componente
-import AparelhoRequests from '../../fetch/AparelhosRequests'; // Importa o módulo de requisições para a API
+import React, { useState } from 'react'; 
+import styles from '../styles/StyleCadastro.module.css'; 
+import AparelhoRequests from '../../fetch/AparelhosRequests';
 
+/**
+ * Componente responsável por montar o formulário de cadastro do aparelho
+ * @returns web component
+ */
 function CadastroAparelho() {
-    // Define o estado inicial do formulário com todos os campos vazios
+    /**
+     * Define o estado inicial do formulário com todos os campos vazios
+     */
     const [formData, setFormData] = useState({
         id_aparelho: '',
         nome_aparelho: '',
         musculo_ativado: ''
     });
 
-    // Função para atualizar o estado do formulário conforme o usuário digita
+    /**
+     * Atualiza o estado do formulário conforme o preenchimento do aparelho
+     * @param {*} e evento de atualização
+     */
     const handleChange = (e) => {
         const { name, value } = e.target; // Obtém o nome e o valor do campo que foi alterado
         setFormData(prevState => ({
@@ -19,7 +28,11 @@ function CadastroAparelho() {
         }));
     };
 
-    // Função para lidar com a submissão do formulário
+    /**
+     * Lida com o envio do formulário
+     * @param {*} e evento de atualização
+     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
+     */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
         try {

@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importação do Bootstrap
-import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
-import ExerciciosRequests from '../../fetch/ExerciciosRequests'; // Importação do módulo responsável por fazer as requisições dos exercícios
-import AparelhosRequests from '../../fetch/AparelhosRequests'; // Importação do módulo responsável por fazer as requisições dos aparelhos
-import { FaTrash } from "react-icons/fa"; // Importação do ícone de lixeira da biblioteca react-icons
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import styles from '../styles/StyleListagem.module.css'; 
+import ExerciciosRequests from '../../fetch/ExerciciosRequests'; 
+import AparelhosRequests from '../../fetch/AparelhosRequests'; 
+import { FaTrash } from "react-icons/fa"; 
 import { MdEdit } from "react-icons/md";
 
+/**
+ * Componente responsável por listar os exercícios
+ * @returns web component
+ */
 function ListagemExercicios() {
-    const [exercicios, setExercicios] = useState([]); // Estado para armazenar os exercícios
+    /**
+     * Define o estado inicial para armazenar os exercícios
+     */
+    const [exercicios, setExercicios] = useState([]); 
+    /**
+     * Define o estado inicial para armazenar os aparelhos
+     */
     const [aparelhos, setAparelho] = useState([]);
 
+    /**
+     * Busca lista dos aparelhos e exercícios no servidor
+     */
     useEffect(() => {
         const fetchDados = async () => {
             try {
@@ -37,6 +50,10 @@ function ListagemExercicios() {
         fetchDados(); // Chama a função para buscar os dados ao montar o componente
     }, []);
 
+    /**
+     * Lida com a remoção do exercício
+     * @param {*} exercicio 
+     */
     const deletar = (exercicio) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o exercício ${exercicio.exercicio}?`);
         
@@ -50,11 +67,14 @@ function ListagemExercicios() {
         }
     };
 
+    /**
+     * Lida com a atualização do exercício
+     * @param {*} exercicio 
+     */
     const atualizar = (exercicio) => {
         window.alert('Atualizar');
     }
 
-    // Renderização do componente
     return (
         <>
             {/* Título da tabela de exercícios */}

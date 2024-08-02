@@ -1,14 +1,11 @@
 import React from 'react';
-// Importa a biblioteca React, necessária para criar componentes funcionais em React.
-
 import ListarAparelho from '../../components/Listagem/ListagemAparelho';
-// Importa o componente ListarAparelho, que está localizado na pasta '../../components/ListagemAparelho/ListagemAparelho'.
-// Este componente é responsável por exibir a listagem de aparelhos.
-
 import Navegacao from '../../components/Navegacao/Navegacao';
-// Importa o componente Navegacao, localizado na pasta '../../components/Navegacao/Navegacao'.
-// Este componente provavelmente contém a barra de navegação ou menu do aplicativo.
 
+/**
+ * Página de listagem de aparelho
+ * @returns web page
+ */
 function AparelhoListagem() {
     // Define um componente funcional chamado AparelhoListagem.
     return (
@@ -21,4 +18,3 @@ function AparelhoListagem() {
 }
 
 export default AparelhoListagem;
-// Exporta o componente AparelhoListagem como padrão, permitindo que ele seja importado e usado em outras partes da aplicação.
