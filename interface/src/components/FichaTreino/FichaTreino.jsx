@@ -83,46 +83,20 @@ function FichaTreino() {
                 <h3>{professor}</h3>
             </div>
 
-
-
             <div className={styles.exerciciosSection}>
-                {exercicios.map((exercicio, index) => (
+                {exercicios.map((exercicio) => (
                                 <div key={exercicio.id}  className={styles.exercicio}>
                                 <table className={styles.tabelaListTreino}>
                                     <tr>
                                         <td colSpan={3} style={{ textAlign: 'left' }}>Exercício: {exercicio.exercicio}</td>
                                     </tr>
                                     <tr>
-                                        <td width={'30%'}>Rep.: {exercicio.repeticoes}</td>
-                                        <td width={'30%'} style={{ textAlign: 'center' }}>Carga (kg): {exercicio.carga} Kg</td>
+                                        <td width={'30%'}>Repetições: {exercicio.repeticoes}</td>
+                                        <td width={'30%'} style={{ textAlign: 'center' }}>Carga (kg): {exercicio.carga}</td>
                                         <td width={'30%'} style={{ textAlign: 'right' }}>Séries: {exercicio.series}</td>
                                     </tr>
                                 </table>
                             </div>
-/*
-                    <div className={styles.exercicio}>
-                        <div className={styles.divs}>
-                            <h4 style={{marginRight: '10px'}}>Exercício {index + 1}:</h4>
-                            <h3>{exercicio.exercicio}</h3>
-                        </div>
-                        <div className={styles.containerDiv}>
-                            <div className={styles.divExercicio}>
-                                <h4 style={{marginRight: '10px'}} className={styles.h4Exercicio}>Carga: </h4>
-                                <h3 className={styles.carga}>{exercicio.carga} Kg</h3>
-                            </div>
-
-                            <div className={styles.divExercicio}>
-                                <h4 style={{marginRight: '10px'}} className={styles.h4Exercicio}>Repetições: </h4>
-                                <h3>{exercicio.repeticoes}</h3>
-                            </div>
-                            <div className={styles.divExercicio}>
-                                <h4 style={{marginRight: '10px'}} className={styles.h4Exercicio}>Séries: </h4>
-                                <h3>{exercicio.series}</h3>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    */
                 ))}
             </div>
         </div>
