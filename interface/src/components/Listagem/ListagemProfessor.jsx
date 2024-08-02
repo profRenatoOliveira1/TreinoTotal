@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/StyleListagem.module.css'; // Importa estilos CSS específicos para este componente
+import styles from '../styles/StyleListagem.module.css'; 
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
