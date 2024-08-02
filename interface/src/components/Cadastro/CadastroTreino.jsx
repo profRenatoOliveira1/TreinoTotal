@@ -203,8 +203,9 @@ function CadastroTreino() {
                 </Table>
             )}
 
-            <Button variant="primary" onClick={cadastrar} className={styles.cadastrarButton}>Cadastrar</Button>
-
+            <button onClick={cadastrar} className={styles.btn}>
+                        Cadastrar
+            </button>
             <AlunoModal
                 show={showAlunoModal}
                 handleClose={handleCloseAlunoModal}

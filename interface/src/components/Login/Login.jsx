@@ -59,7 +59,8 @@ function Login() {
         <div className={styles.containerLogin}>
             <form className={styles.formLogin} onSubmit={handleSubmit}>
                 <h1 className={styles.h1}>Login</h1>
-                <p style={{ color: '#b39f72', fontWeight: 'bold' }}>E-mail</p>
+                <div style={{marginTop: '10%'}} className={styles.divConteiner}>
+                <p style={{ color: '#ffeba7', fontWeight: 'bold', fontSize: '150%', marginTop: '2%' }}>E-mail</p>
                 <input
                     type="text"
                     className={styles.inpuLogin}
@@ -68,7 +69,9 @@ function Login() {
                     onChange={handleChange}
                     name="email"
                 />
-                <p style={{ color: '#b39f72', fontWeight: 'bold' }}>Senha</p>
+                </div>
+                <div style={{marginTop: '4%'}} className={styles.divConteiner}>
+                <p style={{ color: '#ffeba7', fontWeight: 'bold', fontSize: '150%', marginTop: '2%'  }}>Senha</p>
                 <input
                     type="password"
                     className={styles.inpuLogin}
@@ -76,8 +79,10 @@ function Login() {
                     value={formLogin.password}
                     onChange={handleChange}
                     name="password"
+                    
                 />
-                <button className={styles.buttonLogin} type="submit">
+                </div>
+                <button style={{marginTop: '4%'}} className={styles.buttonLogin} type="submit">
                     Login
                 </button>
                 {errorMessage && <p className={styles.errorMessage} style={{ color: 'red' }}>{errorMessage}</p>}

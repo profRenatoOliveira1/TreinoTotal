@@ -115,25 +115,19 @@ function FichaTreino() {
             </div>
 
             <div className={styles.exerciciosSection}>
-                {exercicios.map((exercicio, index) => (
-                    <div key={exercicio.id} className={styles.exercicio}>
-                        <div className={styles.divs}>
-                            <h4>Exercício {index + 1}:</h4>
-                            <h3>{exercicio.exercicio}</h3>
-                        </div>
-                        <div className={styles.divs}>
-                            <h4>Carga:</h4>
-                            <h3>{exercicio.carga} Kg</h3>
-                        </div>
-                        <div className={styles.divs}>
-                            <h4>Repetições:</h4>
-                            <h3>{exercicio.repeticoes}</h3>
-                        </div>
-                        <div className={styles.divs}>
-                            <h4>Séries:</h4>
-                            <h3>{exercicio.series}</h3>
-                        </div>
-                    </div>
+                {exercicios.map((exercicio) => (
+                                <div key={exercicio.id}  className={styles.exercicio}>
+                                <table className={styles.tabelaListTreino}>
+                                    <tr>
+                                        <td colSpan={3} style={{ textAlign: 'left' }}>Exercício: {exercicio.exercicio}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width={'30%'}>Repetições: {exercicio.repeticoes}</td>
+                                        <td width={'30%'} style={{ textAlign: 'center' }}>Carga (kg): {exercicio.carga}</td>
+                                        <td width={'30%'} style={{ textAlign: 'right' }}>Séries: {exercicio.series}</td>
+                                    </tr>
+                                </table>
+                            </div>
                 ))}
             </div>
         </div>

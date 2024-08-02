@@ -162,7 +162,7 @@ function CadastroAluno() {
                     </div>
 
                     <button type="submit" className={styles.btn}>
-                        Cadastrar-se
+                        Cadastrar
                     </button>
                 </form>
             </div>
