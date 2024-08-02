@@ -98,19 +98,31 @@ th {
     color: #ce0f0f;
 }
 
-.cadastrarButton {
-    display: inline-block !important;
-    margin-top: 3%;
-    width: 25% !important;
-    padding: 15px 25px !important;
-    background-color: var(--cinzaAzulado) !important;
-    font-size: 2rem !important;
-    color: var(--amareloClaro) !important;
-    border: 3px solid var(--amareloClaro) !important;
-    border-radius: 27px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s ease !important;
-}
+.btn {
+    display: inline-block;
+    width: 35%;
+    /* Exibe como bloco */
+    padding: 15px 25px;
+    /* Preenchimento */
+    background-color: var(--cinzaAzulado);
+    /* Cor de fundo */
+    font-size: 18px;
+    color: var(--amareloClaro);
+    border: 3px solid var(--amareloClaro);
+    /* Sem borda */
+    border-radius: 27px;
+    /* Raio da borda */
+    cursor: pointer;
+    /* Cursor */
+    transition: background-color 0.3s ease;
+    /* Transição suave */
+  }
+  
+  /* Estilos de hover para um botão genérico */
+  .btn:hover {
+    background-color: var(--amareloEscuro);
+    /* Cor de fundo ao pairar */
+  }
 
 .h1 {
     color: var(--branco);

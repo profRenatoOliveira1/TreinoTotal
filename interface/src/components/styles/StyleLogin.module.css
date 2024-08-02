@@ -9,6 +9,13 @@
     --preto: #000000;
 }
 
+.divConteiner {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+}
+
 .containerLogin {
     display: flex;
     align-items: center;
@@ -31,30 +38,45 @@
 .inpuLogin {
     width: 100%;
     max-width: 300px;
+    background-color: var(--cinzaAzulado);
     padding: 10px;
-    margin: 10px ;
+    margin: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-}
+    color: var(--branco);
 
+}
+.inpuLogin::-webkit-input-placeholder {
+    color: var(--branco);
+
+}
 .buttonLogin {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    margin: 20px 0;
-    background-color: var(--amareloClaro);
-    border: none;
-    border-radius: 5px;
-    color: var(--preto);
-    font-size: 16px;
+    display: inline-block;
+    width: 35%;
+    /* Exibe como bloco */
+    padding: 15px 25px;
+    /* Preenchimento */
+    background-color: var(--cinzaAzulado);
+    /* Cor de fundo */
+    font-size: 18px;
+    color: var(--amareloClaro);
+    border: 3px solid var(--amareloClaro);
+    /* Sem borda */
+    border-radius: 27px;
+    /* Raio da borda */
     cursor: pointer;
+    /* Cursor */
     transition: background-color 0.3s ease;
+    /* Transição suave */
 }
 
+/* Estilos de hover para um botão genérico */
 .buttonLogin:hover {
     background-color: var(--amareloEscuro);
+    /* Cor de fundo ao pairar */
 }
+
 
 .h1 {
     text-align: center;
@@ -64,4 +86,3 @@
     font-style: normal;
     margin: 2% 0;
 }
-
