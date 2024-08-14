@@ -74,7 +74,16 @@
 }
 form{
   width: 70%;
+  margin: auto auto;
 }
+
+.labelForm {
+  color: var(--branco);
+  font-size: 18px;
+  width: 100%;
+  text-align: left;
+}
+
 .formStyleDireita {
   width: 49%;
   /* Largura total */
@@ -116,6 +125,7 @@ form{
   /* Cursor */
   transition: background-color 0.3s ease;
   /* Transição suave */
+  margin: auto auto;
 }
 
 /* Estilos de hover para um botão genérico */
