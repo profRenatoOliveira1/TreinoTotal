@@ -133,7 +133,8 @@ class ProfessorController extends Professor {
 
     public async atualizarSenha(req: Request, res: Response): Promise<Response> {
         try {
-            const { idProfessor, senhaAtual, novaSenha } = req.body;
+            const idProfessor = parseInt(req.query.idProfessor as string);
+            const { senhaAtual, novaSenha } = req.body;
 
             if(await Professor.atualizarSenha(senhaAtual, novaSenha, idProfessor)) {
                 return res.status(200).json('Senha atualizada com sucesso.');

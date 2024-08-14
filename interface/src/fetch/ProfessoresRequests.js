@@ -12,6 +12,7 @@ class ProfessoresRequests {
         this.routeCadastrarProfessor = '/novo/professor';
         this.routeRemoverProfessor = '/delete/professor';
         this.routeAtualizarProfessor = '/update/professor';
+        this.routeAtualizarSenhaProfessor = '/update/senha/professor';
     }
 
     /**
@@ -134,7 +135,41 @@ class ProfessoresRequests {
         } catch (error) {
             // caso ocorra algum erro na comunicação
             console.error('Erro: ', error);
-            window.alert('Erro ao atualizar animal');
+            window.alert('Erro ao atualizar professor');
+            return null;
+        }
+    }
+
+    async atualizarSenhaProfessor(professor) {
+        try {
+            console.log(professor);
+            console.log(`${this.serverUrl}${this.routeAtualizarSenhaProfessor}?idProfessor=${professor.idProfessor}`);
+            
+
+            const token = this.getAuthToken();
+            // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarSenhaProfessor}?idProfessor=${professor.idProfessor}`, {
+                // Informa o verbo a ser acessado
+                method: 'PUT',
+                // informa os cabeçalhos da requisição
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${token}`
+                },
+                // informa o corpo da requisição, contendo as informações do aluno
+                body: JSON.stringify(professor)
+            });
+            // Verifica se a resposta não foi bem sucedida ...
+            if (!response.ok) {
+                // ... lança um erro
+                throw new Error('Erro ao enviar formulário');
+            }
+            // retorna true caso a resposta seja bem sucedida
+            return true;
+        } catch (error) {
+            // caso ocorra algum erro na comunicação
+            console.error('Erro: ', error);
+            window.alert('Erro ao atualizar senha do professor');
             return null;
         }
     }

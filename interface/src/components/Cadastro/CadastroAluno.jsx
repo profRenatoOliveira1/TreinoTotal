@@ -93,6 +93,7 @@ function CadastroAluno() {
                             value={formData.nome}
                             onChange={handleChange}
                             name="nome"
+                            required
                         />
                     </div>
                     {/* Campo para CPF */}

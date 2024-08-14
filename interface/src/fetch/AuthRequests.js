@@ -32,8 +32,8 @@ class AuthRequests {
             const data = await response.json();
             console.log('Login bem-sucedido, dados recebidos:', data);
             if (data.auth) {
-                console.log('Chamando persistToken com:', data.token, data.professor.nome);
-                this.persistToken(data.token, data.professor.nome);
+                console.log('Chamando persistToken com:', data.token, data.professor.id_professor, data.professor.nome);
+                this.persistToken(data.token, data.professor.nome, data.professor.id_professor);
             }
 
             return data;
@@ -48,9 +48,10 @@ class AuthRequests {
      * @param {*} token 
      * @param {*} username 
      */
-    persistToken(token, username) {
+    persistToken(token, username, idProfessor) {
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        localStorage.setItem('idProfessor', idProfessor);
     }
 
     /**
@@ -59,6 +60,7 @@ class AuthRequests {
     removeToken() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('idProfessor');
         window.location.href = '/';
     }
 
