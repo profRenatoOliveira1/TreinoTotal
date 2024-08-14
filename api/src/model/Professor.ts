@@ -1,11 +1,11 @@
 import { Pessoa } from "./Pessoa";
-
+import { Pool, QueryResult } from 'pg';
 import { DatabaseModel } from "./DatabaseModel";
 
 /**
  * Pool de conexão do banco de dados
  */
-const database = new DatabaseModel().pool;
+const database: Pool = new DatabaseModel().pool;
 
 /**
  * Representa um professor, que é uma extensão da classe Pessoa.
@@ -246,4 +246,32 @@ export class Professor extends Pessoa { // Herança de Pessoa
             return queryResult;
         }
     }
+
+    /**
+     * Atualiza a senha de um professor no banco de dados
+     * @param senhaAtual Senha atual do professor
+     * @param novaSenha Nova senha a ser definida
+     * @param idProfessor ID do professor
+     * @returns Objeto indicando se a atualização foi bem-sucedida
+     */
+    static async atualizarSenha(senhaAtual: string, novaSenha: string, idProfessor: number): Promise<Boolean> {
+        const queryVerifyPassword = `SELECT id_professor FROM professor WHERE id_professor=$1 AND senha=$2;`;
+        const queryUpdatePassword = `UPDATE professor SET senha=$1 WHERE id_professor=$2;`;
+
+        try {
+            const queryResult = await (database.query as any)(queryVerifyPassword, [idProfessor, senhaAtual]);
+
+            if (queryResult.rowCount === 0) {
+                return false;
+            }
+
+            await (database.query as any)(queryUpdatePassword, [novaSenha, idProfessor]);
+
+            return true;
+        } catch (error) {
+            console.error('Erro ao atualizar a senha:', error);
+            return false;
+        }
+    }
+    
 }

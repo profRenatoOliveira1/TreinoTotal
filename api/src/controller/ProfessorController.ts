@@ -130,6 +130,22 @@ class ProfessorController extends Professor {
             return res.status(500).send("error");
         }
     }
+
+    public async atualizarSenha(req: Request, res: Response): Promise<Response> {
+        try {
+            const { idProfessor, senhaAtual, novaSenha } = req.body;
+
+            if(await Professor.atualizarSenha(senhaAtual, novaSenha, idProfessor)) {
+                return res.status(200).json('Senha atualizada com sucesso.');
+            } else {
+                return res.status(400).json('Não foi possível atualizar a senha do professor. Verifique se a senha atual está correta.');
+            }
+        } catch (error) {
+            console.log("Error on controller method atualizar senha");
+            console.log(error);
+            return res.status(500).send("error");
+        }
+    }
 }
 
 export default ProfessorController;

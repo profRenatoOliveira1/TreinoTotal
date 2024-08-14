@@ -49,6 +49,8 @@ router.post('/novo/professor', Authentication.verifyToken, professorController.c
 router.delete('/delete/professor', Authentication.verifyToken, professorController.remover);
 // Atualiza um professor 
 router.put('/update/professor', Authentication.verifyToken, professorController.atualizar);
+// Atualizar senha professor
+router.put('/update/senha/professor', Authentication.verifyToken, professorController.atualizarSenha);
 
 /**
 * Rotas para a entidade aparelho
