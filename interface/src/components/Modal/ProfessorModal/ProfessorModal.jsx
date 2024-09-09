@@ -14,6 +14,11 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
     const [professores, setProfessores] = useState([]);
 
     /**
+     * Define o estado inicial para o formulário de pesquisa
+     */
+    const [termoPesquisa, setTermoPesquisa] = useState('');
+
+    /**
      * Busca lista de professores no servidor
      */
     useEffect(() => {
@@ -31,22 +36,38 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
         }
     }, [show]);
 
+    /**
+     * Controla o valor para filtrar os professores por parte do nome
+     */
+    const filtroProfessores = termoPesquisa
+        ? professores.filter((professor) =>
+            professor.nome.toLowerCase().includes(termoPesquisa.toLowerCase()))
+        : professores;
+
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Header closeButton style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Modal.Title>Lista de professores</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Body style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
+                <input
+                    type="text"
+                    placeholder="Buscar professor..."
+                    className="form-control mb-3"
+                    value={termoPesquisa}
+                    onChange={(e) => setTermoPesquisa(e.target.value)}
+                />
+
                 {professores.length > 0 ? (
                     <table className="table table-striped">
                         <tbody>
-                            {professores.map((professor) => (
+                            {filtroProfessores.map((professor) => (
                                 <tr key={professor.id_professor}>
                                     <td hidden>{professor.id_professor}</td>
                                     <td>{professor.nome}</td>
                                     <td>
                                         <Button
-                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
+                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
                                             onClick={() => onSelectProfessor(professor)}
                                         >
                                             Selecionar
@@ -60,7 +81,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                     <p>Carregando professores...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Footer style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>

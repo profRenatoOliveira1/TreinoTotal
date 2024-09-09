@@ -14,6 +14,11 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
     const [alunos, setAlunos] = useState([]);
 
     /**
+     * Define o estado inicial para o formulário de pesquisa
+     */
+    const [termoPesquisa, setTermoPesquisa] = useState('');
+
+    /**
      * Busca lista de alunos no servidor
      */
     useEffect(() => {
@@ -31,23 +36,40 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
         }
     }, [show]);
 
+    /**
+     * Controla o valor para filtrar os alunos por parte do nome, ou pela matrícula
+     */
+    const filtroAlunos = termoPesquisa 
+        ? alunos.filter((aluno) => 
+            aluno.nome.toLowerCase().includes(termoPesquisa.toLowerCase()) ||
+            aluno.matricula.toString().includes(termoPesquisa)) 
+        : alunos;
+
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Header closeButton style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Modal.Title>Lista de alunos</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Body style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
+                <input
+                    type="text"
+                    placeholder="Buscar aluno..."
+                    className="form-control mb-3"
+                    value={termoPesquisa}
+                    onChange={(e) => setTermoPesquisa(e.target.value)}
+                />
+
                 {alunos.length > 0 ? (
                     <table className="table table-striped">
                         <tbody>
-                            {alunos.map((aluno) => (
+                            {filtroAlunos.map((aluno) => (
                                 <tr key={aluno.id_aluno}>
                                     <td hidden>{aluno.id_aluno}</td>
                                     <td>{aluno.matricula}</td>
                                     <td>{aluno.nome}</td>
                                     <td>
                                         <Button
-                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
+                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
                                             onClick={() => onSelectAluno(aluno)}
                                         >
                                             Selecionar
@@ -61,7 +83,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                     <p>Carregando alunos...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Footer style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>

@@ -14,6 +14,11 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
     const [exercicios, setExercicios] = useState([]);
 
     /**
+     * Define o estado inicial para o formulário de pesquisa
+     */
+    const [termoPesquisa, setTermoPesquisa] = useState('');
+
+    /**
      * Busca lista de exercícios no servidor
      */
     useEffect(() => {
@@ -31,12 +36,28 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
         }
     }, [show]);
 
+    /**
+     * Controla o valor para filtrar os professores por parte do nome
+     */
+    const filtroExercicios = termoPesquisa
+        ? exercicios.filter((exercicio) =>
+            exercicio.exercicio.toLowerCase().includes(termoPesquisa.toLowerCase()))
+        : exercicios;
+
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Header closeButton style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Modal.Title>Lista de Exercícios</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Body style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
+                <input
+                    type="text"
+                    placeholder="Buscar professor..."
+                    className="form-control mb-3"
+                    value={termoPesquisa}
+                    onChange={(e) => setTermoPesquisa(e.target.value)}
+                />
+
                 {exercicios.length > 0 ? (
                     <table className="table table-striped">
                         <thead>
@@ -47,14 +68,14 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {exercicios.map((exercicio) => (
+                            {filtroExercicios.map((exercicio) => (
                                 <tr key={exercicio.id_exercicio}>
                                     <td hidden>{exercicio.id_exercicio}</td>
                                     <td>{exercicio.exercicio}</td>
                                     <td>{exercicio.regiao_corpo_ativada}</td>
                                     <td>
                                         <Button
-                                            style={{backgroundColor: '#ffeba7', color: 'black'}}
+                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
                                             onClick={() => onSelectExercicio(exercicio)}
                                         >
                                             Selecionar
@@ -68,7 +89,7 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                     <p>Carregando exercícios...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer style={{backgroundColor: '#343A40', color: '#FFFFFF'}}>
+            <Modal.Footer style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
                 <Button variant="secondary" onClick={handleClose}>
                     Fechar
                 </Button>
