@@ -5,14 +5,14 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 :root {
-  --amareloClaro: #ffeba7;
-  --cinzaEscuro: #212529;
-  --cinzaAzulado: #343A40;
+  --amareloClaro: #4eb07b;
+  --cinzaEscuro: #021703;
+  --cinzaAzulado: #07060d;
   --cinzaAvermelhado: #333;
-  --branco: #FFFFFF;
+  --branco: #f2f2f2;
   --cinzaClaro: #ccc;
-  --amareloEscuro: #b39f72;
-  --preto: #000000;
+  --amareloEscuro: #0d7949;
+  --preto: #1b1b1b;
 }
 
 #root {

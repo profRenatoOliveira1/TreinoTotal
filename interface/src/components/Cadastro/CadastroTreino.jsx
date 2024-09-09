@@ -132,21 +132,21 @@ function CadastroTreino() {
             </div>
 
             <div className={styles.selections}>
-                <div className={styles.selectionBox}>
+                <div style={{ width: '25%'}}>
                     <Button variant="outline-light" onClick={handleShowAlunoModal} className={styles.botaoSelecao}>
                         Escolher Aluno
                     </Button>
                     <div className={styles.selected}>{selectedAluno?.nome}</div>
                 </div>
 
-                <div className={styles.selectionBox} style={{marginLeft: '6%', marginRight: '6%'}}>
+                <div style={{ width: '30%', margin: 'auto auto'}}>
                     <Button variant="outline-light" onClick={handleShowProfessorModal} className={styles.botaoSelecao}>
                         Escolher Professor
                     </Button>
                     <div className={styles.selected}>{selectedProfessor?.nome}</div>
                 </div>
 
-                <div className={styles.selectionBox}>
+                <div style={{ width: '20%'}}>
                     <Button variant="outline-light" onClick={handleShowExercicioModal} className={styles.botaoSelecao}>
                         Escolher Exercício
                     </Button>

@@ -60,7 +60,7 @@ function Login() {
             <form className={styles.formLogin} onSubmit={handleSubmit}>
                 <h1 className={styles.h1}>Login</h1>
                 <div style={{marginTop: '10%'}} className={styles.divConteiner}>
-                <p style={{ color: '#ffeba7', fontWeight: 'bold', fontSize: '150%', marginTop: '2%' }}>E-mail</p>
+                <p style={{ color: 'var(--amareloClaro)', fontWeight: 'bold', fontSize: '150%', marginTop: '2%' }}>E-mail</p>
                 <input
                     type="text"
                     className={styles.inpuLogin}
@@ -71,7 +71,7 @@ function Login() {
                 />
                 </div>
                 <div style={{marginTop: '4%'}} className={styles.divConteiner}>
-                <p style={{ color: '#ffeba7', fontWeight: 'bold', fontSize: '150%', marginTop: '2%'  }}>Senha</p>
+                <p style={{ color: 'var(--amareloClaro)', fontWeight: 'bold', fontSize: '150%', marginTop: '2%'  }}>Senha</p>
                 <input
                     type="password"
                     className={styles.inpuLogin}

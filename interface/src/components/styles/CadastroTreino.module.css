@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --amareloClaro: #ffeba7;
     --cinzaEscuro: #212529;
     --cinzaAzulado: #343A40;
@@ -7,7 +7,7 @@
     --cinzaClaro: #ccc;
     --amareloEscuro: #b39f72;
     --preto: #000000;
-}
+} */
 
 .cadastroTreino {
     color: var(--branco);
@@ -61,11 +61,12 @@ th {
 }
 .selected {
     padding: 10px 15px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     font-size: 1.3rem;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     text-align: center;
-    border-radius: 25px;
+    /* border-radius: 25px; */
+    margin: auto auto;
 }
 
 .table thead th, table {
@@ -121,7 +122,7 @@ th {
   /* Estilos de hover para um botão genérico */
   .btn:hover {
     background-color: var(--amareloEscuro);
-    /* Cor de fundo ao pairar */
+    color: var(--branco);
   }
 
 .h1 {
@@ -134,7 +135,7 @@ th {
 }
 
 .botaoSelecao {
-    width: 120%;
+    width: 100%;
     font-size: 1.5rem !important;
     color: var(--amareloClaro) !important;
     border-color: var(--amareloClaro) !important;

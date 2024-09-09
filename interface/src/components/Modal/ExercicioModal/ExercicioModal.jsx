@@ -75,7 +75,7 @@ function ExercicioModal({ show, handleClose, onSelectExercicio }) {
                                     <td>{exercicio.regiao_corpo_ativada}</td>
                                     <td>
                                         <Button
-                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
+                                            style={{ backgroundColor: 'var(--amareloClaro)', color: 'var(--branco)' }}
                                             onClick={() => onSelectExercicio(exercicio)}
                                         >
                                             Selecionar

@@ -56,7 +56,7 @@ function Navegacao() {
     return (
         <Navbar collapseOnSelect expand="lg" className={styles.CtnNavbar}>
             <Container>
-                <Navbar.Brand href="https://www.instagram.com/dev.rank.s" target="_blank" className={styles.logoAtividade}>
+                <Navbar.Brand href="/" target="_blank" className={styles.logoAtividade}>
                     <img src={imagemLogo} alt="Logo" className={styles.logoImage} />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ backgroundColor: '#ffeba7' }} />

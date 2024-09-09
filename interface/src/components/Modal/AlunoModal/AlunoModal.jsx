@@ -69,7 +69,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                                     <td>{aluno.nome}</td>
                                     <td>
                                         <Button
-                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
+                                            style={{ backgroundColor: 'var(--amareloClaro)', color: 'var(--branco)' }}
                                             onClick={() => onSelectAluno(aluno)}
                                         >
                                             Selecionar

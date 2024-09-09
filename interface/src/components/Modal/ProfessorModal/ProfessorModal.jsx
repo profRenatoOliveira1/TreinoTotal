@@ -58,7 +58,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                     onChange={(e) => setTermoPesquisa(e.target.value)}
                 />
 
-                {professores.length > 0 ? (
+                {professores.length > 0 ? ( 
                     <table className="table table-striped">
                         <tbody>
                             {filtroProfessores.map((professor) => (
@@ -67,7 +67,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                                     <td>{professor.nome}</td>
                                     <td>
                                         <Button
-                                            style={{ backgroundColor: '#ffeba7', color: 'black' }}
+                                            style={{ backgroundColor: 'var(--amareloClaro)', color: 'var(--branco)' }}
                                             onClick={() => onSelectProfessor(professor)}
                                         >
                                             Selecionar

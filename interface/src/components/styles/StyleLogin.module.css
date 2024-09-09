@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --amareloClaro: #ffeba7;
     --cinzaEscuro: #212529;
     --cinzaAzulado: #343A40;
@@ -7,7 +7,7 @@
     --cinzaClaro: #ccc;
     --amareloEscuro: #b39f72;
     --preto: #000000;
-}
+} */
 
 .divConteiner {
     display: flex;
@@ -67,14 +67,15 @@
     /* Raio da borda */
     cursor: pointer;
     /* Cursor */
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
     /* Transição suave */
 }
 
 /* Estilos de hover para um botão genérico */
 .buttonLogin:hover {
     background-color: var(--amareloEscuro);
-    /* Cor de fundo ao pairar */
+    color: var(--branco);
+    transition: background-color 0.2s ease;
 }
 
 
