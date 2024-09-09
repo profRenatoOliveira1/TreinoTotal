@@ -136,6 +136,10 @@ class ProfessorController extends Professor {
             const idProfessor = parseInt(req.query.idProfessor as string);
             const { senhaAtual, novaSenha } = req.body;
 
+            if(idProfessor === 6) {
+                return res.status(403).json('Não é possível alterar a senha do administrador.');
+            }
+
             if(await Professor.atualizarSenha(senhaAtual, novaSenha, idProfessor)) {
                 return res.status(200).json('Senha atualizada com sucesso.');
             } else {

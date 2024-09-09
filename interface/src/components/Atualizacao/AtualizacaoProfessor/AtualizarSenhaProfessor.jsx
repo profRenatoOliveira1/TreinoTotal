@@ -31,6 +31,7 @@ function AtualizarSenhaProfessor() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne o comportamento padrão de recarregar a página
 
+        // verifica se a nova senha digitada e a confirmação de senha são as mesmas
         if (formSenha.novaSenha === formSenha.confirmarSenha) {
             try {
                 // Envia os dados do formulário para a API
@@ -39,6 +40,7 @@ function AtualizarSenhaProfessor() {
                     console.log('Senha atualizada com sucesso', response);
                     // Mostra um alerta de sucesso para o usuário
                     window.alert('Senha atualizada com sucesso');
+                    // recarrega a página
                     window.location.reload();
                 }
             } catch (error) {
@@ -46,6 +48,7 @@ function AtualizarSenhaProfessor() {
                 console.error('Erro ao atualizra senha do professor:', error);
             }
         } else {
+            // Mostra um alerta dizendo que as senhas digitadas não conferem
             alert('As senhas não conferem.');
         }
     };
@@ -65,6 +68,7 @@ function AtualizarSenhaProfessor() {
                                 value={formSenha.senhaAtual}
                                 onChange={handleChange}
                                 className={style.formStyle}
+                                placeholder="Informe a senha atual"
                             />
                         </div>
 
@@ -76,6 +80,7 @@ function AtualizarSenhaProfessor() {
                                 value={formSenha.novaSenha}
                                 onChange={handleChange}
                                 className={style.formStyle}
+                                placeholder="Informe a nova senha"
                             />
                         </div>
 
@@ -87,6 +92,7 @@ function AtualizarSenhaProfessor() {
                                 value={formSenha.confirmarSenha}
                                 onChange={handleChange}
                                 className={style.formStyle}
+                                placeholder="Confirme a nova senha"
                             />
                         </div>
 

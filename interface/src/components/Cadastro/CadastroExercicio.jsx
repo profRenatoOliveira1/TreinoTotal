@@ -8,9 +8,9 @@ import AparelhosRequests from '../../fetch/AparelhosRequests';
  * @returns web component
  */
 function CadastroExercicio() {
-   /**
-     * Define o estado inicial do formulário com todos os campos vazios
-     */
+    /**
+      * Define o estado inicial do formulário com todos os campos vazios
+      */
     const [formData, setFormData] = useState({
         id_aparelho: '',
         exercicio: '',
@@ -68,7 +68,7 @@ function CadastroExercicio() {
                 exercicio: '',
                 regiao_corpo_ativa: ''
             });
-            window.location.reload();
+            window.location.reload(); // recarrega a página
         } catch (error) {
             console.error('Erro ao cadastrar exercício:', error);
             window.alert('Erro ao cadastrar exercício');
@@ -77,7 +77,7 @@ function CadastroExercicio() {
 
     return (
         <div className={styles.section}>
-                <h1 className={styles.h1}>Cadastro de Exercício</h1>
+            <h1 className={styles.h1}>Cadastro de Exercício</h1>
 
             <div className={styles.container}>
                 <form onSubmit={handleSubmit}>
@@ -109,7 +109,7 @@ function CadastroExercicio() {
                             name="exercicio"
                         />
                     </div>
-                   
+
                     {/* Campo para região do corpo ativa */}
                     <div className={styles.formGroup}>
                         <input

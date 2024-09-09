@@ -1,5 +1,5 @@
 import React from 'react';
-import FichaTreino from '../../components/FichaTreino/FichaTreino';
+import FichaTreino from '../../components/Fichas/FichaTreino';
 import Navegacao from '../../components/Navegacao/Navegacao';
 
 /**

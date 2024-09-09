@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/StyleListagem.module.css'; 
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdSecurityUpdate } from "react-icons/md";
+import { useNavigate } from 'react-router';
 
 /**
  * Componente responsável por listar os professores
  * @returns web component
  */
 function ListarProfessor() {
+    const navegacao = useNavigate();
     /**
      * Define o estado inicial para armazenar os professores
      */
@@ -87,6 +89,10 @@ function ListarProfessor() {
         window.alert('Atualizar');
     }
 
+    const exibeFichaProfessor = (professor) => {
+        navegacao('/ficha/professor', { state: { professor: professor }, replace: true });
+    }
+
     return (
         <>
             {/* Cabeçalho da seção */}
@@ -104,15 +110,15 @@ function ListarProfessor() {
 
             {/* Tabela para listar os professores */}
             <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
-                <table className={`${styles.table} ${styles.tabela}`}>
+                <table className={`${styles.table} ${styles.tabela}`} style={{width: '100%'}}>
                     <thead>
                         <tr className={styles.tabelaHeader}>
                             <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Data de Nascimento</th>
-                            <th>Telefone</th>
-                            <th>Endereço</th>
-                            <th>Data de Contratação</th>
+                            {/* <th>CPF</th> */}
+                            {/* <th>Data de Nascimento</th> */}
+                            {/* <th>Telefone</th> */}
+                            {/* <th>Endereço</th> */}
+                            {/* <th>Data de Contratação</th> */}
                             <th>Formação</th>
                             <th>Especialidade</th>
                             <th colSpan={2}>Ação</th>
@@ -122,12 +128,12 @@ function ListarProfessor() {
                         {/* Mapeia os professores e renderiza cada um como uma linha na tabela */}
                         {professores.map(professor => (
                             <tr key={professor.id_professor} className={styles.tabelaCorpo}>
-                                <td>{professor.nome}</td>
-                                <td>{formatarCPF(professor.cpf)}</td>
-                                <td>{formatarData(professor.data_nascimento)}</td>
-                                <td>{formatarTelefone(professor.celular)}</td>
-                                <td>{professor.endereco}</td>
-                                <td>{formatarData(professor.data_contratacao)}</td>
+                                <td onClick={() => exibeFichaProfessor(professor)}>{professor.nome}</td>
+                                {/* <td>{formatarCPF(professor.cpf)}</td> */}
+                                {/* <td>{formatarData(professor.data_nascimento)}</td> */}
+                                {/* <td>{formatarTelefone(professor.celular)}</td> */}
+                                {/* <td>{professor.endereco}</td> */}
+                                {/* <td>{formatarData(professor.data_contratacao)}</td> */}
                                 <td>{professor.formacao}</td>
                                 <td>{professor.especialidade}</td>
                                 <td>

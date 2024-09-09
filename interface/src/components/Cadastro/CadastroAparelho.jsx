@@ -40,7 +40,7 @@ function CadastroAparelho() {
             const response = await AparelhoRequests.cadastrarAparelho(formData);
             console.log('Aparelho cadastrado com sucesso:', response);
             window.alert(formData.nome_aparelho + ': foi cadastrado com sucesso'); // Exibe uma mensagem de sucesso
-            window.location.reload();
+            window.location.reload(); // recarrega a página
         } catch (error) {
             console.error('Erro ao cadastrar aparelho:', error); // Exibe uma mensagem de erro
         }

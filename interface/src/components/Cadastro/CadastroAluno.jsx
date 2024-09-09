@@ -60,7 +60,7 @@ function CadastroAluno() {
             console.log('Aluno cadastrado com sucesso:', response);
             if (response) {
                 window.alert(`${formData.nome} foi cadastrado com sucesso`);
-                window.location.reload();
+                window.location.reload(); // recarrega a página
             }
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);
@@ -171,4 +171,4 @@ function CadastroAluno() {
     );
 }
 
-export default CadastroAluno; // Exporta o componente para ser utilizado em outras partes da aplicação
+export default CadastroAluno;

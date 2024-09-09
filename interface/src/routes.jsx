@@ -13,6 +13,7 @@ import ListarTreino from './pages/FichaTreino/FichaTreino';
 import Login from './pages/Login/Login';
 import ProtectedRoute from './components/Rotas/ProtectedRoute';
 import ProfessorAtualizarSenha from './pages/Professor/ProfessorAtulizarSenha';
+import FichaProfessor from './pages/FichaTreino/FichaProfessor';
 
 // Componente de roteamento da aplicação
 export default function AppRouter() {
@@ -33,6 +34,7 @@ export default function AppRouter() {
                 <Route path="/Cadastro/Treino" element={<ProtectedRoute element={CadastroTreino} />} /> {/* Rota para listar aparelhos */}
                 <Route path="/Listagem/Treino" element={<ProtectedRoute element={ListarTreino} />} /> {/* Rota para listar aparelhos */}
                 <Route path="/Atualizar/Senha/Professor" element={<ProtectedRoute element={ProfessorAtualizarSenha} />} />
+                <Route path="/ficha/professor" element={<ProtectedRoute element={FichaProfessor} />} />
             </Routes>
         </BrowserRouter>
     );

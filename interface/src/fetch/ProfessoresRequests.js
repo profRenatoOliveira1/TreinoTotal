@@ -142,10 +142,8 @@ class ProfessoresRequests {
 
     async atualizarSenhaProfessor(professor) {
         try {
-            console.log(professor);
             console.log(`${this.serverUrl}${this.routeAtualizarSenhaProfessor}?idProfessor=${professor.idProfessor}`);
             
-
             const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
             const response = await fetch(`${this.serverUrl}${this.routeAtualizarSenhaProfessor}?idProfessor=${professor.idProfessor}`, {
@@ -159,6 +157,16 @@ class ProfessoresRequests {
                 // informa o corpo da requisição, contendo as informações do aluno
                 body: JSON.stringify(professor)
             });
+
+            /**
+             * Para os alunos engraçadinhos não trocarem a senha do usuário admin
+             */
+            if(response.status === 403) {
+                console.error('Não é possível alterar a senha do administrador');
+                alert('Não é possível alterar a senha do administrador');
+                return null;
+            }
+
             // Verifica se a resposta não foi bem sucedida ...
             if (!response.ok) {
                 // ... lança um erro

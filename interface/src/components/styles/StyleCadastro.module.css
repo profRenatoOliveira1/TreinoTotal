@@ -148,3 +148,8 @@ form{
   /* Estilo da fonte */
   margin-bottom: 2%;
 }
+
+td:nth-child(1):hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

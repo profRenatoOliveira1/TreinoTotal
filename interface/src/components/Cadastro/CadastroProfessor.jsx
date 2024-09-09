@@ -62,7 +62,7 @@ function CadastroProfessor() {
             console.log('Professor cadastrado com sucesso:', response);
             // Mostra um alerta de sucesso para o usuário
             window.alert(formData.nome + ': foi cadastrado com sucesso');
-            window.location.reload();
+            window.location.reload();   // recarrega a página
         } catch (error) {
             // Mostra um alerta de erro para o usuário em caso de falha
             console.error('Erro ao cadastrar professor:', error);
