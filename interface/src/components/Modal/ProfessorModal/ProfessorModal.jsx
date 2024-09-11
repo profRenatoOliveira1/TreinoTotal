@@ -44,6 +44,13 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
             professor.nome.toLowerCase().includes(termoPesquisa.toLowerCase()))
         : professores;
 
+    /**
+    * Limpa o valor do filtro digitado pelo usuário
+    */
+    const limpaFiltro = () => {
+        setTermoPesquisa('');
+    }
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton style={{ backgroundColor: '#343A40', color: '#FFFFFF' }}>
@@ -68,7 +75,7 @@ function ProfessorModal({ show, handleClose, onSelectProfessor }) {
                                     <td>
                                         <Button
                                             style={{ backgroundColor: 'var(--amareloClaro)', color: 'var(--branco)' }}
-                                            onClick={() => onSelectProfessor(professor)}
+                                            onClick={() => {onSelectProfessor(professor), limpaFiltro()}}
                                         >
                                             Selecionar
                                         </Button>

@@ -44,6 +44,13 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
             aluno.nome.toLowerCase().includes(termoPesquisa.toLowerCase()) ||
             aluno.matricula.toString().includes(termoPesquisa)) 
         : alunos;
+    
+    /**
+    * Limpa o valor do filtro digitado pelo usuário
+    */
+    const limpaFiltro = () => {
+        setTermoPesquisa('');
+    }
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -70,7 +77,7 @@ function AlunoModal({ show, handleClose, onSelectAluno }) {
                                     <td>
                                         <Button
                                             style={{ backgroundColor: 'var(--amareloClaro)', color: 'var(--branco)' }}
-                                            onClick={() => onSelectAluno(aluno)}
+                                            onClick={() => {onSelectAluno(aluno), limpaFiltro()}}
                                         >
                                             Selecionar
                                         </Button>
