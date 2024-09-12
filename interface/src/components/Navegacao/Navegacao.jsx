@@ -85,7 +85,7 @@ function Navegacao() {
                                     <NavDropdown.Item href="/Cadastro/Treino" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
                                     <NavDropdown.Item href="/Listagem/Treino" className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
-                                <NavDropdown title={`Olá ${username.split(' ')[0]}`} id="collapsible-nav-dropdown" className={styles.navbar}>
+                                <NavDropdown title={`Olá ${username.split(' ')[0].toUpperCase()}`} id="collapsible-nav-dropdown" className={styles.navbar}>
                                     <NavDropdown.Item href="/Atualizar/Senha/Professor" className={styles.navDropdown}>Atualizar Senha</NavDropdown.Item>
                                     <NavDropdown.Item onClick={handleLogout} className={styles.navDropdown}><MdLogout /> Sair</NavDropdown.Item>
                                 </NavDropdown>
