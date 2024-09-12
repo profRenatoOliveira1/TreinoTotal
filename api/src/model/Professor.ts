@@ -40,7 +40,6 @@ export class Professor extends Pessoa { // Herança de Pessoa
      * @param _especialidade A especialidade do professor.
      */
     constructor(
-        _id: number,
         _nome: string,
         _cpf: string,
         _data_nascimento: Date,
@@ -50,7 +49,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
         _formacao: string,
         _especialidade: string
     ) {
-        super(_id, _nome, _cpf, _data_nascimento, _celular, _endereco);
+        super(_nome, _cpf, _data_nascimento, _celular, _endereco);
         this.data_contratacao = _data_contratacao;
         this.formacao = _formacao;
         this.especialidade = _especialidade;

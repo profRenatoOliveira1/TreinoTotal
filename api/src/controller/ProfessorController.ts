@@ -36,11 +36,10 @@ class ProfessorController extends Professor {
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { id_professor, nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade } = req.body;
+            const { nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade } = req.body;
 
             // Instanciando objeto Professor
             const novoProfessor = new Professor(
-                id_professor,
                 nome,
                 cpf,
                 data_nascimento,
@@ -103,7 +102,6 @@ class ProfessorController extends Professor {
 
             // Instanciando objeto Professor
             const professor = new Professor(
-                0,
                 nome,
                 cpf,
                 new Date(data_nascimento),

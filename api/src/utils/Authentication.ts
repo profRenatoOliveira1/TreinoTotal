@@ -62,7 +62,7 @@ export class Authentication {
      * @returns Token de autenticação do usuário
      */
     static generateToken(id: number, nome: string, email: string) {
-        return jwt.sign({ id, nome, email }, SECRET, { expiresIn: '1h' });
+        return jwt.sign({ id, nome, email }, SECRET, { expiresIn: '24h' });
     }
 
     /**

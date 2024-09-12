@@ -5,7 +5,7 @@ export class Pessoa {
     /**
      * O identificador da pessoa.
      */
-    private id: number;
+    private id: number = 0;
 
     /**
      * O nome da pessoa.
@@ -45,7 +45,6 @@ export class Pessoa {
     /**
      * Cria uma nova instância de Pessoa.
      * 
-     * @param _id O identificador da pessoa.
      * @param _nome O nome da pessoa.
      * @param _cpf O CPF da pessoa.
      * @param _data_nascimento A data de nascimento da pessoa.
@@ -54,8 +53,7 @@ export class Pessoa {
      * @param _email O email da pessoa.
      * @param _senha A senha da pessoa.
      */
-    constructor(_id: number, _nome: string, _cpf: string, _data_nascimento: Date, _celular: string, _endereco: string) {
-        this.id = _id;
+    constructor(_nome: string, _cpf: string, _data_nascimento: Date, _celular: string, _endereco: string) {
         this.nome = _nome;
         this.cpf = _cpf;
         this.data_nascimento = _data_nascimento;

@@ -29,7 +29,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
     /**
      * Cria uma nova instância de Aluno.
      * 
-     * @param _id O identificador do aluno.
      * @param _nome O nome do aluno.
      * @param _cpf O CPF do aluno.
      * @param _data_nascimento A data de nascimento do aluno.
@@ -40,7 +39,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
      * @param _imc O índice de massa corporal (IMC) do aluno.
      */
     constructor(
-        _id: number,
         _nome: string,
         _cpf: string,
         _data_nascimento: Date,
@@ -50,7 +48,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         _peso: number,
         _imc: number
     ) {
-        super(_id, _nome, _cpf, _data_nascimento, _celular, _endereco);
+        super(_nome, _cpf, _data_nascimento, _celular, _endereco);
         this.altura = _altura;
         this.peso = _peso;
         this.imc = _imc;
@@ -133,7 +131,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
         const listaDeAlunos: Array<Aluno> = [];
 
         // Construção da query para selecionar as informações de um Aluno
-        const querySelectAparelho = `SELECT * FROM Aluno WHERE situacao = true;`;
+        const querySelectAparelho = `SELECT * FROM Aluno WHERE situacao = true ORDER BY nome ASC;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -243,11 +241,12 @@ export class Aluno extends Pessoa { // Herança de Pessoa
                                     celular='${aluno.getCelular()}',
                                     endereco='${aluno.getEndereco().toUpperCase()}',
                                     email='${aluno.getEmail().toUpperCase()}',
-                                    senha='${aluno.getSenha()}',
                                     altura=${aluno.getAltura()},
                                     peso=${aluno.getPeso()},
                                     imc=${aluno.getImc()}
                                     WHERE id_aluno=${aluno.getId()}`;
+
+            console.log(queryUpdateAluno);
 
             await database.query(queryUpdateAluno)
                 .then((result) => {

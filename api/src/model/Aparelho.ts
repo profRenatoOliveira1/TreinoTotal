@@ -12,7 +12,7 @@ export class Aparelho {
     /**
      * O identificador do aparelho.
      */
-    private id_aparelho: number;
+    private id_aparelho: number = 0;
 
     /**
      * O nome do aparelho.
@@ -27,16 +27,13 @@ export class Aparelho {
     /**
      * Cria uma nova instância de Aparelho.
      * 
-     * @param _idAparelho O identificador do aparelho.
      * @param _nomeAparelho O nome do aparelho.
      * @param _musculo_ativado O músculo ativado pelo aparelho.
      */
     constructor(
-        _id_aparelho: number,
         _nome_aparelho: string,
         _musculo_ativado: string
     ) {
-        this.id_aparelho = _id_aparelho;
         this.nome_aparelho = _nome_aparelho;
         this.musculo_ativado = _musculo_ativado;
     }

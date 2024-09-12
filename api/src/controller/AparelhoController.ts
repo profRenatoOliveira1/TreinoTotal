@@ -36,10 +36,10 @@ class AparelhoController extends Aparelho {
      */
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
-            const { id_aparelho, nome_aparelho, musculo_ativado } = req.body;
+            const { nome_aparelho, musculo_ativado } = req.body;
 
             // Instanciando objeto Aparelho
-            const novoAparelho = new Aparelho(id_aparelho, nome_aparelho, musculo_ativado);
+            const novoAparelho = new Aparelho(nome_aparelho, musculo_ativado);
 
             // Chama o método para persistir o aparelho no banco de dados
             const result = await Aparelho.cadastrarAparelho(novoAparelho);
@@ -92,19 +92,13 @@ class AparelhoController extends Aparelho {
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome_aparelho, musculo_ativado } = req.body;
+            const { nomeAparelho, musculoAtivado } = req.body;
 
             // Instanciando objeto Aparelho
-            const aparelho = new Aparelho(
-                0,
-                nome_aparelho,
-                musculo_ativado
-            );
+            const aparelho = new Aparelho(nomeAparelho, musculoAtivado);
 
             aparelho.setIdAparelho(parseInt(req.query.id_aparelho as string));
-
-            console.log(aparelho.getMusculoAtivado(), aparelho.getNomeAparelho(), aparelho.getIdAparelho());
-
+            
             if (await Aparelho.atualizarAparelho(aparelho)) {
                 return res.status(200).json('aparelho atualizado com sucesso');
             } else {

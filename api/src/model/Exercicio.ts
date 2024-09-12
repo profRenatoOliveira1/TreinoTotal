@@ -13,7 +13,7 @@ export class Exercicio {
     /**
      * O identificador do exercício.
      */
-    private id_exercicio: number;
+    private id_exercicio: number = 0;
 
     /**
      * O identificador do aparelho utilizado no exercício.
@@ -49,7 +49,6 @@ export class Exercicio {
     /**
      * Cria uma nova instância de Exercicio.
      * 
-     * @param _id_exercicio O identificador do exercício.
      * @param _idAparelho O identificador do aparelho utilizado no exercício.
      * @param _exercicio O nome do exercício.
      * @param _carga A carga utilizada no exercício (em kg).
@@ -58,12 +57,10 @@ export class Exercicio {
      * @param _regiao_corpo_ativa A região do corpo ativada pelo exercício.
      */
     constructor(
-        _id_exercicio: number,
         _id_aparelho: number,
         _exercicio: string,
         _regiao_corpo_ativa: string
     ) {
-        this.id_exercicio = _id_exercicio;
         this.id_aparelho = _id_aparelho;
         this.exercicio = _exercicio;
         this.regiao_corpo_ativa = _regiao_corpo_ativa;
@@ -304,9 +301,7 @@ export class Exercicio {
             const queryUpdateExercicio = `UPDATE exercicio SET 
                                         id_aparelho=${exercicio.getIdAparelho()},
                                         exercicio='${exercicio.getExercicio().toUpperCase()}',
-                                        carga=${exercicio.getCarga()},
-                                        repeticoes=${exercicio.getRepeticoes()},
-                                        regiao_corpo_ativa='${exercicio.getRegiaoCorpoAtiva().toUpperCase()}'
+                                        regiao_corpo_ativada='${exercicio.getRegiaoCorpoAtiva().toUpperCase()}'
                                         WHERE id_exercicio=${exercicio.getIdExercicio()}`;
 
             await database.query(queryUpdateExercicio)

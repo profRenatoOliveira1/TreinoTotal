@@ -13,7 +13,7 @@ export class Treino {
     /**
      * O identificador do treino.
      */
-    private idTreino: number;
+    private idTreino: number = 0;
 
     /**
      * O identificador do aluno associado ao treino.
@@ -33,18 +33,15 @@ export class Treino {
     /**
      * Cria uma nova instância de Treino.
      * 
-     * @param _idTreino O identificador do treino.
      * @param _idAluno O identificador do aluno associado ao treino.
      * @param _idProfessor O identificador do professor responsável pelo treino.
      * @param _exercicios A lista de exercícios que compõem o treino.
      */
     constructor(
-        _idTreino: number,
         _idAluno: number,
         _idProfessor: number,
         _exercicios: Exercicio[]
     ) {
-        this.idTreino = _idTreino;
         this.idAluno = _idAluno;
         this.idProfessor = _idProfessor;
         this.exercicios = _exercicios;

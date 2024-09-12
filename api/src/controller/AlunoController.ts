@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Aluno } from "../model/Aluno";
+import { parse } from "path";
 
 /**
  * Controlador para operações relacionadas aos alunos.
@@ -36,11 +37,10 @@ class AlunoController extends Aluno {
     public async cadastrar(req: Request, res: Response) {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { id_aluno, nome, cpf, altura, peso, imc, data_nascimento, celular, endereco } = req.body;
+            const { nome, cpf, altura, peso, imc, data_nascimento, celular, endereco } = req.body;
 
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
-                id_aluno,
                 nome,
                 cpf,
                 data_nascimento,
@@ -96,25 +96,25 @@ class AlunoController extends Aluno {
      */
     public async atualizar(req: Request, res: Response): Promise<any> {
         try {
-            // Desestruturando objeto recebido pelo front-end
-            const { id_aluno, nome, cpf, altura, peso, imc, data_nascimento, celular, endereco, email, senha } = req.body;
+            // Desestruturando objeto recebido pelo front-end      
+            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco, email, senha } = req.body;
+
+            const imcCalculado = (parseInt(peso) / (parseInt(altura) * parseInt(altura)));
 
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
-                id_aluno,
                 nome,
                 cpf,
-                data_nascimento,
+                dataNascimento,
                 celular,
                 endereco,
                 altura,
                 peso,
-                imc
+                imcCalculado
             );
 
             novoAluno.setId(parseInt(req.query.id_aluno as string));
 
-            console.log(novoAluno);
             if (await Aluno.atualizarAluno(novoAluno)) {
                 return res.status(200).json('Aluno atualizado com sucesso');
             } else {

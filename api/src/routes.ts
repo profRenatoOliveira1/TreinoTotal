@@ -8,11 +8,11 @@ import { Authentication } from "./utils/Authentication";
 
 // Instanciando um novo objeto do controller AveController
 // assim podemos acessar os métodos do controller
-const alunoController = new AlunoController(0, '', '', new Date(), '', '', 0, 0, 0);
-const aparelhoController = new AparelhoController(0, '', '');
-const exercicioController = new ExercicioController(0, 0, '', '');
-const professorController = new ProfessorController(0, '', '', new Date(), '', '', new Date(), '', '');
-const treinoController = new TreinoController(0, 0, 0, []);
+const alunoController = new AlunoController('', '', new Date(), '', '', 0, 0, 0);
+const aparelhoController = new AparelhoController('', '');
+const exercicioController = new ExercicioController(0, '', '');
+const professorController = new ProfessorController('', '', new Date(), '', '', new Date(), '', '');
+const treinoController = new TreinoController(0, 0, []);
 
 /**
  * Configura o roteador
