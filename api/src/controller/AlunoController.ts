@@ -14,8 +14,6 @@ class AlunoController extends Aluno {
      * @returns Lista de alunos em formato JSON.
      */
     public async todos(req: Request, res: Response) {
-        console.log('função todos executada em alunos');
-        
         try {
             // Cria objeto alunos e atribui a ele o retorno do método listarAlunos
             const alunos = await Aluno.listarAlunos();
@@ -37,13 +35,13 @@ class AlunoController extends Aluno {
     public async cadastrar(req: Request, res: Response) {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, altura, peso, imc, data_nascimento, celular, endereco } = req.body;
+            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco } = req.body;
 
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
                 nome,
                 cpf,
-                data_nascimento,
+                dataNascimento,
                 celular,
                 endereco,
                 altura,

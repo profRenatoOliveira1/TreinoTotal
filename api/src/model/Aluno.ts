@@ -235,15 +235,15 @@ export class Aluno extends Pessoa { // Herança de Pessoa
 
         try {
             const queryUpdateAluno = `UPDATE Aluno SET 
-                                    nome='${aluno.getNome().toUpperCase()}',
-                                    cpf='${aluno.getCpf()}',
-                                    data_nascimento='${aluno.getDataNascimento()}',
-                                    celular='${aluno.getCelular()}',
-                                    endereco='${aluno.getEndereco().toUpperCase()}',
-                                    email='${aluno.getEmail().toUpperCase()}',
-                                    altura=${aluno.getAltura()},
-                                    peso=${aluno.getPeso()},
-                                    imc=${aluno.getImc()}
+                                        nome='${aluno.getNome().toUpperCase()}',
+                                        cpf='${aluno.getCpf()}',
+                                        data_nascimento='${aluno.getDataNascimento()}',
+                                        celular='${aluno.getCelular()}',
+                                        endereco='${aluno.getEndereco().toUpperCase()}',
+                                        email='${aluno.getEmail().toUpperCase()}',
+                                        altura=${aluno.getAltura()},
+                                        peso=${aluno.getPeso()},
+                                        imc=${aluno.getImc()}
                                     WHERE id_aluno=${aluno.getId()}`;
 
             console.log(queryUpdateAluno);

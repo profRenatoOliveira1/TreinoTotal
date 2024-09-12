@@ -36,16 +36,16 @@ class ProfessorController extends Professor {
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade } = req.body;
+            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade } = req.body;
 
             // Instanciando objeto Professor
             const novoProfessor = new Professor(
                 nome,
                 cpf,
-                data_nascimento,
+                dataNascimento,
                 celular,
                 endereco,
-                data_contratacao,
+                dataContratacao,
                 formacao,
                 especialidade
             );
@@ -98,23 +98,21 @@ class ProfessorController extends Professor {
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, data_nascimento, celular, endereco, data_contratacao, formacao, especialidade } = req.body;
+            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade } = req.body;
 
             // Instanciando objeto Professor
             const professor = new Professor(
                 nome,
                 cpf,
-                new Date(data_nascimento),
+                dataNascimento,
                 celular,
                 endereco,
-                new Date(data_contratacao),
+                dataContratacao,
                 formacao,
                 especialidade
             );
 
             professor.setId(parseInt(req.query.id_professor as string));
-
-            console.log(professor.getDataContratacao(), professor.getDataNascimento());
 
             if (await Professor.atualizarProfessor(professor)) {
                 return res.status(200).json('Professor atualizado com sucesso');

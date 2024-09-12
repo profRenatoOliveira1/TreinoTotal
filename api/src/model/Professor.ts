@@ -120,7 +120,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
         const listaDeProfessores: Array<Professor> = [];
 
         // Construção da query para selecionar as informações de um Professor
-        const querySelectProfessor = `SELECT * FROM Professor WHERE situacao = true AND nome != UPPER('admin');`;
+        const querySelectProfessor = `SELECT * FROM Professor WHERE situacao = true AND nome != UPPER('admin') ORDER BY nome ASC;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
@@ -215,22 +215,19 @@ export class Professor extends Pessoa { // Herança de Pessoa
     static async atualizarProfessor(professor: Professor): Promise<boolean> {
         let queryResult = false;
 
-        const dataNascimento = new Date(professor.getDataNascimento());
-        const dataContratacao = new Date(professor.getDataContratacao());
-
         try {
             const queryUpdateProfessor = `UPDATE Professor SET 
-                                    nome='${professor.getNome().toUpperCase()}',
-                                    cpf='${professor.getCpf()}',
-                                    data_nascimento='${dataNascimento.getFullYear()}-${dataNascimento.getMonth() + 1}-${dataNascimento.getDate() + 1}',
-                                    celular='${professor.getCelular()}',
-                                    endereco='${professor.getEndereco().toUpperCase()}',
-                                    email='${professor.getEmail().toUpperCase()}',
-                                    senha='${professor.getSenha()}',
-                                    data_contratacao='${dataContratacao.getFullYear()}-${dataContratacao.getMonth() + 1}-${dataContratacao.getDate() + 1}',
-                                    formacao='${professor.getFormacao().toUpperCase()}',
-                                    especialidade='${professor.getEspecialidade().toUpperCase()}'
-                                    WHERE id_professor=${professor.getId()}`;
+                                            nome='${professor.getNome().toUpperCase()}',
+                                            cpf='${professor.getCpf()}',
+                                            data_nascimento='${professor.getDataNascimento()}',
+                                            celular='${professor.getCelular()}',
+                                            endereco='${professor.getEndereco().toUpperCase()}',
+                                            email='${professor.getEmail().toUpperCase()}',
+                                            senha='${professor.getSenha()}',
+                                            data_contratacao='${professor.getDataContratacao()}',
+                                            formacao='${professor.getFormacao().toUpperCase()}',
+                                            especialidade='${professor.getEspecialidade().toUpperCase()}'
+                                        WHERE id_professor=${professor.getId()}`;
 
             await database.query(queryUpdateProfessor)
                 .then((result) => {
@@ -272,5 +269,5 @@ export class Professor extends Pessoa { // Herança de Pessoa
             return false;
         }
     }
-    
+
 }

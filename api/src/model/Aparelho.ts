@@ -104,7 +104,7 @@ export class Aparelho {
         const listaDeAparelhos: Array<Aparelho> = [];
 
         // Construção da query para selecionar as informações de um Aparelho
-        const querySelectAparelho = `SELECT * FROM Aparelho WHERE situacao = true;`;
+        const querySelectAparelho = `SELECT * FROM Aparelho WHERE situacao = true ORDER BY nome_aparelho ASC;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn

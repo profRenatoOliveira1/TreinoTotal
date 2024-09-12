@@ -204,7 +204,7 @@ export class Exercicio {
         const listaDeExercicios: Array<Exercicio> = [];
 
         // Construção da query para selecionar as informações de um Exercicio
-        const querySelectExercicio = `SELECT * FROM Exercicio WHERE situacao = true;`;
+        const querySelectExercicio = `SELECT * FROM Exercicio WHERE situacao = true ORDER BY exercicio ASC;`;
 
         try {
             // Faz a consulta no banco de dados e retorna o resultado para a variável queryReturn
