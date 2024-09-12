@@ -1,4 +1,4 @@
-import AtualizarSenhaProfessor from "../../components/Atualizacao/AtualizacaoProfessor/AtualizarSenhaProfessor";
+import AtualizarSenhaProfessor from "../../components/Atualizacao/AtualizarSenhaProfessor";
 import Navegacao from "../../components/Navegacao/Navegacao";
 
 function ProfessorAtualizarSenha() {

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ProfessoresRequests from "../../../fetch/ProfessoresRequests";
-import style from '../../styles/StyleCadastro.module.css';
+import ProfessoresRequests from "../../fetch/ProfessoresRequests";
+import style from '../styles/StyleCadastro.module.css';
 
 function AtualizarSenhaProfessor() {
     const [formSenha, setFormSenha] = useState({
