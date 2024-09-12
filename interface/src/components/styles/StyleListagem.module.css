@@ -28,6 +28,7 @@
   top: 0;
   z-index: 1;
 }
+
 th {
   color: var(--branco)!important;
 }
@@ -41,23 +42,27 @@ th {
 }
 
 .cntTb {
-  margin-top: 20px;
+  /* margin-top: 20px;
   margin-bottom: 20px;
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 140px);
+  width: 100%; */
+  overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
   overflow-y: auto;
   max-height: calc(100vh - 140px);
   width: 100%;
 }
 
 .table {
-  width: 120%;
+  width: 100%; /* Garante que a tabela use toda a largura disponível */
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
 .table th,
 .table td {
-  padding: 20px;
+  padding: 12px;
   text-align: center;
   border: 1px solid var(--cinzaClaro);
   white-space: nowrap;
@@ -70,10 +75,30 @@ th {
   margin-top: 20px;
 }
 
+.tableHeigth {
+  height: 50vh;
+}
+
+span {
+  color: var(--amareloClaro);
+  padding: 0 10px;
+}
+
+button {
+  color: var(--amareloClaro);
+  background-color: transparent;
+  border: none;
+}
+
+button:disabled {
+  color: grey;
+}
+
 @media (max-width: 768px) {
   .table th,
   .table td {
     font-size: 14px;
+    word-break: break-word;
   }
 
   .pagination button {
