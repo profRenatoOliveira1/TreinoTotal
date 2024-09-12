@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/StyleCadastro.module.css'; 
+import styles from '../styles/StyleCadastro.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import InputMask from "react-input-mask";
 
@@ -77,91 +77,119 @@ function CadastroProfessor() {
                 <form onSubmit={handleSubmit}>
                     {/* Campo para nome completo */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Nome completo"
-                            value={formData.nome}
-                            onChange={handleChange}
-                            name="nome"
-                        />
+                        <label>
+                            <p>Nome completo</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Nome completo"
+                                value={formData.nome}
+                                onChange={handleChange}
+                                name="nome"
+                            />
+                        </label>
                     </div>
                     {/* Campo para CPF */}
                     <div className={styles.formGroup}>
-                        <InputMask
-                            type="text"
-                            mask="999.999.999-99"
-                            className={styles.formStyleEsquerda}
-                            placeholder="CPF"
-                            value={formData.cpf}
-                            onChange={handleChange}
-                            name="cpf"
-                        />
-                        <input
-                            type="text"
-                            className={styles.formStyleDireita}
-                            placeholder="Data de Nascimento"
-                            onFocus={(e) => e.target.type = 'date'}
-                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
-                            value={formData.data_nascimento}
-                            onChange={handleChange}
-                            name="data_nascimento"
-                        />
+                        <div className={styles.inputGroup}>
+                            <label>
+                                <p>CPF</p>
+                                <InputMask
+                                    type="text"
+                                    mask="999.999.999-99"
+                                    className={styles.formStyleEsquerda}
+                                    placeholder="CPF"
+                                    value={formData.cpf}
+                                    onChange={handleChange}
+                                    name="cpf"
+                                />
+                            </label>
+                            <label>
+                                <p>Data de Nascimento</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyleDireita}
+                                    placeholder="Data de Nascimento"
+                                    onFocus={(e) => e.target.type = 'date'}
+                                    onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
+                                    value={formData.data_nascimento}
+                                    onChange={handleChange}
+                                    name="data_nascimento"
+                                />
+                            </label>
+                        </div>
                     </div>
                     {/* Campo para número de celular */}
                     <div className={styles.formGroup}>
-                        <InputMask
-                            mask="(99) 99999-9999"
-                            type="text"
-                            className={styles.formStyleEsquerda}
-                            placeholder="Telefone"
-                            value={formData.celular}
-                            onChange={handleChange}
-                            name="celular"
-                        /> 
-                        <input
-                            type="text"
-                            className={styles.formStyleDireita}
-                            placeholder="Data Contratação"
-                            onFocus={(e) => e.target.type = 'date'}
-                            onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
-                            value={formData.data_contratacao}
-                            onChange={handleChange}
-                            name="data_contratacao"
-                        />
+                        <div className={styles.inputGroup}>
+                            <label>
+                                <p>Número de celular</p>
+                                <InputMask
+                                    mask="(99) 99999-9999"
+                                    type="text"
+                                    className={styles.formStyleEsquerda}
+                                    placeholder="Telefone"
+                                    value={formData.celular}
+                                    onChange={handleChange}
+                                    name="celular"
+                                />
+                            </label>
+                            <label>
+                                <p>Data de Contratação</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyleDireita}
+                                    placeholder="Data Contratação"
+                                    onFocus={(e) => e.target.type = 'date'}
+                                    onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
+                                    value={formData.data_contratacao}
+                                    onChange={handleChange}
+                                    name="data_contratacao"
+                                />
+                            </label>
+                        </div>
                     </div>
                     {/* Campo para endereço */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Endereço"
-                            value={formData.endereco}
-                            onChange={handleChange}
-                            name="endereco"
-                        />
+                        <label>
+                            <p>Endereço</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Endereço"
+                                value={formData.endereco}
+                                onChange={handleChange}
+                                name="endereco"
+                            />
+                        </label>
                     </div>
                     {/* Campo para formação */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Formacao"
-                            value={formData.formacao}
-                            onChange={handleChange}
-                            name="formacao"
-                        />
+                        <label>
+                            <p>Formação</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Formacao"
+                                value={formData.formacao}
+                                onChange={handleChange}
+                                name="formacao"
+                            />
+                        </label>
                     </div>
                     {/* Campo para especialidade */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Especialidade"
-                            value={formData.especialidade}
-                            onChange={handleChange}
-                            name="especialidade"
-                        />
+                        <label>
+                            <p>Especialidade</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Especialidade"
+                                value={formData.especialidade}
+                                onChange={handleChange}
+                                name="especialidade"
+                            />
+                        </label>
                     </div>
                     {/* Botão para enviar o formulário */}
                     <button type="submit" className={styles.btn}>

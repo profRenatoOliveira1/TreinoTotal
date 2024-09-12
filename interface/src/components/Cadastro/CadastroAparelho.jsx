@@ -1,5 +1,5 @@
-import React, { useState } from 'react'; 
-import styles from '../styles/StyleCadastro.module.css'; 
+import React, { useState } from 'react';
+import styles from '../styles/StyleCadastro.module.css';
 import AparelhoRequests from '../../fetch/AparelhosRequests';
 
 /**
@@ -53,25 +53,31 @@ function CadastroAparelho() {
                 <form onSubmit={handleSubmit}>
                     {/* Campo para o nome do aparelho */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Nome"
-                            value={formData.nome_aparelho} // Define o valor do input com base no estado
-                            onChange={handleChange} // Define a função de mudança para atualizar o estado
-                            name="nome_aparelho" // Define o nome do campo, necessário para identificar qual campo está sendo atualizado
-                        />
+                        <label>
+                            <p>Nome do aparelho</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Nome"
+                                value={formData.nome_aparelho} // Define o valor do input com base no estado
+                                onChange={handleChange} // Define a função de mudança para atualizar o estado
+                                name="nome_aparelho" // Define o nome do campo, necessário para identificar qual campo está sendo atualizado
+                            />
+                        </label>
                     </div>
                     {/* Campo para o músculo ativado */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Músculo Ativado"
-                            value={formData.musculo_ativado} // Define o valor do input com base no estado
-                            onChange={handleChange} // Define a função de mudança para atualizar o estado
-                            name="musculo_ativado" // Define o nome do campo, necessário para identificar qual campo está sendo atualizado
-                        />
+                        <label>
+                            <p>Músculo ativado</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Músculo Ativado"
+                                value={formData.musculo_ativado} // Define o valor do input com base no estado
+                                onChange={handleChange} // Define a função de mudança para atualizar o estado
+                                name="musculo_ativado" // Define o nome do campo, necessário para identificar qual campo está sendo atualizado
+                            />
+                        </label>
                     </div>
                     <button type="submit" className={styles.btn}>
                         Cadastrar

@@ -83,43 +83,52 @@ function CadastroExercicio() {
                 <form onSubmit={handleSubmit}>
                     {/* Campo para id_aparelho */}
                     <div className={styles.formGroup}>
-                        <select
-                            className={styles.formStyle}
-                            value={formData.id_aparelho}
-                            onChange={handleChange}
-                            name="id_aparelho"
-                            required
-                        >
-                            <option value="">Selecione o Aparelho</option>
-                            {aparelhos.map(aparelho => (
-                                <option key={aparelho.id_aparelho} value={aparelho.id_aparelho}>
-                                    {aparelho.nome_aparelho}
-                                </option>
-                            ))}
-                        </select>
+                        <label>
+                            <p>Aparelho</p>
+                            <select
+                                className={styles.formStyle}
+                                value={formData.id_aparelho}
+                                onChange={handleChange}
+                                name="id_aparelho"
+                                required
+                            >
+                                <option value="">Selecione o Aparelho</option>
+                                {aparelhos.map(aparelho => (
+                                    <option key={aparelho.id_aparelho} value={aparelho.id_aparelho}>
+                                        {aparelho.nome_aparelho}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
                     </div>
                     {/* Campo para nome do exercício */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="exercicio"
-                            value={formData.exercicio}
-                            onChange={handleChange}
-                            name="exercicio"
-                        />
+                        <label>
+                            <p>Nome exercício</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Exercicio"
+                                value={formData.exercicio}
+                                onChange={handleChange}
+                                name="exercicio"
+                            />
+                        </label>
                     </div>
 
                     {/* Campo para região do corpo ativa */}
                     <div className={styles.formGroup}>
-                        <input
-                            type="text"
-                            className={styles.formStyle}
-                            placeholder="Região do corpo ativada"
-                            value={formData.regiao_corpo_ativa}
-                            onChange={handleChange}
-                            name="regiao_corpo_ativa"
-                        />
+                        <label>
+                            <p>Região do corpo ativa</p>
+                            <input
+                                type="text"
+                                className={styles.formStyle}
+                                placeholder="Região do corpo ativada"
+                                value={formData.regiao_corpo_ativa}
+                                onChange={handleChange}
+                                name="regiao_corpo_ativa"
+                            />
+                        </label>
                     </div>
                     {/* Botão para enviar o formulário */}
                     <button type="submit" className={styles.btn}>
