@@ -111,10 +111,11 @@ class AparelhoRequests {
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
     async atualizarAparelho(aparelho) {
-        try {
+        try {          
             const token = this.getAuthToken();
+            
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
-            const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?id_aparelho=${aparelho.idAparelho}`, {
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAparelho}?id_aparelho=${aparelho.idAparelho}`, {
                 // Informa o verbo a ser acessado
                 method: 'PUT',
                 // informa os cabeçalhos da requisição
@@ -135,7 +136,7 @@ class AparelhoRequests {
         } catch (error) {
             // caso ocorra algum erro na comunicação
             console.error('Erro: ', error);
-            window.alert('Erro ao ataulizar animal');
+            window.alert('Erro ao atualizar aparelho');
             return null;
         }
     }

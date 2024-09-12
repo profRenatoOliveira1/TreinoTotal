@@ -8,16 +8,17 @@ import InputMask from "react-input-mask";
  * @returns web component
  */
 function CadastroProfessor() {
+    const hoje = new Date();
     /**
      * Define o estado inicial do formulário com todos os campos vazios
      */
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
-        data_nascimento: '',
+        dataNascimento: '',
         celular: '',
         endereco: '',
-        data_contratacao: '',
+        dataContratacao: '',
         formacao: '',
         especialidade: ''
     });
@@ -114,7 +115,9 @@ function CadastroProfessor() {
                                     onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                                     value={formData.data_nascimento}
                                     onChange={handleChange}
-                                    name="data_nascimento"
+                                    name="dataNascimento"
+                                    min="1950-01-01"
+                                    max={hoje}
                                 />
                             </label>
                         </div>
@@ -144,7 +147,9 @@ function CadastroProfessor() {
                                     onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                                     value={formData.data_contratacao}
                                     onChange={handleChange}
-                                    name="data_contratacao"
+                                    name="dataContratacao"
+                                    min="1980-01-01"
+                                    max={hoje}
                                 />
                             </label>
                         </div>

@@ -24,8 +24,8 @@ class ProfessoresRequests {
     }
 
     /**
-     * Faz a busca dos alunos no servidor
-     * @returns lista de alunos
+     * Faz a busca dos professores no servidor
+     * @returns lista de professores
      */
     async listarProfessor() { // Método assíncrono para listar professores
         try {
@@ -49,7 +49,7 @@ class ProfessoresRequests {
 
     /**
      * Faz o cadastro de um professor no servidor
-     * @param {*} professor 
+     * @param {*} professor objeto com as informações do professor
      * @returns **true** caso sucesso, **false** caso erro
      */
     async cadastrarProfessor(professor) { // Método assíncrono para cadastrar um professor
@@ -76,8 +76,8 @@ class ProfessoresRequests {
     }
 
     /**
-     * Remove um professor do servidor
-     * @param {*} idProfessor ID do aluno a ser deletado
+     * Remove um professor do sistema
+     * @param {*} idProfessor ID do professor a ser deletado
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
     async deletarProfessor(idProfessor) {
@@ -106,8 +106,8 @@ class ProfessoresRequests {
     }
 
     /**
-     * Atualiza o registro de um professor no servidor
-     * @param {*} professor animal Objeto com as informações do animal
+     * Atualiza o registro de um professor no sistema
+     * @param {*} professor Objeto com as informações do professor
      * @returns **verdadeiro (true)** caso o animal tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
      */
     async atualizarProfessor(professor) {
@@ -140,6 +140,11 @@ class ProfessoresRequests {
         }
     }
 
+    /**
+     * Atualiza a senha do professor
+     * @param {*} professor Objeto com as informações do professor
+     * @returns **verdadeiro (true)** caso o professor tenha sido deletado, **null (nulo)** caso tenha acontecido algum erro
+     */
     async atualizarSenhaProfessor(professor) {
         try {
             console.log(`${this.serverUrl}${this.routeAtualizarSenhaProfessor}?idProfessor=${professor.idProfessor}`);

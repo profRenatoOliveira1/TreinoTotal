@@ -1,78 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/StyleListagem.module.css'; 
+import styles from '../styles/StyleListagem.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit, MdSecurityUpdate } from "react-icons/md";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import { useNavigate } from 'react-router';
 
-/**
- * Componente responsável por listar os professores
- * @returns web component
- */
 function ListarProfessor() {
     const navegacao = useNavigate();
-    /**
-     * Define o estado inicial para armazenar os professores
-     */
-    const [professores, setProfessor] = useState([]);
 
-    /**
-     * Busca lista de professores no servidor
-     */
+    const [professores, setProfessor] = useState([]);
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const itensPorPagina = 5;
+    const totalPaginas = Math.ceil(professores.length / itensPorPagina);
+
     useEffect(() => {
-        // Função assíncrona para buscar os professores da API
         const fetchProfessor = async () => {
             try {
-                // Realiza a requisição para buscar os professores
                 const professor = await ProfessoresRequests.listarProfessor();
-                // Atualiza o estado com os professores obtidos da API
                 setProfessor(professor);
             } catch (error) {
-                // Em caso de erro, exibe o erro no console
                 console.error('Erro ao buscar professores: ', error);
             }
         };
-
-        // Chama a função para buscar os professores
         fetchProfessor();
-    }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
+    }, []);
 
-    /**
-     * Formata datas no padrão brasileiro
-     * @param {*} data 
-     * @returns data formatada DD/MM/AAAA
-     */
     const formatarData = (data) => {
         return new Date(data).toLocaleDateString('pt-br');
-    }
+    };
 
-    /**
-     * Máscara CPF
-     * @param {*} cpf 
-     * @returns cpf formatado xxx.xxx.xxx.-xx
-     */
     const formatarCPF = (cpf) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     };
 
-    /**
-     * Máscara telefone
-     * @param {*} telefone 
-     * @returns telefone formatado (xx) xxxxx-xxxx
-     */
     const formatarTelefone = (telefone) => {
         return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     };
 
-    /**
-     * Lida com a remoção de um prfessor
-     * @param {*} aluno 
-     */
     const deletar = (professor) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o professor ${professor.nome}?`);
 
-        if(deletar) {
-            if(ProfessoresRequests.deletarProfessor(professor.id_professor)) {
+        if (deletar) {
+            if (ProfessoresRequests.deletarProfessor(professor.id_professor)) {
                 window.location.reload();
                 window.alert('Professor removido com sucesso!');
             } else {
@@ -81,21 +52,25 @@ function ListarProfessor() {
         }
     };
 
-    /**
-     * Lida com a atualização de um aluno
-     * @param {*} aluno 
-     */
-    const atualizar = (aluno) => {
-        window.alert('Atualizar');
-    }
+    const atualizar = (professor) => {
+        navegacao('/atualizar/professor', { state: { objProfessor: professor }, replace: true });
+    };
 
     const exibeFichaProfessor = (professor) => {
         navegacao('/ficha/professor', { state: { professor: professor }, replace: true });
-    }
+    };
+
+    // Lógica de paginação
+    const indiceUltimoItem = paginaAtual * itensPorPagina;
+    const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
+    const professoresPaginados = professores.slice(indicePrimeiroItem, indiceUltimoItem);
+
+    const mudarPagina = (novaPagina) => {
+        setPaginaAtual(novaPagina);
+    };
 
     return (
         <>
-            {/* Cabeçalho da seção */}
             <div className={styles.section}>
                 <div className={styles.container}>
                     <div className={styles.row}>
@@ -108,44 +83,51 @@ function ListarProfessor() {
                 </div>
             </div>
 
-            {/* Tabela para listar os professores */}
-            <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
-                <table className={`${styles.table} ${styles.tabela}`} style={{width: '100%'}}>
-                    <thead>
-                        <tr className={styles.tabelaHeader}>
-                            <th>Nome</th>
-                            {/* <th>CPF</th> */}
-                            {/* <th>Data de Nascimento</th> */}
-                            {/* <th>Telefone</th> */}
-                            {/* <th>Endereço</th> */}
-                            {/* <th>Data de Contratação</th> */}
-                            <th>Formação</th>
-                            <th>Especialidade</th>
-                            <th colSpan={2}>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* Mapeia os professores e renderiza cada um como uma linha na tabela */}
-                        {professores.map(professor => (
-                            <tr key={professor.id_professor} className={styles.tabelaCorpo}>
-                                <td onClick={() => exibeFichaProfessor(professor)}>{professor.nome}</td>
-                                {/* <td>{formatarCPF(professor.cpf)}</td> */}
-                                {/* <td>{formatarData(professor.data_nascimento)}</td> */}
-                                {/* <td>{formatarTelefone(professor.celular)}</td> */}
-                                {/* <td>{professor.endereco}</td> */}
-                                {/* <td>{formatarData(professor.data_contratacao)}</td> */}
-                                <td>{professor.formacao}</td>
-                                <td>{professor.especialidade}</td>
-                                <td>
-                                    <FaTrash onClick={() => deletar(professor)} style={{ color: '#DB0135' }}/>
-                                </td> {/* Botão para deletar um professor */}
-                                <td>
-                                    <MdEdit onClick={() => atualizar(professor)} style={{ color: '#EAEEE7' }} />
-                                </td>
+            <div className={styles.cntTb} style={{ width: '90%', height: '70vh', margin: 'auto auto' }}>
+                <div className={styles.tableHeigth}>
+                    <table className={`${styles.table} ${styles.tabela}`} style={{ width: '100%' }}>
+                        <thead>
+                            <tr className={styles.tabelaHeader}>
+                                <th>Nome</th>
+                                <th>Formação</th>
+                                <th>Especialidade</th>
+                                <th colSpan={2}>Ação</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {professoresPaginados.map(professor => (
+                                <tr key={professor.id_professor} className={styles.tabelaCorpo}>
+                                    <td onClick={() => exibeFichaProfessor(professor)}>{professor.nome}</td>
+                                    <td>{professor.formacao}</td>
+                                    <td>{professor.especialidade}</td>
+                                    <td>
+                                        <FaTrash onClick={() => deletar(professor)} style={{ color: '#DB0135' }} />
+                                    </td>
+                                    <td>
+                                        <MdEdit onClick={() => atualizar(professor)} style={{ color: '#EAEEE7' }} />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className={styles.paginacao}>
+                    <button
+                        onClick={() => mudarPagina(paginaAtual - 1)}
+                        disabled={paginaAtual === 1}
+                    >
+                        <MdOutlineArrowBackIos />
+                    </button>
+
+                    <span>Página {paginaAtual} de {totalPaginas}</span>
+
+                    <button
+                        onClick={() => mudarPagina(paginaAtual + 1)}
+                        disabled={indiceUltimoItem >= professores.length}
+                    >
+                        <MdOutlineArrowForwardIos />
+                    </button>
+                </div>
             </div>
         </>
     );

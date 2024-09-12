@@ -1,75 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import styles from '../styles/StyleListagem.module.css';
 import AlunoRequests from '../../fetch/AlunoRequests';
 import { FaTrash } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 
 /**
  * Componente responsável por listar os alunos
  * @returns web component
  */
 function ListarAluno() {
-    /**
-     * Define o estado inicial para armazenar os alunos
-     */
+    const navegacao = useNavigate();
     const [alunos, setAlunos] = useState([]);
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const itensPorPagina = 5;
+    const totalPaginas = Math.ceil(alunos.length / itensPorPagina);
 
-    /**
-     * Busca lista de alunos no servidor
-     */
     useEffect(() => {
-        // Função assíncrona para buscar os alunos da API
         const fetchAlunos = async () => {
             try {
-                // Realiza a requisição para buscar os alunos
                 const aluno = await AlunoRequests.listarAlunos();
-                // Atualiza o estado com os alunos obtidos da API
                 setAlunos(aluno);
             } catch (error) {
-                // Em caso de erro, exibe o erro no console
                 console.error('Erro ao buscar alunos: ', error);
             }
         };
-
-        // Chama a função para buscar os alunos
         fetchAlunos();
-    }, []); // O array vazio como segundo parâmetro garante que useEffect seja executado apenas uma vez, após a montagem do componente
+    }, []);
 
-    /**
-     * Formata datas no padrão brasileiro
-     * @param {*} data 
-     * @returns data formatada DD/MM/AAAA
-     */
-    const formatarData = (data) => {
-        return new Date(data).toLocaleDateString('pt-br');
-    };
+    const formatarData = (data) => new Date(data).toLocaleDateString('pt-br');
+    const formatarCPF = (cpf) => cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    const formatarTelefone = (telefone) => telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
 
-    /**
-     * Máscara CPF
-     * @param {*} cpf 
-     * @returns cpf formatado xxx.xxx.xxx.-xx
-     */
-    const formatarCPF = (cpf) => {
-        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    };
-
-    /**
-     * Máscara telefone
-     * @param {*} telefone 
-     * @returns telefone formatado (xx) xxxxx-xxxx
-     */
-    const formatarTelefone = (telefone) => {
-        return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    };
-
-    /**
-     * Lida com a remoção de um aluno
-     * @param {*} aluno 
-     */
     const deletar = (aluno) => {
-        //window.alert('Não foi feito... ainda'); // Exibe um alerta temporário
         const deletar = window.confirm(`Tem certeza que deseja remover o aluno ${aluno.nome}?`);
-
         if (deletar) {
             if (AlunoRequests.deletarAluno(aluno.id_aluno)) {
                 window.location.reload();
@@ -80,17 +44,20 @@ function ListarAluno() {
         }
     };
 
-    /**
-     * Lida com a atualização de um aluno
-     * @param {*} aluno 
-     */
     const atualizar = (aluno) => {
-        window.alert('Atualizar');
-    }
+        navegacao('/atualizar/aluno', { state: { objAluno: aluno }, replace: true });
+    };
+
+    const indiceUltimoItem = paginaAtual * itensPorPagina;
+    const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
+    const alunosPaginados = alunos.slice(indicePrimeiroItem, indiceUltimoItem);
+
+    const mudarPagina = (novaPagina) => {
+        setPaginaAtual(novaPagina);
+    };
 
     return (
         <>
-            {/* Cabeçalho da seção */}
             <div className={styles.section}>
                 <div className={styles.container}>
                     <div className={styles.row}>
@@ -103,51 +70,67 @@ function ListarAluno() {
                 </div>
             </div>
 
-            {/* Tabela para listar os alunos */}
-            <div className={styles.cntTb} style={{ width: '90%', height: '70vh' , margin: 'auto auto' }}>
-                {/* Verifica se há alunos a serem exibidos */}
+            <div className={styles.cntTb}>
                 {alunos.length > 0 ? (
-                    <table className={`${styles.table} ${styles.tabela}`}>
-                        <thead>
-                            <tr className={styles.tabelaHeader}>
-                                <th>Matricula</th>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Data de Nascimento</th>
-                                <th>Telefone</th>
-                                <th>Endereço</th>
-                                {/** <th>Altura</th> */}
-                                {/** <th>Peso</th> */}
-                                {/** <th>IMC</th> */}
-                                <th colSpan={2}>Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* Mapeia os alunos e renderiza cada um como uma linha na tabela */}
-                            {alunos.map(aluno => (
-                                <tr key={aluno.id_aluno} className={styles.tabelaCorpo}>
-                                    <td>{aluno.matricula}</td>
-                                    <td>{aluno.nome}</td>
-                                    <td>{formatarCPF(aluno.cpf)}</td>
-                                    <td>{formatarData(aluno.data_nascimento)}</td>
-                                    <td>{formatarTelefone(aluno.celular)}</td>
-                                    <td>{aluno.endereco}</td>
-                                    {/* <td>{aluno.email}</td> */}
-                                    {/** <td>{aluno.altura}</td> */}
-                                    {/** <td>{aluno.peso}</td> */}
-                                    {/** <td>{aluno.imc}</td> */}
-                                    <td>
-                                        <FaTrash onClick={() => deletar(aluno)} style={{ color: '#DB0135' }}/>
-                                    </td> {/* Botão para deletar um aluno */}
-                                    <td>
-                                        <MdEdit onClick={() => atualizar(aluno)} style={{ color: '#EAEEE7' }}/>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <>
+                        <div className={styles.tableHeigth}>
+                            <table className={`${styles.table} ${styles.tabela}`}>
+                                <thead>
+                                    <tr className={styles.tabelaHeader}>
+                                        <th>Matricula</th>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>Data de Nascimento</th>
+                                        <th>Telefone</th>
+                                        <th>Endereço</th>
+                                        <th hidden>Altura</th>
+                                        <th hidden>Peso</th>
+                                        <th hidden>IMC</th>
+                                        <th colSpan={2}>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {alunosPaginados.map((aluno) => (
+                                        <tr key={aluno.id_aluno} className={styles.tabelaCorpo}>
+                                            <td>{aluno.matricula}</td>
+                                            <td style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{aluno.nome}</td>
+                                            <td>{formatarCPF(aluno.cpf)}</td>
+                                            <td>{formatarData(aluno.data_nascimento)}</td>
+                                            <td>{formatarTelefone(aluno.celular)}</td>
+                                            <td>{aluno.endereco}</td>
+                                            <td hidden>{aluno.altura}</td>
+                                            <td hidden>{aluno.peso}</td>
+                                            <td hidden>{aluno.imc}</td>
+                                            <td>
+                                                <FaTrash onClick={() => deletar(aluno)} style={{ color: '#DB0135' }} />
+                                            </td>
+                                            <td>
+                                                <MdEdit onClick={() => atualizar(aluno)} style={{ color: '#EAEEE7' }} />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className={styles.paginacao}>
+                            <button
+                                onClick={() => mudarPagina(paginaAtual - 1)}
+                                disabled={paginaAtual === 1}
+                            >
+                                <MdOutlineArrowBackIos />
+                            </button >
+
+                            <span>Página {paginaAtual} de {totalPaginas}</span>
+
+                            <button
+                                onClick={() => mudarPagina(paginaAtual + 1)}
+                                disabled={indiceUltimoItem >= alunos.length}
+                            >
+                                <MdOutlineArrowForwardIos />
+                            </button>
+                        </div>
+                    </>
                 ) : (
-                    // Exibe uma mensagem de carregamento enquanto os dados estão sendo buscados
                     <p>Carregando...</p>
                 )}
             </div>

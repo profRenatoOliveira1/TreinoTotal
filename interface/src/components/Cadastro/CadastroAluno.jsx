@@ -1,52 +1,35 @@
 import React, { useState } from 'react';
+import InputMask from "react-input-mask";
 import styles from '../styles/StyleCadastro.module.css';
 import AlunoRequests from '../../fetch/AlunoRequests';
-import InputMask from "react-input-mask";
 
 /**
  * Componente responsável por montar o formulário de cadastro do aluno
  * @returns web component
  */
 function CadastroAluno() {
-    /**
-     * Define o estado inicial do formulário com todos os campos vazios
-     */
+    const hoje = new Date();
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
-        data_nascimento: '',
+        dataNascimento: '',
         celular: '',
         endereco: '',
         altura: '',
         peso: ''
     });
 
-    /**
-     * Atualiza o estado do formulário conforme o preenchimento do usuário
-     * @param {*} e evento de atualização
-     */
     const handleChange = (e) => {
-        const { name, value } = e.target; // Obtém o nome e o valor do campo que foi alterado
+        const { name, value } = e.target;
         setFormData(prevState => ({
-            ...prevState, // Mantém os valores atuais do estado
-            [name]: value // Atualiza o valor do campo específico
+            ...prevState,
+            [name]: value
         }));
     };
 
-    /**
-     * Lida com o envio do formulário
-     * @param {*} e evento de atualização
-     * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
-     */
     const handleSubmit = async (e) => {
-        const dt_nasc = new Date(formData.data_nascimento);
-        const hoje = new Date();
-        if (dt_nasc.getFullYear() > hoje.getFullYear()) {
-
-        }
-        e.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
-        // Validação básica para garantir que os campos obrigatórios estão preenchidos
-        if (!formData.nome || !formData.cpf /*|| !formData.email || !formData.senha*/) {
+        e.preventDefault();
+        if (!formData.nome || !formData.cpf) {
             window.alert('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
@@ -56,29 +39,16 @@ function CadastroAluno() {
         const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
 
         try {
-            const response = await AlunoRequests.cadastrarAluno(cleanData);
-            console.log('Aluno cadastrado com sucesso:', response);
-            if (response) {
+            if(await AlunoRequests.cadastrarAluno(cleanData)) {
+                console.log('Aluno cadastrado com sucesso!');
                 window.alert(`${formData.nome} foi cadastrado com sucesso`);
-                window.location.reload(); // recarrega a página
+                window.location.reload();
             }
         } catch (error) {
             console.error('Erro ao cadastrar aluno:', error);
             window.alert('Ocorreu um erro: ' + error.message);
         }
     };
-
-    const dt_nasc = new Date(formData.data_nascimento);
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
-
-    /**
-     * Valida a data para não ultrapassar a data atual
-     */
-    if (dt_nasc > hoje) {
-        setErrorMessage('A data de nascimento não pode ser uma data futura.');
-        return;
-    }
 
     return (
         <div className={styles.section}>
@@ -99,14 +69,14 @@ function CadastroAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para CPF */}
+
                     <div className={styles.formGroup}>
                         <div className={styles.inputGroup}>
                             <label>
                                 <p>CPF</p>
                                 <InputMask
-                                    type="text"
                                     mask="999.999.999-99"
+                                    type="text"
                                     className={styles.formStyleEsquerda}
                                     placeholder="CPF"
                                     value={formData.cpf}
@@ -125,13 +95,14 @@ function CadastroAluno() {
                                     onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                                     value={formData.data_nascimento}
                                     onChange={handleChange}
-                                    name="data_nascimento"
-                                    max={hoje.toISOString().split('T')[0]}
+                                    name="dataNascimento"
+                                    min="1950-01-01"
+                                    max={hoje}
                                 />
                             </label>
                         </div>
                     </div>
-                    {/* Campo para número de celular */}
+
                     <div className={styles.formGroup}>
                         <label>
                             <p>Celular</p>
@@ -146,7 +117,7 @@ function CadastroAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para endereço */}
+
                     <div className={styles.formGroup}>
                         <label>
                             <p>Endereço</p>
@@ -160,11 +131,11 @@ function CadastroAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para peso e altura */}
+
                     <div className={styles.formGroup}>
                         <div className={styles.inputGroup}>
                             <label>
-                                <p>Altura (m)   </p>
+                                <p>Altura (m)</p>
                                 <input
                                     type="number"
                                     className={styles.formStyleEsquerda}
@@ -172,6 +143,9 @@ function CadastroAluno() {
                                     value={formData.altura}
                                     onChange={handleChange}
                                     name="altura"
+                                    min="1.00"
+                                    max="2.30"
+                                    step="0.01"
                                 />
                             </label>
 
@@ -184,6 +158,9 @@ function CadastroAluno() {
                                     value={formData.peso}
                                     onChange={handleChange}
                                     name="peso"
+                                    min="40"
+                                    max="399"
+                                    step="0.01"
                                 />
                             </label>
                         </div>
