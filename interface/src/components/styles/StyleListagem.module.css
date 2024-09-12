@@ -1,14 +1,3 @@
-:root {
-  --amareloClaro: #ffeba7;
-  --cinzaEscuro: #212529;
-  --cinzaAzulado: #343A40;
-  --cinzaAvermelhado: #333;
-  --branco: #FFFFFF;
-  --cinzaClaro: #ccc;
-  --amareloEscuro: #b39f72;
-  --preto: #000000;
-}
-
 .titulo {
   text-align: center;
   color: var(--amareloClaro);
@@ -16,6 +5,15 @@
   font-weight: 400;
   font-style: normal;
   margin: 2% 0;
+}
+
+.inputBusca {
+  width: 40%;
+  height: 2.5rem;
+  background-color: var(--branco);
+  color: var(--preto);
+  border-radius: 5px;
+  margin-bottom: 1%;
 }
 
 .tabelaHeader {

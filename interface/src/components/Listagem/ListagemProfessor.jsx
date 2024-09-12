@@ -3,17 +3,16 @@ import styles from '../styles/StyleListagem.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit, MdSecurityUpdate } from "react-icons/md";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { MdOutlineArrowBackIos } from "react-icons/md";
+import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 import { useNavigate } from 'react-router';
 
 function ListarProfessor() {
     const navegacao = useNavigate();
 
     const [professores, setProfessor] = useState([]);
+    const [filtroNome, setFiltroNome] = useState(""); // Estado para o filtro de busca
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
-    const totalPaginas = Math.ceil(professores.length / itensPorPagina);
 
     useEffect(() => {
         const fetchProfessor = async () => {
@@ -26,18 +25,6 @@ function ListarProfessor() {
         };
         fetchProfessor();
     }, []);
-
-    const formatarData = (data) => {
-        return new Date(data).toLocaleDateString('pt-br');
-    };
-
-    const formatarCPF = (cpf) => {
-        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    };
-
-    const formatarTelefone = (telefone) => {
-        return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    };
 
     const deletar = (professor) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o professor ${professor.nome}?`);
@@ -60,10 +47,16 @@ function ListarProfessor() {
         navegacao('/ficha/professor', { state: { professor: professor }, replace: true });
     };
 
-    // Lógica de paginação
+    // Função para filtrar os professores pelo nome
+    const professoresFiltrados = professores.filter((professor) =>
+        professor.nome.toLowerCase().includes(filtroNome.toLowerCase())
+    );
+
+    // Lógica de paginação com base nos professores filtrados
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
-    const professoresPaginados = professores.slice(indicePrimeiroItem, indiceUltimoItem);
+    const professoresPaginados = professoresFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
+    const totalPaginas = Math.ceil(professoresFiltrados.length / itensPorPagina);
 
     const mudarPagina = (novaPagina) => {
         setPaginaAtual(novaPagina);
@@ -77,6 +70,14 @@ function ListarProfessor() {
                         <div className={styles.col}>
                             <div className={styles.section}>
                                 <h1 className={styles.titulo}>Tabela Professor</h1>
+                                {/* Campo de busca para filtrar professores por nome */}
+                                <input
+                                    type="text"
+                                    placeholder="Buscar professor por nome"
+                                    value={filtroNome}
+                                    onChange={(e) => setFiltroNome(e.target.value)}
+                                    className={styles.inputBusca}
+                                />
                             </div>
                         </div>
                     </div>
@@ -123,7 +124,7 @@ function ListarProfessor() {
 
                     <button
                         onClick={() => mudarPagina(paginaAtual + 1)}
-                        disabled={indiceUltimoItem >= professores.length}
+                        disabled={indiceUltimoItem >= professoresFiltrados.length}
                     >
                         <MdOutlineArrowForwardIos />
                     </button>

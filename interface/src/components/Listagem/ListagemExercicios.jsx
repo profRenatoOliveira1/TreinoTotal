@@ -5,17 +5,15 @@ import styles from '../styles/StyleListagem.module.css';
 import ExerciciosRequests from '../../fetch/ExerciciosRequests';
 import AparelhosRequests from '../../fetch/AparelhosRequests';
 import { FaTrash } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { MdOutlineArrowBackIos } from "react-icons/md";
+import { MdEdit, MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 
 function ListagemExercicios() {
     const navegacao = useNavigate();
     const [exercicios, setExercicios] = useState([]);
     const [aparelhos, setAparelho] = useState([]);
+    const [filtroExercicio, setFiltroExercicio] = useState(""); // Estado para o filtro de busca
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
-    const totalPaginas = Math.ceil(exercicios.length / itensPorPagina);
 
     useEffect(() => {
         const fetchDados = async () => {
@@ -59,9 +57,16 @@ function ListagemExercicios() {
         navegacao('/atualizar/exercicio', { state: { objExercicio: exercicio }, replace: true });
     };
 
+    // Função para filtrar os exercícios pelo nome
+    const exerciciosFiltrados = exercicios.filter((exercicio) =>
+        exercicio.exercicio.toLowerCase().includes(filtroExercicio.toLowerCase())
+    );
+
+    // Lógica de paginação com base nos exercícios filtrados
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
-    const exerciciosPaginados = exercicios.slice(indicePrimeiroItem, indiceUltimoItem);
+    const exerciciosPaginados = exerciciosFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
+    const totalPaginas = Math.ceil(exerciciosFiltrados.length / itensPorPagina);
 
     const mudarPagina = (novaPagina) => {
         setPaginaAtual(novaPagina);
@@ -70,6 +75,15 @@ function ListagemExercicios() {
     return (
         <>
             <h1 className={styles.titulo}>Tabela de Exercícios</h1>
+
+            {/* Campo de busca para filtrar exercícios */}
+            <input
+                type="text"
+                placeholder="Buscar exercício"
+                value={filtroExercicio}
+                onChange={(e) => setFiltroExercicio(e.target.value)}
+                className={styles.inputBusca}
+            />
 
             <div className={styles.cntTb} style={{ width: '90%', height: '70vh', margin: 'auto auto' }}>
                 {exercicios.length > 0 ? (
@@ -112,7 +126,7 @@ function ListagemExercicios() {
 
                             <button
                                 onClick={() => mudarPagina(paginaAtual + 1)}
-                                disabled={indiceUltimoItem >= exercicios.length}
+                                disabled={indiceUltimoItem >= exerciciosFiltrados.length}
                             >
                                 <MdOutlineArrowForwardIos />
                             </button>

@@ -12,9 +12,9 @@ import { MdEdit, MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-i
 function ListarAluno() {
     const navegacao = useNavigate();
     const [alunos, setAlunos] = useState([]);
+    const [filtroNome, setFiltroNome] = useState("");
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
-    const totalPaginas = Math.ceil(alunos.length / itensPorPagina);
 
     useEffect(() => {
         const fetchAlunos = async () => {
@@ -48,9 +48,15 @@ function ListarAluno() {
         navegacao('/atualizar/aluno', { state: { objAluno: aluno }, replace: true });
     };
 
+    // Função para filtrar os alunos com base no nome
+    const alunosFiltrados = alunos.filter((aluno) => 
+        aluno.nome.toLowerCase().includes(filtroNome.toLowerCase())
+    );
+
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
-    const alunosPaginados = alunos.slice(indicePrimeiroItem, indiceUltimoItem);
+    const alunosPaginados = alunosFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
+    const totalPaginas = Math.ceil(alunosFiltrados.length / itensPorPagina);
 
     const mudarPagina = (novaPagina) => {
         setPaginaAtual(novaPagina);
@@ -64,6 +70,14 @@ function ListarAluno() {
                         <div className={styles.col}>
                             <div className={styles.section}>
                                 <h1 className={styles.titulo}>Tabela Alunos</h1>
+                                {/* Campo de busca para filtrar alunos por nome */}
+                                <input
+                                    type="text"
+                                    placeholder="Buscar aluno por nome"
+                                    value={filtroNome}
+                                    onChange={(e) => setFiltroNome(e.target.value)}
+                                    className={styles.inputBusca}
+                                />
                             </div>
                         </div>
                     </div>
@@ -124,7 +138,7 @@ function ListarAluno() {
 
                             <button
                                 onClick={() => mudarPagina(paginaAtual + 1)}
-                                disabled={indiceUltimoItem >= alunos.length}
+                                disabled={indiceUltimoItem >= alunosFiltrados.length}
                             >
                                 <MdOutlineArrowForwardIos />
                             </button>

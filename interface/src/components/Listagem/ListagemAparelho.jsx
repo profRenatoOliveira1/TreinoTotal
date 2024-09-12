@@ -3,16 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import AparelhoRequests from '../../fetch/AparelhosRequests';
 import { FaTrash } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { MdOutlineArrowBackIos } from "react-icons/md";
+import { MdEdit, MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 
 function ListarAparelho() {
     const navegacao = useNavigate();
     const [aparelhos, setAparelho] = useState([]);
+    const [filtroAparelho, setFiltroAparelho] = useState(""); // Estado para o filtro de busca
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
-    const totalPaginas = Math.ceil(aparelhos.length / itensPorPagina);
 
     useEffect(() => {
         const fetchAparelho = async () => {
@@ -43,10 +41,16 @@ function ListarAparelho() {
         navegacao('/atualizar/aparelho', { state: { objAparelho: aparelho }, replace: true });
     };
 
-    // Lógica de paginação
+    // Função para filtrar os aparelhos pelo nome
+    const aparelhosFiltrados = aparelhos.filter((aparelho) =>
+        aparelho.nome_aparelho.toLowerCase().includes(filtroAparelho.toLowerCase())
+    );
+
+    // Lógica de paginação com base nos aparelhos filtrados
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
-    const aparelhosPaginados = aparelhos.slice(indicePrimeiroItem, indiceUltimoItem);
+    const aparelhosPaginados = aparelhosFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
+    const totalPaginas = Math.ceil(aparelhosFiltrados.length / itensPorPagina);
 
     const mudarPagina = (novaPagina) => {
         setPaginaAtual(novaPagina);
@@ -65,6 +69,15 @@ function ListarAparelho() {
                     </div>
                 </div>
             </div>
+
+            {/* Campo de busca para filtrar aparelhos */}
+            <input
+                type="text"
+                placeholder="Buscar aparelho"
+                value={filtroAparelho}
+                onChange={(e) => setFiltroAparelho(e.target.value)}
+                className={styles.inputBusca}
+            />
 
             <div className={styles.cntTb} style={{ width: '90%', margin: 'auto auto' }}>
                 <div className={styles.tableHeigth}>
@@ -104,7 +117,7 @@ function ListarAparelho() {
 
                     <button
                         onClick={() => mudarPagina(paginaAtual + 1)}
-                        disabled={indiceUltimoItem >= aparelhos.length}
+                        disabled={indiceUltimoItem >= aparelhosFiltrados.length}
                     >
                         <MdOutlineArrowForwardIos />
                     </button>
