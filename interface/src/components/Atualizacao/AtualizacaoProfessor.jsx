@@ -1,9 +1,11 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import styles from '../styles/StyleCadastro.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import InputMask from "react-input-mask";
+import Utilitarios from '../../util/Utilitarios';
 
 /**
  * Componente responsável por montar o formulário de cadastro do professor
@@ -31,18 +33,9 @@ function AtualizacaoProfessor() {
     });
 
     /**
-     * Máscara CPF
-     */
-    const cleanCPF = formData.cpf.replace(/\D/g, '');
-    /**
-     * Máscata celular
-     */
-    const cleanCelular = formData.celular.replace(/\D/g, '');
-    /**
      * Reseta valores
      */
-    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
-
+    const cleanData = { ...formData, cpf: Utilitarios.cleanCPF(formData.cpf), celular: Utilitarios.cleanCelular(formData.celular) };
 
     /**
      * Atualiza o estado do formulário conforme o preenchimento do usuário
@@ -63,15 +56,16 @@ function AtualizacaoProfessor() {
      * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
      */
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Previne o comportamento padrão de recarregar a página
+        e.preventDefault();
         try {
             if (await ProfessoresRequests.atualizarProfessor(cleanData)) {
                 console.log('Professor atualizado com sucesso!');
                 window.alert(formData.nome + ': foi atualizado com sucesso');
-                navegacao('/listagem/professor', { replace: true });
+                navegacao(ROUTES.LISTAGEM_PROFESSOR, { replace: true });
             }
         } catch (error) {
-            console.error('Erro ao cadastrar professor:', error);
+            console.error('Erro ao atualizar professor:', error);
+            window.alert('Erro ao atualizar professor');
         }
     };
 

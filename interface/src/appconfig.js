@@ -1,0 +1,21 @@
+// Definições de rotas
+export const ROUTES = {
+    HOME: '/',
+    LOGIN: '/login',
+    CADASTRO_ALUNO: '/cadastro/aluno',
+    LISTAGEM_ALUNO: '/listagem/aluno',
+    ATUALIZAR_ALUNO: '/atualizar/aluno',
+    CADASTRO_PROFESSOR: '/cadastro/professor',
+    LISTAGEM_PROFESSOR: '/listagem/professor',
+    ATUALIZAR_PROFESSOR: '/atualizar/professor',
+    FICHA_PROFESSOR: '/ficha/professor',
+    ATUALIZAR_SENHA_PROFESSOR: '/atualizar/senha/professor',
+    CADASTRO_EXERCICIO: '/cadastro/exercicio',
+    LISTAGEM_EXERCICIO: '/listagem/exercicio',
+    ATUALIZAR_EXERCICIO: '/atualizar/exercicio',
+    CADASTRO_APARELHO: '/cadastro/aparelho',
+    LISTAGEM_APARELHO: '/listagem/aparelho',
+    ATUALIZAR_APARELHO: '/atualizar/aparelho',
+    CADASTRO_TREINO: '/cadastro/treino',
+    LISTAGEM_TREINO: '/listagem/treino',
+};

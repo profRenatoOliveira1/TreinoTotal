@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function AparelhoListagem() {
-    // Define um componente funcional chamado AparelhoListagem.
     return (
         <div>
             <Navegacao />
             <ListarAparelho />
         </div>
-        // Utiliza uma <div> para agrupar os componentes Navegacao e ListarAparelho.
     );
 }
 

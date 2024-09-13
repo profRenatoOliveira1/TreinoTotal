@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function ExercicioCadastro() {
-    // Define um componente funcional chamado ExercicioCadastro.
     return (
         <div>
             <Navegacao />
             <CadastroExercicio />
         </div>
-        // Utiliza uma <div> para agrupar os componentes Navegacao e CadastroExercicio.
     );
 }
 

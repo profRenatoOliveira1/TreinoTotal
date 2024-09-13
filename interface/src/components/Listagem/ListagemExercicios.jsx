@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +12,7 @@ function ListagemExercicios() {
     const navegacao = useNavigate();
     const [exercicios, setExercicios] = useState([]);
     const [aparelhos, setAparelho] = useState([]);
-    const [filtroExercicio, setFiltroExercicio] = useState(""); // Estado para o filtro de busca
+    const [filtroExercicio, setFiltroExercicio] = useState("");
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
 
@@ -54,15 +55,13 @@ function ListagemExercicios() {
     };
 
     const atualizar = (exercicio) => {
-        navegacao('/atualizar/exercicio', { state: { objExercicio: exercicio }, replace: true });
+        navegacao(ROUTES.ATUALIZAR_EXERCICIO, { state: { objExercicio: exercicio }, replace: true });
     };
 
-    // Função para filtrar os exercícios pelo nome
     const exerciciosFiltrados = exercicios.filter((exercicio) =>
         exercicio.exercicio.toLowerCase().includes(filtroExercicio.toLowerCase())
     );
 
-    // Lógica de paginação com base nos exercícios filtrados
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
     const exerciciosPaginados = exerciciosFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
@@ -76,7 +75,6 @@ function ListagemExercicios() {
         <>
             <h1 className={styles.titulo}>Tabela de Exercícios</h1>
 
-            {/* Campo de busca para filtrar exercícios */}
             <input
                 type="text"
                 placeholder="Buscar exercício"

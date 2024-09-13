@@ -55,9 +55,9 @@ td  {
 th {
     color: var(--branco) !important;
     font-size: 1.2rem !important;
-    background-color: var(--cinzaAzulado) !important;
+    background-color: var(--amareloClaro) !important;
     margin: 0;
-    border: 2px solid var(--amareloClaro) !important;
+    border: 2px solid var(--cinzaAzulado) !important;
 }
 .selected {
     padding: 10px 15px;
@@ -70,7 +70,7 @@ th {
 }
 
 .table thead th, table {
-    color: var(--amareloClaro) !important;
+    color: white !important;
     font-size: 1.2rem !important;
 }
 

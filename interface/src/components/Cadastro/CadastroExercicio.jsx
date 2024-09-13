@@ -1,13 +1,17 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/StyleCadastro.module.css';
 import ExerciciosRequests from '../../fetch/ExerciciosRequests';
 import AparelhosRequests from '../../fetch/AparelhosRequests';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Componente responsável por montar o formulário de cadastro do exercicio
  * @returns web component
  */
 function CadastroExercicio() {
+    const navigate = useNavigate();
+
     /**
       * Define o estado inicial do formulário com todos os campos vazios
       */
@@ -60,15 +64,11 @@ function CadastroExercicio() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await ExerciciosRequests.cadastrarExercicio(formData);
-            console.log('Exercício cadastrado com sucesso:', response);
-            window.alert(formData.exercicio + ': foi cadastrado com sucesso');
-            setFormData({
-                id_aparelho: '',
-                exercicio: '',
-                regiao_corpo_ativa: ''
-            });
-            window.location.reload(); // recarrega a página
+            if (await ExerciciosRequests.cadastrarExercicio(formData)) {
+                console.log('Exercício cadastrado com sucesso:', response);
+                window.alert(formData.exercicio + ': foi cadastrado com sucesso');
+                navigate(ROUTES.LISTAGEM_EXERCICIO, { replace: true });
+            }
         } catch (error) {
             console.error('Erro ao cadastrar exercício:', error);
             window.alert('Erro ao cadastrar exercício');
@@ -112,6 +112,7 @@ function CadastroExercicio() {
                                 value={formData.exercicio}
                                 onChange={handleChange}
                                 name="exercicio"
+                                required
                             />
                         </label>
                     </div>
@@ -127,13 +128,18 @@ function CadastroExercicio() {
                                 value={formData.regiao_corpo_ativa}
                                 onChange={handleChange}
                                 name="regiao_corpo_ativa"
+                                required
                             />
                         </label>
                     </div>
-                    {/* Botão para enviar o formulário */}
-                    <button type="submit" className={styles.btn}>
-                        Cadastrar
-                    </button>
+                    <div className={styles.buttonGroup}>
+                        <button type="submit" className={styles.btn}>
+                            Cadastrar
+                        </button>
+                        <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_EXERCICIO)}>
+                            Listagem
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

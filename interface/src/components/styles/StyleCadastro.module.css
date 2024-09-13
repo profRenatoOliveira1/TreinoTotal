@@ -1,5 +1,5 @@
 /* Define variáveis de cor para reutilização */
-:root {
+/* :root {
   --amareloClaro: #ffeba7;
   --cinzaEscuro: #212529;
   --cinzaAzulado: #343A40;
@@ -8,7 +8,7 @@
   --cinzaClaro: #ccc;
   --amareloEscuro: #b39f72;
   --preto: #000000;
-}
+} */
 
 /* Estilos para uma seção genérica */
 .section {
@@ -112,6 +112,15 @@ form{
   color: var(--preto);
 }
 
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonGroup button:nth-child(2) {
+  margin-top: 20px;
+}
+
 /* Estilos para um botão genérico */
 .btn {
   display: inline-block;
@@ -125,7 +134,7 @@ form{
   color: var(--amareloClaro);
   border: 3px solid var(--amareloClaro);
   /* Sem borda */
-  border-radius: 27px;
+  border-radius: 15px;
   /* Raio da borda */
   cursor: pointer;
   /* Cursor */

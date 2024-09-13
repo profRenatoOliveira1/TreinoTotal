@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import styles from '../styles/StyleListagem.module.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
@@ -8,7 +9,7 @@ import { MdEdit, MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-i
 function ListarAparelho() {
     const navegacao = useNavigate();
     const [aparelhos, setAparelho] = useState([]);
-    const [filtroAparelho, setFiltroAparelho] = useState(""); // Estado para o filtro de busca
+    const [filtroAparelho, setFiltroAparelho] = useState("");
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
 
@@ -38,7 +39,7 @@ function ListarAparelho() {
     };
 
     const atualizar = (aparelho) => {
-        navegacao('/atualizar/aparelho', { state: { objAparelho: aparelho }, replace: true });
+        navegacao(ROUTES.ATUALIZAR_APARELHO, { state: { objAparelho: aparelho }, replace: true });
     };
 
     // Função para filtrar os aparelhos pelo nome
@@ -70,7 +71,6 @@ function ListarAparelho() {
                 </div>
             </div>
 
-            {/* Campo de busca para filtrar aparelhos */}
             <input
                 type="text"
                 placeholder="Buscar aparelho"

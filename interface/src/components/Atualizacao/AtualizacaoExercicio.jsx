@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -66,16 +67,15 @@ function AtualizacaoExercicio() {
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
         try {
             if (await ExerciciosRequests.atualizarExercicio(formData)) {
                 console.log('Exercício atualizado com sucesso!');
                 window.alert(formData.exercicio + ': foi atualizado com sucesso');
-                navegacao('/listagem/exercicio', { replace: true });
+                navegacao(ROUTES.LISTAGEM_EXERCICIO, { replace: true });
             }
         } catch (error) {
-            console.error('Erro ao cadastrar exercício:', error);
-            window.alert('Erro ao cadastrar exercício');
+            console.error('Erro ao atualizar exercício:', error);
+            window.alert('Erro ao atualizar exercício');
         }
     };
 

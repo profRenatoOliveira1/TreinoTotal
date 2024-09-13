@@ -112,8 +112,6 @@ function CadastroTreino() {
             exercicios: selectedExercicios
         };
 
-        console.log(treino);
-
         try {
             const result = await TreinoRequests.cadastrarTreino(treino);
             if (result) {

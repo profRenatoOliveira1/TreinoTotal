@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function cadastro() {
-    // Define um componente funcional chamado cadastro.
     return (
-        <> {/* Fragmento React para envolver múltiplos elementos */}
-            <Navegacao /> {/* Renderiza o componente de navegação */}
-            <CadastroProfessor /> {/* Renderiza o componente de cadastro de professores */}
+        <>
+            <Navegacao />
+            <CadastroProfessor /> 
         </>
-        // As tags vazias (<></>) são fragmentos do React que permitem agrupar múltiplos elementos sem adicionar nós extras ao DOM.
     );
 }
 

@@ -142,5 +142,4 @@ class AparelhoRequests {
     }
 }
 
-// Exporta uma instância da classe AparelhoRequests para ser utilizada em outras partes do código
 export default new AparelhoRequests();

@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import styles from '../styles/StyleListagem.module.css';
@@ -45,10 +46,9 @@ function ListarAluno() {
     };
 
     const atualizar = (aluno) => {
-        navegacao('/atualizar/aluno', { state: { objAluno: aluno }, replace: true });
+        navegacao(ROUTES.ATUALIZAR_ALUNO, { state: { objAluno: aluno }, replace: true });
     };
 
-    // Função para filtrar os alunos com base no nome
     const alunosFiltrados = alunos.filter((aluno) => 
         aluno.nome.toLowerCase().includes(filtroNome.toLowerCase())
     );

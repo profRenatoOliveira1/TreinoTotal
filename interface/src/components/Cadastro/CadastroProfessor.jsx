@@ -1,14 +1,19 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState } from 'react';
 import styles from '../styles/StyleCadastro.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
 import InputMask from "react-input-mask";
+import { useNavigate } from 'react-router-dom';
+import Utilitarios from '../../util/Utilitarios';
 
 /**
  * Componente responsável por montar o formulário de cadastro do professor
  * @returns web component
  */
 function CadastroProfessor() {
+    const navigate = useNavigate();
     const hoje = new Date();
+
     /**
      * Define o estado inicial do formulário com todos os campos vazios
      */
@@ -24,18 +29,9 @@ function CadastroProfessor() {
     });
 
     /**
-     * Máscara CPF
-     */
-    const cleanCPF = formData.cpf.replace(/\D/g, '');
-    /**
-     * Máscata celular
-     */
-    const cleanCelular = formData.celular.replace(/\D/g, '');
-    /**
      * Reseta valores
      */
-    const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
-
+    const cleanData = { ...formData, cpf: Utilitarios.cleanCPF(formData.cpf), celular: Utilitarios.cleanCelular(formData.cpf) };
 
     /**
      * Atualiza o estado do formulário conforme o preenchimento do usuário
@@ -43,7 +39,6 @@ function CadastroProfessor() {
      */
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // Atualiza o estado com o novo valor do campo modificado
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -56,16 +51,14 @@ function CadastroProfessor() {
      * @returns **true** caso cadastro sucesso, **false** caso erro no cadastro
      */
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Previne o comportamento padrão de recarregar a página
+        e.preventDefault();
         try {
-            // Envia os dados do formulário para a API
-            const response = await ProfessoresRequests.cadastrarProfessor(cleanData);
-            console.log('Professor cadastrado com sucesso:', response);
-            // Mostra um alerta de sucesso para o usuário
-            window.alert(formData.nome + ': foi cadastrado com sucesso');
-            window.location.reload();   // recarrega a página
+            if (await ProfessoresRequests.cadastrarProfessor(cleanData)) {
+                console.log('Professor cadastrado com sucesso!');
+                window.alert(formData.nome + ': foi cadastrado com sucesso');
+                navigate(ROUTES.LISTAGEM_PROFESSOR, { replace: true });
+            }
         } catch (error) {
-            // Mostra um alerta de erro para o usuário em caso de falha
             console.error('Erro ao cadastrar professor:', error);
         }
     };
@@ -87,6 +80,7 @@ function CadastroProfessor() {
                                 value={formData.nome}
                                 onChange={handleChange}
                                 name="nome"
+                                required
                             />
                         </label>
                     </div>
@@ -103,6 +97,7 @@ function CadastroProfessor() {
                                     value={formData.cpf}
                                     onChange={handleChange}
                                     name="cpf"
+                                    required
                                 />
                             </label>
                             <label>
@@ -165,6 +160,7 @@ function CadastroProfessor() {
                                 value={formData.endereco}
                                 onChange={handleChange}
                                 name="endereco"
+                                required
                             />
                         </label>
                     </div>
@@ -179,6 +175,7 @@ function CadastroProfessor() {
                                 value={formData.formacao}
                                 onChange={handleChange}
                                 name="formacao"
+                                required
                             />
                         </label>
                     </div>
@@ -196,10 +193,14 @@ function CadastroProfessor() {
                             />
                         </label>
                     </div>
-                    {/* Botão para enviar o formulário */}
-                    <button type="submit" className={styles.btn}>
-                        Cadastrar
-                    </button>
+                    <div className={styles.buttonGroup}>
+                        <button type="submit" className={styles.btn}>
+                            Cadastrar
+                        </button>
+                        <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_PROFESSOR)}>
+                            Listagem
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

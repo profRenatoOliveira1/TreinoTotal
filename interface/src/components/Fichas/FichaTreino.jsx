@@ -21,6 +21,7 @@ function FichaTreino() {
      * Controla o estado do modal aluno
      */
     const [showAlunoModal, setShowAlunoModal] = useState(false);
+
     /**
      * Controla o aluno selecionado
      */
@@ -116,18 +117,18 @@ function FichaTreino() {
 
             <div className={styles.exerciciosSection}>
                 {exercicios.map((exercicio) => (
-                                <div key={exercicio.id}  className={styles.exercicio}>
-                                <table className={styles.tabelaListTreino}>
-                                    <tr>
-                                        <td colSpan={3} style={{ textAlign: 'left' }}>Exercício: {exercicio.exercicio}</td>
-                                    </tr>
-                                    <tr>
-                                        <td width={'30%'}>Repetições: {exercicio.repeticoes}</td>
-                                        <td width={'30%'} style={{ textAlign: 'center' }}>Carga (kg): {exercicio.carga}</td>
-                                        <td width={'30%'} style={{ textAlign: 'right' }}>Séries: {exercicio.series}</td>
-                                    </tr>
-                                </table>
-                            </div>
+                    <div key={exercicio.id} className={styles.exercicio}>
+                        <table className={styles.tabelaListTreino}>
+                            <tr>
+                                <td colSpan={3} style={{ textAlign: 'left' }}>Exercício: {exercicio.exercicio}</td>
+                            </tr>
+                            <tr>
+                                <td width={'30%'}>Repetições: {exercicio.repeticoes}</td>
+                                <td width={'30%'} style={{ textAlign: 'center' }}>Carga (kg): {exercicio.carga}</td>
+                                <td width={'30%'} style={{ textAlign: 'right' }}>Séries: {exercicio.series}</td>
+                            </tr>
+                        </table>
+                    </div>
                 ))}
             </div>
         </div>

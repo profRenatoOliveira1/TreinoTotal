@@ -8,9 +8,9 @@ import AppRouter from './routes';
 function App() {
   return (
     <>
-      <AppRouter /> {/* Renderiza o componente de roteamento */}
+      <AppRouter />
     </>
   );
 }
 
-export default App; // Exporta o componente App como padrão
+export default App;

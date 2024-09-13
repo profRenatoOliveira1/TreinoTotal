@@ -1,13 +1,17 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState } from 'react';
 import InputMask from "react-input-mask";
 import styles from '../styles/StyleCadastro.module.css';
 import AlunoRequests from '../../fetch/AlunoRequests';
+import { useNavigate } from 'react-router-dom';
+import Utilitarios from '../../util/Utilitarios';
 
 /**
  * Componente responsável por montar o formulário de cadastro do aluno
  * @returns web component
  */
 function CadastroAluno() {
+    const navigate = useNavigate();
     const hoje = new Date();
     const [formData, setFormData] = useState({
         nome: '',
@@ -34,9 +38,7 @@ function CadastroAluno() {
             return;
         }
 
-        const cleanCPF = formData.cpf.replace(/\D/g, '');
-        const cleanCelular = formData.celular.replace(/\D/g, '');
-        const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
+        const cleanData = { ...formData, cpf: Utilitarios.cleanCPF(formData.cpf), celular: Utilitarios.cleanCelular(formData.celular) };
 
         try {
             if(await AlunoRequests.cadastrarAluno(cleanData)) {
@@ -82,6 +84,7 @@ function CadastroAluno() {
                                     value={formData.cpf}
                                     onChange={handleChange}
                                     name="cpf"
+                                    required
                                 />
                             </label>
 
@@ -98,6 +101,7 @@ function CadastroAluno() {
                                     name="dataNascimento"
                                     min="1950-01-01"
                                     max={hoje}
+                                    required
                                 />
                             </label>
                         </div>
@@ -166,9 +170,14 @@ function CadastroAluno() {
                         </div>
                     </div>
 
-                    <button type="submit" className={styles.btn}>
-                        Cadastrar
-                    </button>
+                    <div className={styles.buttonGroup}>
+                        <button type="submit" className={styles.btn}>
+                            Cadastrar
+                        </button>
+                        <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_ALUNO)}>
+                            Listagem
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

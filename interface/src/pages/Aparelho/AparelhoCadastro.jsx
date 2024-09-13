@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function AparelhoCadastro() {
-    // Define um componente funcional chamado AparelhoCadastro.
     return (
         <div>
             <Navegacao />
             <CadastroAparelho />
         </div>
-        // Utiliza uma <div> para agrupar os componentes Navegacao e CadastroAparelho.
     );
 }
 

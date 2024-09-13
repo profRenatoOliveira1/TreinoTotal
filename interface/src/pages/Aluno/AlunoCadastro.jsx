@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function AlunoCadastro() {
-    // Define um componente funcional chamado AlunoCadastro.
     return (
         <>
             <Navegacao />
             <CadastroAluno />
         </>
-        // As tags vazias (<></>) são fragmentos do React que permitem agrupar múltiplos elementos sem adicionar nós extras ao DOM.
     );
 }
 

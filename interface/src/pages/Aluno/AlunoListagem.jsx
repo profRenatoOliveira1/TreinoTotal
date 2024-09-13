@@ -7,13 +7,11 @@ import Navegacao from '../../components/Navegacao/Navegacao';
  * @returns web page
  */
 function AlunoListagem() {
-    // Define um componente funcional chamado AlunoListagem.
     return (
         <div>
             <Navegacao />
             <ListarAluno />
         </div>
-        // Utiliza uma <div> para agrupar os componentes Navegacao e ListarAluno.
     );
 }
 

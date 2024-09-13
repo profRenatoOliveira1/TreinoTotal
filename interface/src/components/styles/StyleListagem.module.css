@@ -17,7 +17,7 @@
 }
 
 .tabelaHeader {
-  background-color: var(--cinzaAvermelhado) !important;
+  /* background-color: var(--cinzaAvermelhado) !important; */
   color: var(--branco) !important;
   text-align: center;
   vertical-align: middle;
@@ -29,6 +29,7 @@
 
 th {
   color: var(--branco)!important;
+  background-color: var(--amareloClaro) !important;
 }
 
 .tabelaCorpo {

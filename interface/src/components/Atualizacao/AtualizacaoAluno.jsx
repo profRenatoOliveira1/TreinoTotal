@@ -1,9 +1,11 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import styles from '../styles/StyleCadastro.module.css';
 import AlunoRequests from '../../fetch/AlunoRequests';
 import InputMask from "react-input-mask";
+import Utilitarios from '../../util/Utilitarios';
 
 /**
  * Componente responsável por montar o formulário de atualização do aluno
@@ -48,19 +50,17 @@ function AtualizacaoAluno() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const cleanCPF = formData.cpf.replace(/\D/g, '');
-        const cleanCelular = formData.celular.replace(/\D/g, '');
-        const cleanData = { ...formData, cpf: cleanCPF, celular: cleanCelular };
+        const cleanData = { ...formData, cpf: Utilitarios.cleanCPF(formData.cpf), celular: Utilitarios.cleanCelular(formData.celular) };
 
         try {
             if(await AlunoRequests.atualizarAluno(cleanData)) {
                 console.log('Aluno atualizado com sucesso!');
                 window.alert(`${formData.nome} foi atualizado com sucesso`);
-                navegacao('/Listagem/Aluno', { replace: true });
+                navegacao({LISTAGEM_ALUNO}, { replace: true });
             }
         } catch (error) {
-            console.error('Erro ao cadastrar aluno:', error);
-            window.alert('Ocorreu um erro: ' + error.message);
+            console.error('Erro ao atualizar aluno:', error);
+            window.alert('Erro ao atualizar aluno');
         }
     };
 

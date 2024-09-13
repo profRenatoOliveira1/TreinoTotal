@@ -142,5 +142,4 @@ class ExerciciosRequests {
     }
 }
 
-// Exporta uma instância da classe ExerciciosRequests para ser utilizada em outras partes do código
 export default new ExerciciosRequests();

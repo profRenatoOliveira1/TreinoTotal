@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/StyleListagem.module.css';
 import ProfessoresRequests from '../../fetch/ProfessoresRequests';
@@ -10,7 +11,7 @@ function ListarProfessor() {
     const navegacao = useNavigate();
 
     const [professores, setProfessor] = useState([]);
-    const [filtroNome, setFiltroNome] = useState(""); // Estado para o filtro de busca
+    const [filtroNome, setFiltroNome] = useState("");
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
 
@@ -40,19 +41,17 @@ function ListarProfessor() {
     };
 
     const atualizar = (professor) => {
-        navegacao('/atualizar/professor', { state: { objProfessor: professor }, replace: true });
+        navegacao(ROUTES.ATUALIZAR_PROFESSOR, { state: { objProfessor: professor }, replace: true });
     };
 
     const exibeFichaProfessor = (professor) => {
-        navegacao('/ficha/professor', { state: { professor: professor }, replace: true });
+        navegacao(ROUTES.FICHA_PROFESSOR, { state: { professor: professor }, replace: true });
     };
 
-    // Função para filtrar os professores pelo nome
     const professoresFiltrados = professores.filter((professor) =>
         professor.nome.toLowerCase().includes(filtroNome.toLowerCase())
     );
 
-    // Lógica de paginação com base nos professores filtrados
     const indiceUltimoItem = paginaAtual * itensPorPagina;
     const indicePrimeiroItem = indiceUltimoItem - itensPorPagina;
     const professoresPaginados = professoresFiltrados.slice(indicePrimeiroItem, indiceUltimoItem);
@@ -70,7 +69,6 @@ function ListarProfessor() {
                         <div className={styles.col}>
                             <div className={styles.section}>
                                 <h1 className={styles.titulo}>Tabela Professor</h1>
-                                {/* Campo de busca para filtrar professores por nome */}
                                 <input
                                     type="text"
                                     placeholder="Buscar professor por nome"

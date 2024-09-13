@@ -9,7 +9,6 @@ function ImgFundoHome() {
 
   return (
     <>
-      {/* Div para a imagem de fundo */}
       <div className='div-img'>
 
         <img className="imgFundo" src={imgFundo} alt="ERRO" />
@@ -17,5 +16,5 @@ function ImgFundoHome() {
     </>
   );
 }
-// Exporta a função ImgFundoHome para que possa ser utilizada em outras partes do código
+
 export default ImgFundoHome;

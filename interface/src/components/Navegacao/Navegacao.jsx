@@ -1,3 +1,4 @@
+import { ROUTES } from '../../appconfig';
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -66,27 +67,27 @@ function Navegacao() {
                         {isAuthenticated ? (
                             <>
                                 <NavDropdown title="Aluno" id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Cadastro/Aluno" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Listagem/Aluno" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.CADASTRO_ALUNO} className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.LISTAGEM_ALUNO} className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
                                 <NavDropdown title="Professor" id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Cadastro/Professor" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Listagem/Professor" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.CADASTRO_PROFESSOR} className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.LISTAGEM_PROFESSOR} className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
                                 <NavDropdown title="Exercicio" id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Cadastro/Exercicio" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Listagem/Exercicio" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.CADASTRO_EXERCICIO} className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.LISTAGEM_EXERCICIO} className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
                                 <NavDropdown title="Aparelho" id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Cadastro/Aparelho" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Listagem/Aparelho" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.CADASTRO_APARELHO} className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.LISTAGEM_APARELHO} className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
                                 <NavDropdown title="Treino" id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Cadastro/Treino" className={styles.navDropdown}>Cadastro</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Listagem/Treino" className={styles.navDropdown}>Listagem</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.CADASTRO_TREINO} className={styles.navDropdown}>Cadastro</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.LISTAGEM_TREINO} className={styles.navDropdown}>Listagem</NavDropdown.Item>
                                 </NavDropdown>
                                 <NavDropdown title={`Olá ${username.split(' ')[0].toUpperCase()}`} id="collapsible-nav-dropdown" className={styles.navbar}>
-                                    <NavDropdown.Item href="/Atualizar/Senha/Professor" className={styles.navDropdown}>Atualizar Senha</NavDropdown.Item>
+                                    <NavDropdown.Item href={ROUTES.ATUALIZAR_SENHA_PROFESSOR} className={styles.navDropdown}>Atualizar Senha</NavDropdown.Item>
                                     <NavDropdown.Item onClick={handleLogout} className={styles.navDropdown}><MdLogout /> Sair</NavDropdown.Item>
                                 </NavDropdown>
                             </>

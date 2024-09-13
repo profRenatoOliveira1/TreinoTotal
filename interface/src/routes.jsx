@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
+import { ROUTES } from './appconfig';
 import Home from './pages/Home/Home'; 
 import CadastroAparelho from './pages/Aparelho/AparelhoCadastro';
 import ListarAparelho from './pages/Aparelho/AparelhoListagem'; 
@@ -19,39 +20,40 @@ import AparelhoUpdate from './pages/Aparelho/AparelhoUpdate';
 import ExercicioUpdate from './pages/Exercicio/ExercicioUpdate';
 import ProfessorUpdate from './pages/Professor/ProfessorUpdate';
 
-// Componente de roteamento da aplicação
 export default function AppRouter() {
     return (
-        <BrowserRouter> {/* Componente de navegação de rotas */}
-            <Routes> {/* Componente de rotas */}
-                <Route path="/" element={<Home />} /> {/* Rota para a página inicial */}
-                <Route path="/login" element={<Login />} /> {/* Rota para a página de login */}
+        <BrowserRouter>
+            <Routes>
+                {/* Rotas principais */}
+                <Route path={ROUTES.HOME} element={<Home />} />
+                <Route path={ROUTES.LOGIN} element={<Login />} />
+
                 {/* Rotas protegidas */}
-                {/* Rotas Aluno */}
-                <Route path="/cadastro/aluno" element={<ProtectedRoute element={CadastroAluno} />} /> {/* Rota para o cadastro de aluno */}
-                <Route path="/listagem/aluno" element={<ProtectedRoute element={ListarAluno} />} /> {/* Rota para listar alunos */}
-                <Route path="/atualizar/aluno" element={<ProtectedRoute element={AlunoUpdate}/>} />
+                {/* Rotas aluno */}
+                <Route path={ROUTES.CADASTRO_ALUNO} element={<ProtectedRoute element={CadastroAluno} />} />
+                <Route path={ROUTES.LISTAGEM_ALUNO} element={<ProtectedRoute element={ListarAluno} />} />
+                <Route path={ROUTES.ATUALIZAR_ALUNO} element={<ProtectedRoute element={AlunoUpdate}/>} />
                 
-                {/* Rotas Professor */}
-                <Route path="/cadastro/professor" element={<ProtectedRoute element={CadastroProfessor} />} /> {/* Rota para o cadastro de professor */}
-                <Route path="/listagem/professor" element={<ProtectedRoute element={ListarProfessor} />} /> {/* Rota para listar professores */}
-                <Route path="/atualizar/professor" element={<ProtectedRoute element={ProfessorUpdate}/>}/>
-                <Route path="/ficha/professor" element={<ProtectedRoute element={FichaProfessor} />} />
-                <Route path="/atualizar/senha/professor" element={<ProtectedRoute element={ProfessorAtualizarSenha} />} />
+                {/* Rotas professor */}
+                <Route path={ROUTES.CADASTRO_PROFESSOR} element={<ProtectedRoute element={CadastroProfessor} />} />
+                <Route path={ROUTES.LISTAGEM_PROFESSOR} element={<ProtectedRoute element={ListarProfessor} />} />
+                <Route path={ROUTES.ATUALIZAR_PROFESSOR} element={<ProtectedRoute element={ProfessorUpdate}/>} />
+                <Route path={ROUTES.FICHA_PROFESSOR} element={<ProtectedRoute element={FichaProfessor} />} />
+                <Route path={ROUTES.ATUALIZAR_SENHA_PROFESSOR} element={<ProtectedRoute element={ProfessorAtualizarSenha} />} />
 
-                {/* Rotas Exercicio */}
-                <Route path="/cadastro/exercicio" element={<ProtectedRoute element={CadastroExercicio} />} /> {/* Rota para o cadastro de exercício */}
-                <Route path="/listagem/exercicio" element={<ProtectedRoute element={ListarExercicio} />} /> {/* Rota para listar exercícios */}
-                <Route path="/atualizar/exercicio" element={<ProtectedRoute element={ExercicioUpdate}/>}/>
+                {/* Rotas exercicio */}
+                <Route path={ROUTES.CADASTRO_EXERCICIO} element={<ProtectedRoute element={CadastroExercicio} />} />
+                <Route path={ROUTES.LISTAGEM_EXERCICIO} element={<ProtectedRoute element={ListarExercicio} />} />
+                <Route path={ROUTES.ATUALIZAR_EXERCICIO} element={<ProtectedRoute element={ExercicioUpdate}/>} />
 
-                {/* Rotas Aparelho */}
-                <Route path="/cadastro/aparelho" element={<ProtectedRoute element={CadastroAparelho} />} /> {/* Rota para o cadastro de aparelho */}
-                <Route path="/listagem/aparelho" element={<ProtectedRoute element={ListarAparelho} />} /> {/* Rota para listar aparelhos */}
-                <Route path='/atualizar/aparelho' element={<ProtectedRoute element={AparelhoUpdate}/>}/>
+                {/* Rotas aparelho */}
+                <Route path={ROUTES.CADASTRO_APARELHO} element={<ProtectedRoute element={CadastroAparelho} />} />
+                <Route path={ROUTES.LISTAGEM_APARELHO} element={<ProtectedRoute element={ListarAparelho} />} />
+                <Route path={ROUTES.ATUALIZAR_APARELHO} element={<ProtectedRoute element={AparelhoUpdate}/>} />
                 
-                {/* Rotas Aparelho */}
-                <Route path="/cadastro/treino" element={<ProtectedRoute element={CadastroTreino} />} /> {/* Rota para listar aparelhos */}
-                <Route path="/listagem/treino" element={<ProtectedRoute element={ListarTreino} />} /> {/* Rota para listar aparelhos */}                
+                {/* Rotas treino */}
+                <Route path={ROUTES.CADASTRO_TREINO} element={<ProtectedRoute element={CadastroTreino} />} />
+                <Route path={ROUTES.LISTAGEM_TREINO} element={<ProtectedRoute element={ListarTreino} />} />                
             </Routes>
         </BrowserRouter>
     );

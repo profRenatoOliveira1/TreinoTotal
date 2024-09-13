@@ -24,7 +24,7 @@ function FichaProfessor() {
                     </div>
                     <div>
                         <strong>NASCIMENTO</strong>
-                        <p>{objetoProfessor.data_nascimento}</p>
+                        <p>{new Date(objetoProfessor.data_nascimento).toLocaleDateString('pt-br')}</p>
                     </div>
                     <div className={style.endereco}>
                         <strong>ENDEREÇO</strong>
@@ -36,7 +36,7 @@ function FichaProfessor() {
                     </div>
                     <div>
                         <strong>DT CONTRATAÇÃO</strong>
-                        <p>{objetoProfessor.data_contratacao}</p>
+                        <p>{new Date(objetoProfessor.data_contratacao).toLocaleDateString('pt-br')}</p>
                     </div>
                     <div>
                         <strong>FORMAÇÃO</strong>

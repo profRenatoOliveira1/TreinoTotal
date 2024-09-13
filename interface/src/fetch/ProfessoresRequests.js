@@ -27,7 +27,7 @@ class ProfessoresRequests {
      * Faz a busca dos professores no servidor
      * @returns lista de professores
      */
-    async listarProfessor() { // Método assíncrono para listar professores
+    async listarProfessor() { 
         try {
             const token = this.getAuthToken();
             // Realiza uma requisição GET para obter a lista de professores
@@ -52,7 +52,7 @@ class ProfessoresRequests {
      * @param {*} professor objeto com as informações do professor
      * @returns **true** caso sucesso, **false** caso erro
      */
-    async cadastrarProfessor(professor) { // Método assíncrono para cadastrar um professor
+    async cadastrarProfessor(professor) { 
         try {
             const token = this.getAuthToken();
             // Realiza uma requisição POST para cadastrar um professor

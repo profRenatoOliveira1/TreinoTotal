@@ -1,6 +1,7 @@
 import AuthRequests from "../../fetch/AuthRequests";
 import { useState } from 'react';
 import styles from '../styles/StyleLogin.module.css';
+import { ROUTES } from '../../appconfig';
 
 /**
  * Componente responsável pelo formulário de login
@@ -45,7 +46,7 @@ function Login() {
                 setTimeout(() => {
                     AuthRequests.persistToken(response.token);
                 }, 1000);
-                window.location.href = '/';
+                window.location.href = ROUTES.HOME;
             } else {
                 setErrorMessage('Autenticação falhou. Por favor, verifique suas credenciais.');
             }
