@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Navegacao from '../../components/Navegacao/Navegacao';
 import { FiUser } from "react-icons/fi";
 import style from "./Ficha.module.css";
+import Utilitarios from '../../util/Utilitarios';
 
 function FichaProfessor() {
     const location = useLocation();
@@ -20,7 +21,7 @@ function FichaProfessor() {
                 <div className={style.detalhes}>
                     <div>
                         <strong>CPF</strong>
-                        <p>{objetoProfessor.cpf}</p>
+                        <p>{Utilitarios.formatarCPF(objetoProfessor.cpf)}</p>
                     </div>
                     <div>
                         <strong>NASCIMENTO</strong>
@@ -32,7 +33,7 @@ function FichaProfessor() {
                     </div>
                     <div>
                         <strong>CELULAR</strong>
-                        <p>{objetoProfessor.celular}</p>
+                        <p>{Utilitarios.formatarCelular(objetoProfessor.celular)}</p>
                     </div>
                     <div>
                         <strong>DT CONTRATAÇÃO</strong>
