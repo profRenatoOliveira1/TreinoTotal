@@ -21,7 +21,6 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-
 }
 
 .header {
@@ -30,7 +29,6 @@ body {
 }
 
 .searchSection {
-    display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
@@ -60,6 +58,11 @@ body {
     border-radius: 5px;
     margin-bottom: 20px;
     color: var(--branco);
+}
+
+.labelMatricula {
+    width: 15%;
+    text-align: left;
 }
 
 .nomeAluno h4, .nomeProfessor h4 {

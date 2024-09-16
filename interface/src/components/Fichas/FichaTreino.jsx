@@ -88,7 +88,7 @@ function FichaTreino() {
     return (
         <div className={styles.container}>
             <div className={styles.searchSection} style={{ display: 'flex', justifyContent: 'center' }}>
-                <label htmlFor="searchType">Matricula aluno:</label>
+                <label htmlFor="searchType" className={styles.labelMatricula}>Matricula aluno:</label>
 
                 <input
                     type={searchType === 'matricula' ? 'number' : 'text'}
