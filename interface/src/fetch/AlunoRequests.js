@@ -83,7 +83,7 @@ class AlunoRequests {
     async deletarAluno(idAluno) {
         try {
             const token = this.getAuthToken();
-            const response = await fetch(`${this.serverUrl}${this.routeRemoverAluno}?id_aluno=${idAluno}`, {
+            const response = await fetch(`${this.serverUrl}${this.routeRemoverAluno}?idAluno=${idAluno}`, {
                 method: 'DELETE',
                 headers: {
                     'x-access-token': `${token}`
@@ -107,7 +107,7 @@ class AlunoRequests {
     async atualizarAluno(aluno) {
         try {
             const token = this.getAuthToken();
-            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAluno}?id_aluno=${aluno.idAluno}`, {
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAluno}?idAluno=${aluno.idAluno}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

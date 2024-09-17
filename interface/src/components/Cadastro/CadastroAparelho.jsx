@@ -41,7 +41,7 @@ function CadastroAparelho() {
         e.preventDefault();
         try {
             if (await AparelhoRequests.cadastrarAparelho(formData)) {
-                console.log('Aparelho cadastrado com sucesso:', response);
+                console.log('Aparelho cadastrado com sucesso!');
                 window.alert(formData.nome_aparelho + ': foi cadastrado com sucesso');
                 navigate(ROUTES.LISTAGEM_APARELHO, { replace: true });
             }

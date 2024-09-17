@@ -83,7 +83,7 @@ class AparelhoRequests {
         try {
             const token = this.getAuthToken();
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
-            const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?id_aparelho=${idAparelho}`, {
+            const response = await fetch(`${this.serverUrl}${this.routeRemoverAparelho}?idAparelho=${idAparelho}`, {
                 // Informa o verbo a ser acessado
                 method: 'DELETE',
                 headers: {
@@ -115,7 +115,7 @@ class AparelhoRequests {
             const token = this.getAuthToken();
             
             // Faz a requisição para o servidor, passando o endereço, a rota e a query com o ID do animal
-            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAparelho}?id_aparelho=${aparelho.idAparelho}`, {
+            const response = await fetch(`${this.serverUrl}${this.routeAtualizarAparelho}?idAparelho=${aparelho.idAparelho}`, {
                 // Informa o verbo a ser acessado
                 method: 'PUT',
                 // informa os cabeçalhos da requisição

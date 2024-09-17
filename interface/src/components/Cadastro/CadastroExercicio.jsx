@@ -16,9 +16,9 @@ function CadastroExercicio() {
       * Define o estado inicial do formulário com todos os campos vazios
       */
     const [formData, setFormData] = useState({
-        id_aparelho: '',
+        idAparelho: '',
         exercicio: '',
-        regiao_corpo_ativa: ''
+        regiaoCorpoAtiva: ''
     });
 
     /**
@@ -65,7 +65,7 @@ function CadastroExercicio() {
         e.preventDefault();
         try {
             if (await ExerciciosRequests.cadastrarExercicio(formData)) {
-                console.log('Exercício cadastrado com sucesso:', response);
+                console.log('Exercício cadastrado com sucesso!');
                 window.alert(formData.exercicio + ': foi cadastrado com sucesso');
                 navigate(ROUTES.LISTAGEM_EXERCICIO, { replace: true });
             }
@@ -87,15 +87,15 @@ function CadastroExercicio() {
                             <p>Aparelho</p>
                             <select
                                 className={styles.formStyle}
-                                value={formData.id_aparelho}
+                                value={formData.idAparelho}
                                 onChange={handleChange}
-                                name="id_aparelho"
+                                name="idAparelho"
                                 required
                             >
                                 <option value="">Selecione o Aparelho</option>
                                 {aparelhos.map(aparelho => (
-                                    <option key={aparelho.id_aparelho} value={aparelho.id_aparelho}>
-                                        {aparelho.nome_aparelho}
+                                    <option key={aparelho.idAparelho} value={aparelho.idAparelho}>
+                                        {aparelho.nomeAparelho}
                                     </option>
                                 ))}
                             </select>
@@ -125,9 +125,9 @@ function CadastroExercicio() {
                                 type="text"
                                 className={styles.formStyle}
                                 placeholder="Região do corpo ativada"
-                                value={formData.regiao_corpo_ativa}
+                                value={formData.regiaoCorpoAtiva}
                                 onChange={handleChange}
-                                name="regiao_corpo_ativa"
+                                name="regiaoCorpoAtiva"
                                 required
                             />
                         </label>

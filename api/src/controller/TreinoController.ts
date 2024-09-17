@@ -15,7 +15,7 @@ export class TreinoController extends Treino {
      */
     public async treinoNomeAluno(req: Request, res: Response): Promise<Response> {
         try {
-            const treinoAluno = await Treino.listarTreinoNomeAluno(req.query.nome_aluno as string);
+            const treinoAluno = await Treino.listarTreinoNomeAluno(req.query.nomeAluno as string);
             return res.status(200).json(treinoAluno);
         } catch (error) {
             console.log(`Erro ao acessar o modelo: ${error}`);
@@ -33,8 +33,8 @@ export class TreinoController extends Treino {
     public async listarTreino(req: Request, res: Response): Promise<Response> {
         try {
             const matricula = req.query.matricula;
-            const idTreino = req.query.id_treino;
-            const nomeAluno = req.query.nome_aluno;
+            const idTreino = req.query.idTreino;
+            const nomeAluno = req.query.nomeAluno;
             
             if (matricula && !isNaN(parseInt(matricula as string))) {
                 const treinoAluno = await Treino.listarTreinoMatriculaAluno(parseInt(matricula as string));
@@ -106,7 +106,7 @@ export class TreinoController extends Treino {
      */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
-            const idTreino = parseInt(req.query.id_treino as string);
+            const idTreino = parseInt(req.query.idTreino as string);
 
             if (await Treino.removerTreino(idTreino)) {
                 return res.status(200).json('Treino removido com sucesso');
@@ -130,13 +130,13 @@ export class TreinoController extends Treino {
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { id_aluno, id_professor, exercicios } = req.body;
-            const id_treino = parseInt(req.query.id_treino as string);
+            const { idAluno, idProfessor, exercicios } = req.body;
+            const idTreino = parseInt(req.query.idTreino as string);
 
             // Extraindo os IDs dos exercícios
-            const idsExercicios = exercicios.map((exercicio: { id_exercicio: number }) => exercicio.id_exercicio);
+            const idsExercicios = exercicios.map((exercicio: { idExercicio: number }) => exercicio.idExercicio);
 
-            const result = await Treino.atualizarTreino(id_aluno, id_professor, idsExercicios, id_treino);
+            const result = await Treino.atualizarTreino(idAluno, idProfessor, idsExercicios, idTreino);
 
             if (result) {
                 return res.status(200).json({ message: 'Treino atualizado com sucesso' });

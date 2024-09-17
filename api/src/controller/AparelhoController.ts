@@ -36,10 +36,10 @@ class AparelhoController extends Aparelho {
      */
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
-            const { nome_aparelho, musculo_ativado } = req.body;
+            const { nomeAparelho, musculoAtivado } = req.body;
 
             // Instanciando objeto Aparelho
-            const novoAparelho = new Aparelho(nome_aparelho, musculo_ativado);
+            const novoAparelho = new Aparelho(nomeAparelho, musculoAtivado);
 
             // Chama o método para persistir o aparelho no banco de dados
             const result = await Aparelho.cadastrarAparelho(novoAparelho);
@@ -68,7 +68,7 @@ class AparelhoController extends Aparelho {
      */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
-            const idAparelho = parseInt(req.query.id_aparelho as string);
+            const idAparelho = parseInt(req.query.idAparelho as string);
 
             if (await Aparelho.removerAparelho(idAparelho)) {
                 return res.status(200).json('Aparelho removido com sucesso');
@@ -97,7 +97,7 @@ class AparelhoController extends Aparelho {
             // Instanciando objeto Aparelho
             const aparelho = new Aparelho(nomeAparelho, musculoAtivado);
 
-            aparelho.setIdAparelho(parseInt(req.query.id_aparelho as string));
+            aparelho.setIdAparelho(parseInt(req.query.idAparelho as string));
             
             if (await Aparelho.atualizarAparelho(aparelho)) {
                 return res.status(200).json('aparelho atualizado com sucesso');

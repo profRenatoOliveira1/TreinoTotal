@@ -35,10 +35,10 @@ class ExercicioController extends Exercicio {
      */
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
-            const { id_aparelho, exercicio, regiao_corpo_ativa } = req.body;
+            const { idAparelho, exercicio, regiaoCorpoAtiva } = req.body;
 
             // Instanciando objeto Exercicio
-            const novoExercicio = new Exercicio(id_aparelho, exercicio, regiao_corpo_ativa);
+            const novoExercicio = new Exercicio(idAparelho, exercicio, regiaoCorpoAtiva);
 
             // Chama o método para persistir o exercicio no banco de dados
             const result = await Exercicio.cadastrarExercicio(novoExercicio);
@@ -66,7 +66,7 @@ class ExercicioController extends Exercicio {
      */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
-            const idExercicio = parseInt(req.query.id_exercicio as string);
+            const idExercicio = parseInt(req.query.idExercicio as string);
 
             if (await Exercicio.removerExercicio(idExercicio)) {
                 return res.status(200).json('Exercicio removido com sucesso');
@@ -99,7 +99,7 @@ class ExercicioController extends Exercicio {
                 regiaoCorpoAtivada
             );
 
-            novoExercicio.setIdExercicio(parseInt(req.query.id_exercicio as string));
+            novoExercicio.setIdExercicio(parseInt(req.query.idExercicio as string));
 
             if (await Exercicio.atualizarExercicio(novoExercicio)) {
                 return res.status(200).json('exercicio atualizado com sucesso');

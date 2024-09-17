@@ -72,7 +72,7 @@ class AlunoController extends Aluno {
      */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
-            const idAluno = parseInt(req.query.id_aluno as string);
+            const idAluno = parseInt(req.query.idAluno as string);
 
             if (await Aluno.removerAluno(idAluno)) {
                 return res.status(200).json('Aluno removido com sucesso');
@@ -95,7 +95,7 @@ class AlunoController extends Aluno {
     public async atualizar(req: Request, res: Response): Promise<any> {
         try {
             // Desestruturando objeto recebido pelo front-end      
-            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco, email, senha } = req.body;
+            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco, email } = req.body;
 
             const imcCalculado = (parseInt(peso) / (parseInt(altura) * parseInt(altura)));
 
@@ -111,7 +111,7 @@ class AlunoController extends Aluno {
                 imcCalculado
             );
 
-            novoAluno.setIdAluno(parseInt(req.query.id_aluno as string));
+            novoAluno.setIdAluno(parseInt(req.query.idAluno as string));
 
             if (await Aluno.atualizarAluno(novoAluno)) {
                 return res.status(200).json('Aluno atualizado com sucesso');

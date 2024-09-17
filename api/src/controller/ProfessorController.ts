@@ -74,7 +74,7 @@ class ProfessorController extends Professor {
      */
     public async remover(req: Request, res: Response): Promise<Response> {
         try {
-            const idProfessor = parseInt(req.query.id_professor as string);
+            const idProfessor = parseInt(req.query.idProfessor as string);
 
             if (await Professor.removerProfessor(idProfessor)) {
                 return res.status(200).json('Professor removido com sucesso');
@@ -112,7 +112,7 @@ class ProfessorController extends Professor {
                 especialidade
             );
 
-            professor.setIdProfessor(parseInt(req.query.id_professor as string));
+            professor.setIdProfessor(parseInt(req.query.idProfessor as string));
 
             if (await Professor.atualizarProfessor(professor)) {
                 return res.status(200).json('Professor atualizado com sucesso');

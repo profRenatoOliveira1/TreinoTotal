@@ -236,7 +236,7 @@ export class Exercicio {
      */
     static async cadastrarExercicio(exercicio: Exercicio): Promise<Boolean> {
         let insertResult = false;
-
+        console.log(exercicio)
         try {
             const queryInsertExercicio = `
                 INSERT INTO exercicio (id_aparelho, exercicio, regiao_corpo_ativada)
