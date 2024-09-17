@@ -13,13 +13,13 @@ export class Exercicio {
     /**
      * O identificador do exercício.
      */
-    private id_exercicio: number = 0;
+    private idExercicio: number = 0;
 
     /**
      * O identificador do aparelho utilizado no exercício.
      * Relacionamento com Aparelho.
      */
-    private id_aparelho: number;
+    private idAparelho: number;
 
     /**
      * O nome do exercício.
@@ -44,16 +44,13 @@ export class Exercicio {
     /**
      * A região do corpo ativada pelo exercício.
      */
-    private regiao_corpo_ativa: string;
+    private regiaoCorpoAtivada: string;
 
     /**
      * Cria uma nova instância de Exercicio.
      * 
      * @param _idAparelho O identificador do aparelho utilizado no exercício.
      * @param _exercicio O nome do exercício.
-     * @param _carga A carga utilizada no exercício (em kg).
-     * @param _repeticoes O número de repetições realizadas no exercício.
-     * @param _series O número de séries do exercício.
      * @param _regiao_corpo_ativa A região do corpo ativada pelo exercício.
      */
     constructor(
@@ -61,9 +58,9 @@ export class Exercicio {
         _exercicio: string,
         _regiao_corpo_ativa: string
     ) {
-        this.id_aparelho = _id_aparelho;
+        this.idAparelho = _id_aparelho;
         this.exercicio = _exercicio;
-        this.regiao_corpo_ativa = _regiao_corpo_ativa;
+        this.regiaoCorpoAtivada = _regiao_corpo_ativa;
     }
 
     // Getters e Setters
@@ -73,7 +70,7 @@ export class Exercicio {
      * @returns O identificador do exercício.
      */
     public getIdExercicio(): number {
-        return this.id_exercicio;
+        return this.idExercicio;
     }
 
     /**
@@ -82,7 +79,7 @@ export class Exercicio {
      * @param idExercicio O identificador a ser atribuído ao exercício.
      */
     public setIdExercicio(id_exercicio: number): void {
-        this.id_exercicio = id_exercicio;
+        this.idExercicio = id_exercicio;
     }
 
     /**
@@ -91,7 +88,7 @@ export class Exercicio {
      * @returns O identificador do aparelho.
      */
     public getIdAparelho(): number {
-        return this.id_aparelho;
+        return this.idAparelho;
     }
 
     /**
@@ -100,7 +97,7 @@ export class Exercicio {
      * @param idAparelho O identificador do aparelho a ser atribuído.
      */
     public setIdAparelho(id_aparelho: number): void {
-        this.id_aparelho = id_aparelho;
+        this.idAparelho = id_aparelho;
     }
 
     /**
@@ -181,7 +178,7 @@ export class Exercicio {
      * @returns A região do corpo ativada pelo exercício.
      */
     public getRegiaoCorpoAtiva(): string {
-        return this.regiao_corpo_ativa;
+        return this.regiaoCorpoAtivada;
     }
 
     /**
@@ -190,7 +187,7 @@ export class Exercicio {
      * @param regiaoCorpoAtiva A região do corpo a ser atribuída ao exercício.
      */
     public setRegiaoCorpoAtiva(regiao_corpo_ativa: string): void {
-        this.regiao_corpo_ativa = regiao_corpo_ativa;
+        this.regiaoCorpoAtivada = regiao_corpo_ativa;
     }
 
 
@@ -211,8 +208,16 @@ export class Exercicio {
             const queryReturn = await database.query(querySelectExercicio);
             // Percorre todas as linhas da queryReturn e acessa cada objeto individualmente
             queryReturn.rows.forEach(exercicio => {
+                const novoExercicio = new Exercicio(
+                    exercicio.id_aparelho,
+                    exercicio.exercicio,
+                    exercicio.regiao_corpo_ativa
+                );
+
+                novoExercicio.setIdExercicio(exercicio.id_exercicio);
+                
                 // Coloca o objeto dentro da lista de Exercicio
-                listaDeExercicios.push(exercicio);
+                listaDeExercicios.push(novoExercicio);
             });
 
             // retorna a lista de Exercico para quem chamou a função

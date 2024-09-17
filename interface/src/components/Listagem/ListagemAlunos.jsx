@@ -36,7 +36,7 @@ function ListarAluno() {
     const deletar = (aluno) => {
         const deletar = window.confirm(`Tem certeza que deseja remover o aluno ${aluno.nome}?`);
         if (deletar) {
-            if (AlunoRequests.deletarAluno(aluno.id_aluno)) {
+            if (AlunoRequests.deletarAluno(aluno.idAluno)) {
                 window.location.reload();
                 window.alert('Aluno removido com sucesso!');
             } else {
@@ -105,11 +105,11 @@ function ListarAluno() {
                                 </thead>
                                 <tbody>
                                     {alunosPaginados.map((aluno) => (
-                                        <tr key={aluno.id_aluno} className={styles.tabelaCorpo}>
+                                        <tr key={aluno.idAluno} className={styles.tabelaCorpo}>
                                             <td>{aluno.matricula}</td>
                                             <td style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{aluno.nome}</td>
                                             <td>{formatarCPF(aluno.cpf)}</td>
-                                            <td>{formatarData(aluno.data_nascimento)}</td>
+                                            <td>{formatarData(aluno.dataNascimento)}</td>
                                             <td>{formatarTelefone(aluno.celular)}</td>
                                             <td>{aluno.endereco}</td>
                                             <td hidden>{aluno.altura}</td>

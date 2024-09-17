@@ -12,17 +12,17 @@ export class Aparelho {
     /**
      * O identificador do aparelho.
      */
-    private id_aparelho: number = 0;
+    private idAparelho: number = 0;
 
     /**
      * O nome do aparelho.
      */
-    private nome_aparelho: string;
+    private nomeAparelho: string;
 
     /**
      * O músculo ativado pelo aparelho.
      */
-    private musculo_ativado: string;
+    private musculoAtivado: string;
 
     /**
      * Cria uma nova instância de Aparelho.
@@ -34,8 +34,8 @@ export class Aparelho {
         _nome_aparelho: string,
         _musculo_ativado: string
     ) {
-        this.nome_aparelho = _nome_aparelho;
-        this.musculo_ativado = _musculo_ativado;
+        this.nomeAparelho = _nome_aparelho;
+        this.musculoAtivado = _musculo_ativado;
     }
 
     // Getters e Setters
@@ -46,7 +46,7 @@ export class Aparelho {
      * @returns O identificador do aparelho.
      */
     public getIdAparelho(): number {
-        return this.id_aparelho;
+        return this.idAparelho;
     }
 
     /**
@@ -55,7 +55,7 @@ export class Aparelho {
      * @param id_aparelho O identificador a ser atribuído ao aparelho.
      */
     public setIdAparelho(id_aparelho: number): void {
-        this.id_aparelho = id_aparelho;
+        this.idAparelho = id_aparelho;
     }
 
     /**
@@ -64,7 +64,7 @@ export class Aparelho {
      * @returns O nome do aparelho.
      */
     public getNomeAparelho(): string {
-        return this.nome_aparelho;
+        return this.nomeAparelho;
     }
 
     /**
@@ -73,7 +73,7 @@ export class Aparelho {
      * @param nomeAparelho O nome a ser atribuído ao aparelho.
      */
     public setNomeAparelho(nome_aparelho: string): void {
-        this.nome_aparelho = nome_aparelho;
+        this.nomeAparelho = nome_aparelho;
     }
 
     /**
@@ -82,7 +82,7 @@ export class Aparelho {
      * @returns O músculo ativado pelo aparelho.
      */
     public getMusculoAtivado(): string {
-        return this.musculo_ativado;
+        return this.musculoAtivado;
     }
 
     /**
@@ -91,7 +91,7 @@ export class Aparelho {
      * @param musculoAtivado O músculo a ser atribuído ao aparelho.
      */
     public setMusculoAtivado(musculo_ativado: string): void {
-        this.musculo_ativado = musculo_ativado;
+        this.musculoAtivado = musculo_ativado;
     }
 
     /**
@@ -111,8 +111,14 @@ export class Aparelho {
             const queryReturn = await database.query(querySelectAparelho);
             // Percorre todas as linhas da queryReturn e acessa cada objeto individualmente
             queryReturn.rows.forEach(aparelho => {
+                const novoAparelho = new Aparelho(
+                    aparelho.nome_aparelho,
+                    aparelho.musculo_ativado
+                );
+
+                novoAparelho.setIdAparelho(aparelho.id_aparelho);
                 // Coloca o objeto dentro da lista de Aparelhos
-                listaDeAparelhos.push(aparelho);
+                listaDeAparelhos.push(novoAparelho);
             });
 
             // retorna a lista de Aparelhos para quem chamou a função

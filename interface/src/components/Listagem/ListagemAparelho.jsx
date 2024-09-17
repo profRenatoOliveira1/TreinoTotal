@@ -26,10 +26,10 @@ function ListarAparelho() {
     }, []);
 
     const deletar = (aparelho) => {
-        const deletar = window.confirm(`Tem certeza que deseja remover o aparelho ${aparelho.nome_aparelho}`);
+        const deletar = window.confirm(`Tem certeza que deseja remover o aparelho ${aparelho.nomeAparelho}`);
 
         if (deletar) {
-            if (AparelhoRequests.deletarAparelho(aparelho.id_aparelho)) {
+            if (AparelhoRequests.deletarAparelho(aparelho.idAparelho)) {
                 window.location.reload();
                 window.alert('Aparelho removido com sucesso!');
             } else {
@@ -44,7 +44,7 @@ function ListarAparelho() {
 
     // Função para filtrar os aparelhos pelo nome
     const aparelhosFiltrados = aparelhos.filter((aparelho) =>
-        aparelho.nome_aparelho.toLowerCase().includes(filtroAparelho.toLowerCase())
+        aparelho.nomeAparelho.toLowerCase().includes(filtroAparelho.toLowerCase())
     );
 
     // Lógica de paginação com base nos aparelhos filtrados
@@ -91,9 +91,9 @@ function ListarAparelho() {
                         </thead>
                         <tbody>
                             {aparelhosPaginados.map(aparelho => (
-                                <tr key={aparelho.id_aparelho} className={styles.tabelaCorpo}>
-                                    <td>{aparelho.nome_aparelho}</td>
-                                    <td>{aparelho.musculo_ativado}</td>
+                                <tr key={aparelho.idAparelho} className={styles.tabelaCorpo}>
+                                    <td>{aparelho.nomeAparelho}</td>
+                                    <td>{aparelho.musculoAtivado}</td>
                                     <td>
                                         <FaTrash onClick={() => deletar(aparelho)} style={{ color: '#DB0135' }} />
                                     </td>

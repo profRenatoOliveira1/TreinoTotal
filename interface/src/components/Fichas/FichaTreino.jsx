@@ -70,8 +70,8 @@ function FichaTreino() {
         } else {
             try {
                 const response = await TreinoRequests.listarTreino(searchType, searchValue);
-                setAluno(response.nome_aluno);
-                setProfessor(response.nome_professor);
+                setAluno(response.nomeAluno);
+                setProfessor(response.nomeProfessor);
                 setExercicios(response.exercicios);
                 setSearchValue('');
             } catch (error) {

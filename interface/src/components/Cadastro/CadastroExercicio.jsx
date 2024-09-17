@@ -137,7 +137,7 @@ function CadastroExercicio() {
                             Cadastrar
                         </button>
                         <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_EXERCICIO)}>
-                            Listagem
+                            Exercicios
                         </button>
                     </div>
                 </form>

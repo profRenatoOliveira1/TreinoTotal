@@ -23,13 +23,13 @@ function ListagemExercicios() {
                 const aparelhos = await AparelhosRequests.listarAparelho();
 
                 const aparelhosMap = aparelhos.reduce((map, aparelho) => {
-                    map[aparelho.id_aparelho] = aparelho;
+                    map[aparelho.idAparelho] = aparelho;
                     return map;
                 }, {});
 
                 const exerciciosComAparelhos = exercicios.map(exercicio => ({
                     ...exercicio,
-                    nome_aparelho: aparelhosMap[exercicio.id_aparelho]?.nome_aparelho || 'N/A'
+                    nomeAparelho: aparelhosMap[exercicio.idAparelho]?.nomeAparelho || 'N/A'
                 }));
 
                 setExercicios(exerciciosComAparelhos);
@@ -45,7 +45,7 @@ function ListagemExercicios() {
         const deletar = window.confirm(`Tem certeza que deseja remover o exercício ${exercicio.exercicio}?`);
 
         if (deletar) {
-            if (ExerciciosRequests.deletarExercicio(exercicio.id_exercicio)) {
+            if (ExerciciosRequests.deletarExercicio(exercicio.idExercicio)) {
                 window.location.reload();
                 window.alert('Exercicio removido com sucesso');
             } else {
@@ -97,9 +97,9 @@ function ListagemExercicios() {
                                 </thead>
                                 <tbody>
                                     {exerciciosPaginados.map(exercicio => (
-                                        <tr key={exercicio.id_exercicio} className={styles.tabelaCorpo}>
+                                        <tr key={exercicio.idExercicio} className={styles.tabelaCorpo}>
                                             <td>{exercicio.exercicio}</td>
-                                            <td>{exercicio.nome_aparelho}</td>
+                                            <td>{exercicio.nomeAparelho}</td>
                                             <td>
                                                 <FaTrash onClick={() => deletar(exercicio)} style={{ color: '#DB0135' }} />
                                             </td>

@@ -164,24 +164,24 @@ export class Treino {
 
             const { id_aluno, nome_aluno, id_professor, nome_professor, id_treino } = rows[0];
 
-            // Extracting exercises
+            // Construindo array de exercícios
             const exercicios = rows.map(row => ({
-                id_exercicio: row.id_exercicio,
+                idExercicio: row.id_exercicio,
                 exercicio: row.exercicio,
                 carga: row.carga,
                 series: row.series,
                 repeticoes: row.repeticoes,
-                id_aparelho: row.id_aparelho,
-                nome_aparelho: row.nome_aparelho
+                idAparelho: row.id_aparelho,
+                nomeAparelho: row.nome_aparelho
             }));
 
-            // Building the final response
+            // Construindo o objeto final para a resposta
             const response = {
-                id_aluno,
-                nome_aluno,
-                id_professor,
-                nome_professor,
-                id_treino,
+                idAluno: id_aluno,
+                nomeAluno: nome_aluno,
+                idProfessor: id_professor,
+                nomeProfessor: nome_professor,
+                idTreino: id_treino,
                 exercicios
             };
 

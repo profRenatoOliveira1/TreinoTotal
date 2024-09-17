@@ -31,7 +31,7 @@ function ListarProfessor() {
         const deletar = window.confirm(`Tem certeza que deseja remover o professor ${professor.nome}?`);
 
         if (deletar) {
-            if (ProfessoresRequests.deletarProfessor(professor.id_professor)) {
+            if (ProfessoresRequests.deletarProfessor(professor.idProfessor)) {
                 window.location.reload();
                 window.alert('Professor removido com sucesso!');
             } else {
@@ -95,7 +95,7 @@ function ListarProfessor() {
                         </thead>
                         <tbody>
                             {professoresPaginados.map(professor => (
-                                <tr key={professor.id_professor} className={styles.tabelaCorpo}>
+                                <tr key={professor.idProfessor} className={styles.tabelaCorpo}>
                                     <td onClick={() => exibeFichaProfessor(professor)}>{professor.nome}</td>
                                     <td>{professor.formacao}</td>
                                     <td>{professor.especialidade}</td>

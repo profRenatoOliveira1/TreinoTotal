@@ -175,7 +175,7 @@ function CadastroAluno() {
                             Cadastrar
                         </button>
                         <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_ALUNO)}>
-                            Listagem
+                            Alunos
                         </button>
                     </div>
                 </form>

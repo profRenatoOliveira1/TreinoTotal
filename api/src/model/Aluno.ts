@@ -12,6 +12,11 @@ const database = new DatabaseModel().pool;
 export class Aluno extends Pessoa { // Herança de Pessoa
 
     /**
+     * O identificador da pessoa.
+     */
+    private idAluno: number = 0;
+
+    /**
      * A altura do aluno.
      */
     private altura: number;
@@ -27,11 +32,16 @@ export class Aluno extends Pessoa { // Herança de Pessoa
     private imc: number;
 
     /**
+     * O número de matrícula do aluno.
+     */
+    private matricula: number = 0;
+
+    /**
      * Cria uma nova instância de Aluno.
      * 
      * @param _nome O nome do aluno.
      * @param _cpf O CPF do aluno.
-     * @param _data_nascimento A data de nascimento do aluno.
+     * @param _dataNascimento A data de nascimento do aluno.
      * @param _celular O número de telefone do aluno.
      * @param _endereco O endereço do aluno.
      * @param _altura A altura do aluno.
@@ -41,20 +51,38 @@ export class Aluno extends Pessoa { // Herança de Pessoa
     constructor(
         _nome: string,
         _cpf: string,
-        _data_nascimento: Date,
+        _dataNascimento: Date,
         _celular: string,
         _endereco: string,
         _altura: number,
         _peso: number,
         _imc: number
     ) {
-        super(_nome, _cpf, _data_nascimento, _celular, _endereco);
+        super(_nome, _cpf, _dataNascimento, _celular, _endereco);
         this.altura = _altura;
         this.peso = _peso;
         this.imc = _imc;
     }
 
     // Getters e Setters
+
+    /**
+     * Obtém o identificador da pessoa.
+     * 
+     * @returns O identificador da pessoa.
+     */
+    public getIdAluno(): number {
+        return this.idAluno;
+    }
+
+    /**
+     * Define o identificador da pessoa.
+     * 
+     * @param id O identificador a ser atribuído à pessoa.
+     */
+    public setIdAluno(idAluno: number): void {
+        this.idAluno = idAluno;
+    }
 
     /**
      * Obtém a altura do aluno.
@@ -122,6 +150,24 @@ export class Aluno extends Pessoa { // Herança de Pessoa
     }
 
     /**
+     * Obtém o número de matrícula do aluno.
+     * 
+     * @returns O número de matrícula do aluno.
+     */
+    public getMatricula(): number {
+        return this.matricula;
+    }
+
+    /**
+     * Define a matrícula do aluno.
+     * 
+     * @param matricula Número de matrícula a ser atribuído ao aluno.
+     */
+    public setMatricula(matricula: number): void {
+        this.matricula = matricula;
+    }
+
+    /**
      * Retorna uma lista com todos os alunos cadastrados no banco de dados
      * 
      * @returns Lista com todos os alunos cadastrados no banco de dados
@@ -138,8 +184,23 @@ export class Aluno extends Pessoa { // Herança de Pessoa
             const queryReturn = await database.query(querySelectAparelho);
             // Percorre todas as linhas da queryReturn e acessa cada objeto individualmente
             queryReturn.rows.forEach(aluno => {
+                const novoAluno = new Aluno(
+                    aluno.nome,
+                    aluno.cpf,
+                    aluno.data_nascimento,
+                    aluno.celular,
+                    aluno.endereco,
+                    aluno.altura,
+                    aluno.peso,
+                    aluno.imc
+                );
+
+                novoAluno.setIdAluno(aluno.id_aluno);
+                novoAluno.setEmail(aluno.email);
+                novoAluno.setMatricula(aluno.matricula);
+
                 // Coloca o objeto dentro da lista de Alunos
-                listaDeAlunos.push(aluno);
+                listaDeAlunos.push(novoAluno);
             });
 
             // retorna a lista de Alunos para quem chamou a função
@@ -244,7 +305,7 @@ export class Aluno extends Pessoa { // Herança de Pessoa
                                         altura=${aluno.getAltura()},
                                         peso=${aluno.getPeso()},
                                         imc=${aluno.getImc()}
-                                    WHERE id_aluno=${aluno.getId()}`;
+                                    WHERE id_aluno=${aluno.getIdAluno()}`;
 
             console.log(queryUpdateAluno);
 

@@ -112,7 +112,7 @@ class ProfessorController extends Professor {
                 especialidade
             );
 
-            professor.setId(parseInt(req.query.id_professor as string));
+            professor.setIdProfessor(parseInt(req.query.id_professor as string));
 
             if (await Professor.atualizarProfessor(professor)) {
                 return res.status(200).json('Professor atualizado com sucesso');

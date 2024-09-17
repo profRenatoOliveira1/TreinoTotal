@@ -2,10 +2,7 @@
  * Representa uma pessoa.
  */
 export class Pessoa {
-    /**
-     * O identificador da pessoa.
-     */
-    private id: number = 0;
+    
 
     /**
      * O nome da pessoa.
@@ -20,7 +17,7 @@ export class Pessoa {
     /**
      * A data de nascimento da pessoa.
      */
-    private data_nascimento: Date;
+    private dataNascimento: Date;
 
     /**
      * O celular da pessoa.
@@ -47,40 +44,21 @@ export class Pessoa {
      * 
      * @param _nome O nome da pessoa.
      * @param _cpf O CPF da pessoa.
-     * @param _data_nascimento A data de nascimento da pessoa.
+     * @param _dataNascimento A data de nascimento da pessoa.
      * @param _celular O celular da pessoa.
      * @param _endereco O endereço da pessoa.
      * @param _email O email da pessoa.
      * @param _senha A senha da pessoa.
      */
-    constructor(_nome: string, _cpf: string, _data_nascimento: Date, _celular: string, _endereco: string) {
+    constructor(_nome: string, _cpf: string, _dataNascimento: Date, _celular: string, _endereco: string) {
         this.nome = _nome;
         this.cpf = _cpf;
-        this.data_nascimento = _data_nascimento;
+        this.dataNascimento = _dataNascimento;
         this.celular = _celular;
         this.endereco = _endereco;
     }
 
     // Getters e Setters
-
-    /**
-     * Obtém o identificador da pessoa.
-     * 
-     * @returns O identificador da pessoa.
-     */
-    public getId(): number {
-        return this.id;
-    }
-
-    /**
-     * Define o identificador da pessoa.
-     * 
-     * @param id O identificador a ser atribuído à pessoa.
-     */
-    public setId(id: number): void {
-        this.id = id;
-    }
-
     /**
      * Obtém o nome da pessoa.
      * 
@@ -123,7 +101,7 @@ export class Pessoa {
      * @returns A data de nascimento da pessoa.
      */
     public getDataNascimento(): Date {
-        return this.data_nascimento;
+        return this.dataNascimento;
     }
 
     /**
@@ -132,7 +110,7 @@ export class Pessoa {
      * @param data_nascimento A data de nascimento a ser atribuída à pessoa.
      */
     public setDataNascimento(data_nascimento: Date): void {
-        this.data_nascimento = data_nascimento;
+        this.dataNascimento = data_nascimento;
     }
 
     /**

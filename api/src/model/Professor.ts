@@ -10,11 +10,17 @@ const database: Pool = new DatabaseModel().pool;
 /**
  * Representa um professor, que é uma extensão da classe Pessoa.
  */
-export class Professor extends Pessoa { // Herança de Pessoa
+export class Professor extends Pessoa { 
+    
+    /**
+     * O identificador da pessoa.
+     */
+    private idProfessor: number = 0;
+
     /**
      * A data de contratação do professor.
      */
-    private data_contratacao: Date;
+    private dataContratacao: Date;
 
     /**
      * A formação do professor.
@@ -32,37 +38,56 @@ export class Professor extends Pessoa { // Herança de Pessoa
      * @param _id O identificador do professor.
      * @param _nome O nome do professor.
      * @param _cpf O CPF do professor.
-     * @param _data_nascimento A data de nascimento do professor.
+     * @param _dataNascimento A data de nascimento do professor.
      * @param _celular O número de telefone do professor.
      * @param _endereco O endereço do professor.
-     * @param _data_contratacao A data de contratação do professor.
+     * @param _dataContratacao A data de contratação do professor.
      * @param _formacao A formação do professor.
      * @param _especialidade A especialidade do professor.
      */
     constructor(
         _nome: string,
         _cpf: string,
-        _data_nascimento: Date,
+        _dataNascimento: Date,
         _celular: string,
         _endereco: string,
-        _data_contratacao: Date,
+        _dataContratacao: Date,
         _formacao: string,
         _especialidade: string
     ) {
-        super(_nome, _cpf, _data_nascimento, _celular, _endereco);
-        this.data_contratacao = _data_contratacao;
+        super(_nome, _cpf, _dataNascimento, _celular, _endereco);
+        this.dataContratacao = _dataContratacao;
         this.formacao = _formacao;
         this.especialidade = _especialidade;
     }
 
     // Getters e Setters
+
+    /**
+     * Obtém o identificador da pessoa.
+     * 
+     * @returns O identificador da pessoa.
+     */
+    public getIdProfessor(): number {
+        return this.idProfessor;
+    }
+
+    /**
+     * Define o identificador da pessoa.
+     * 
+     * @param id O identificador a ser atribuído à pessoa.
+     */
+    public setIdProfessor(idProfessor: number): void {
+        this.idProfessor = idProfessor;
+    }
+
     /**
      * Obtém a data de contratação do professor.
      * 
      * @returns A data de contratação do professor.
      */
     public getDataContratacao(): Date {
-        return this.data_contratacao;
+        return this.dataContratacao;
     }
 
     /**
@@ -71,7 +96,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
      * @param data_contratacao A data de contratação a ser atribuída ao professor.
      */
     public setDataContratacao(data_contratacao: Date): void {
-        this.data_contratacao = data_contratacao;
+        this.dataContratacao = data_contratacao;
     }
 
     /**
@@ -127,8 +152,22 @@ export class Professor extends Pessoa { // Herança de Pessoa
             const queryReturn = await database.query(querySelectProfessor);
             // Percorre todas as linhas da queryReturn e acessa cada objeto individualmente
             queryReturn.rows.forEach(professor => {
+                const novoProfessor = new Professor(
+                    professor.nome,
+                    professor.cpf,
+                    professor.data_nascimento,
+                    professor.celular,
+                    professor.endereco,
+                    professor.data_contratacao,
+                    professor.formacao,
+                    professor.especialidade
+                );
+
+                novoProfessor.setIdProfessor(professor.id);
+                novoProfessor.setEmail(professor.email);
+
                 // Coloca o objeto dentro da lista de Profesores
-                listaDeProfessores.push(professor);
+                listaDeProfessores.push(novoProfessor);
             });
 
             // retorna a lista de Professores para quem chamou a função
@@ -227,7 +266,7 @@ export class Professor extends Pessoa { // Herança de Pessoa
                                             data_contratacao='${professor.getDataContratacao()}',
                                             formacao='${professor.getFormacao().toUpperCase()}',
                                             especialidade='${professor.getEspecialidade().toUpperCase()}'
-                                        WHERE id_professor=${professor.getId()}`;
+                                        WHERE id_professor=${professor.getIdProfessor()}`;
 
             await database.query(queryUpdateProfessor)
                 .then((result) => {

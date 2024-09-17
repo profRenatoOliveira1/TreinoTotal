@@ -198,7 +198,7 @@ function CadastroProfessor() {
                             Cadastrar
                         </button>
                         <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_PROFESSOR)}>
-                            Listagem
+                            Professores
                         </button>
                     </div>
                 </form>

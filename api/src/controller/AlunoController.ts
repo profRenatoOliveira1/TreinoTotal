@@ -111,7 +111,7 @@ class AlunoController extends Aluno {
                 imcCalculado
             );
 
-            novoAluno.setId(parseInt(req.query.id_aluno as string));
+            novoAluno.setIdAluno(parseInt(req.query.id_aluno as string));
 
             if (await Aluno.atualizarAluno(novoAluno)) {
                 return res.status(200).json('Aluno atualizado com sucesso');

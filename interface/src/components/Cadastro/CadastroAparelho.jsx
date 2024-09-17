@@ -88,7 +88,7 @@ function CadastroAparelho() {
                             Cadastrar
                         </button>
                         <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_APARELHO)}>
-                            Listagem
+                            Aparelhos
                         </button>
                     </div>
                 </form>
