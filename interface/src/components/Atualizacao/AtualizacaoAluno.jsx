@@ -21,10 +21,10 @@ function AtualizacaoAluno() {
      * Define o estado inicial do formulário com o campo data de nascimento no formato "yyyy-MM-dd"
      */
     const [formData, setFormData] = useState({
-        idAluno: objAluno.id_aluno,
+        idAluno: objAluno.idAluno,
         nome: objAluno.nome,
         cpf: objAluno.cpf,
-        dataNascimento: new Date(objAluno.data_nascimento).toISOString().split('T')[0], // Formato yyyy-MM-dd
+        dataNascimento: new Date(objAluno.dataNascimento).toISOString().split('T')[0],
         celular: objAluno.celular,
         endereco: objAluno.endereco,
         altura: objAluno.altura,

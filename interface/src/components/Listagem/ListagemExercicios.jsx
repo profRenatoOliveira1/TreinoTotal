@@ -22,6 +22,9 @@ function ListagemExercicios() {
                 const exercicios = await ExerciciosRequests.listarExercicio();
                 const aparelhos = await AparelhosRequests.listarAparelho();
 
+                console.log(exercicios);
+                
+
                 const aparelhosMap = aparelhos.reduce((map, aparelho) => {
                     map[aparelho.idAparelho] = aparelho;
                     return map;
@@ -33,6 +36,7 @@ function ListagemExercicios() {
                 }));
 
                 setExercicios(exerciciosComAparelhos);
+                
             } catch (error) {
                 console.error('Erro ao buscar dados: ', error);
             }
@@ -96,6 +100,7 @@ function ListagemExercicios() {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {console.log(exercicios)}
                                     {exerciciosPaginados.map(exercicio => (
                                         <tr key={exercicio.idExercicio} className={styles.tabelaCorpo}>
                                             <td>{exercicio.exercicio}</td>

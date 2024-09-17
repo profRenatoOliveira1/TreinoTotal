@@ -18,9 +18,9 @@ function AtualizacaoAparelho() {
      * Define o estado inicial do formulário com todos os campos vazios
      */
     const [formData, setFormData] = useState({
-        idAparelho: objAparelho.id_aparelho,
-        nomeAparelho: objAparelho.nome_aparelho,
-        musculoAtivado: objAparelho.musculo_ativado
+        idAparelho: objAparelho.idAparelho,
+        nomeAparelho: objAparelho.nomeAparelho,
+        musculoAtivado: objAparelho.musculoAtivado
     });
 
     /**

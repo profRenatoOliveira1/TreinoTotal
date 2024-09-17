@@ -19,10 +19,10 @@ function AtualizacaoExercicio() {
       * Define o estado inicial do formulário com todos os campos vazios
       */
     const [formData, setFormData] = useState({
-        idExercicio: objExercicio.id_exercicio,
-        idAparelho: objExercicio.id_aparelho,
+        idExercicio: objExercicio.idExercicio,
+        idAparelho: objExercicio.idAparelho,
         exercicio: objExercicio.exercicio,
-        regiaoCorpoAtivada: objExercicio.regiao_corpo_ativada
+        regiaoCorpoAtivada: objExercicio.regiaoCorpoAtivada
     });
 
     /**
@@ -98,8 +98,8 @@ function AtualizacaoExercicio() {
                             >
                                 <option value="">Selecione o Aparelho</option>
                                 {aparelhos.map(aparelho => (
-                                    <option key={aparelho.id_aparelho} value={aparelho.id_aparelho}>
-                                        {aparelho.nome_aparelho}
+                                    <option key={aparelho.idAparelho} value={aparelho.idAparelho}>
+                                        {aparelho.nomeAparelho}
                                     </option>
                                 ))}
                             </select>

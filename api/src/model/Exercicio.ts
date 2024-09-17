@@ -51,16 +51,16 @@ export class Exercicio {
      * 
      * @param _idAparelho O identificador do aparelho utilizado no exercício.
      * @param _exercicio O nome do exercício.
-     * @param _regiao_corpo_ativa A região do corpo ativada pelo exercício.
+     * @param _regiaoCorpoAtiva A região do corpo ativada pelo exercício.
      */
     constructor(
-        _id_aparelho: number,
+        _idAparelho: number,
         _exercicio: string,
-        _regiao_corpo_ativa: string
+        _regiaoCorpoAtiva: string
     ) {
-        this.idAparelho = _id_aparelho;
+        this.idAparelho = _idAparelho;
         this.exercicio = _exercicio;
-        this.regiaoCorpoAtivada = _regiao_corpo_ativa;
+        this.regiaoCorpoAtivada = _regiaoCorpoAtiva;
     }
 
     // Getters e Setters
@@ -211,9 +211,9 @@ export class Exercicio {
                 const novoExercicio = new Exercicio(
                     exercicio.id_aparelho,
                     exercicio.exercicio,
-                    exercicio.regiao_corpo_ativa
+                    exercicio.regiao_corpo_ativada
                 );
-
+                
                 novoExercicio.setIdExercicio(exercicio.id_exercicio);
                 
                 // Coloca o objeto dentro da lista de Exercicio
