@@ -21,13 +21,13 @@ function AtualizacaoProfessor() {
      * Define o estado inicial do formulário com todos os campos vazios
      */
     const [formData, setFormData] = useState({
-        idProfessor: objProfessor.id_professor,
+        idProfessor: objProfessor.idProfessor,
         nome: objProfessor.nome,
         cpf: objProfessor.cpf,
-        dataNascimento: new Date(objProfessor.data_nascimento).toISOString().split('T')[0],
+        dataNascimento: new Date(objProfessor.dataNascimento).toISOString().split('T')[0],
         celular: objProfessor.celular,
         endereco: objProfessor.endereco,
-        dataContratacao: new Date(objProfessor.data_contratacao).toISOString().split('T')[0],
+        dataContratacao: new Date(objProfessor.dataContratacao).toISOString().split('T')[0],
         formacao: objProfessor.formacao,
         especialidade: objProfessor.especialidade
     });
