@@ -15,9 +15,9 @@ function CadastroAparelho() {
      * Define o estado inicial do formulário com todos os campos vazios
      */
     const [formData, setFormData] = useState({
-        id_aparelho: '',
-        nome_aparelho: '',
-        musculo_ativado: ''
+        idAparelho: '',
+        nomeAparelho: '',
+        musculoAtivado: ''
     });
 
     /**
@@ -42,7 +42,7 @@ function CadastroAparelho() {
         try {
             if (await AparelhoRequests.cadastrarAparelho(formData)) {
                 console.log('Aparelho cadastrado com sucesso!');
-                window.alert(formData.nome_aparelho + ': foi cadastrado com sucesso');
+                window.alert(formData.nomeAparelho + ': foi cadastrado com sucesso');
                 navigate(ROUTES.LISTAGEM_APARELHO, { replace: true });
             }
         } catch (error) {
@@ -62,9 +62,9 @@ function CadastroAparelho() {
                                 type="text"
                                 className={styles.formStyle}
                                 placeholder="Nome"
-                                value={formData.nome_aparelho} 
+                                value={formData.nomeAparelho} 
                                 onChange={handleChange} 
-                                name="nome_aparelho"
+                                name="nomeAparelho"
                                 required
                             />
                         </label>
@@ -76,9 +76,9 @@ function CadastroAparelho() {
                                 type="text"
                                 className={styles.formStyle}
                                 placeholder="Músculo Ativado"
-                                value={formData.musculo_ativado} 
+                                value={formData.musculoAtivado} 
                                 onChange={handleChange} 
-                                name="musculo_ativado"
+                                name="musculoAtivado"
                                 required
                             />
                         </label>

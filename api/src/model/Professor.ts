@@ -163,11 +163,11 @@ export class Professor extends Pessoa {
                     professor.especialidade
                 );
 
-                novoProfessor.setIdProfessor(professor.id);
+                novoProfessor.setIdProfessor(professor.id_professor);
                 novoProfessor.setEmail(professor.email);
 
                 // Coloca o objeto dentro da lista de Profesores
-                listaDeProfessores.push(novoProfessor);
+                listaDeProfessores.push(novoProfessor);            
             });
 
             // retorna a lista de Professores para quem chamou a função
@@ -262,12 +262,13 @@ export class Professor extends Pessoa {
                                             celular='${professor.getCelular()}',
                                             endereco='${professor.getEndereco().toUpperCase()}',
                                             email='${professor.getEmail().toUpperCase()}',
-                                            senha='${professor.getSenha()}',
                                             data_contratacao='${professor.getDataContratacao()}',
                                             formacao='${professor.getFormacao().toUpperCase()}',
                                             especialidade='${professor.getEspecialidade().toUpperCase()}'
                                         WHERE id_professor=${professor.getIdProfessor()}`;
 
+            console.log(queryUpdateProfessor);
+            
             await database.query(queryUpdateProfessor)
                 .then((result) => {
                     if (result.rowCount != 0) {

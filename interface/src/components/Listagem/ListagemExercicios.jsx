@@ -96,6 +96,7 @@ function ListagemExercicios() {
                                     <tr className={styles.tabelaHeader}>
                                         <th style={{ width: '20%' }}>Nome do Exercício</th>
                                         <th style={{ width: '10%' }}>Aparelho</th>
+                                        <th style={{ width: '10%' }}>Região Ativada</th>
                                         <th colSpan={2} style={{ width: '5%' }}>Ação</th>
                                     </tr>
                                 </thead>
@@ -105,6 +106,7 @@ function ListagemExercicios() {
                                         <tr key={exercicio.idExercicio} className={styles.tabelaCorpo}>
                                             <td>{exercicio.exercicio}</td>
                                             <td>{exercicio.nomeAparelho}</td>
+                                            <td>{exercicio.regiaoCorpoAtivada}</td>
                                             <td>
                                                 <FaTrash onClick={() => deletar(exercicio)} style={{ color: '#DB0135' }} />
                                             </td>

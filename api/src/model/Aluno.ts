@@ -307,8 +307,6 @@ export class Aluno extends Pessoa { // Herança de Pessoa
                                         imc=${aluno.getImc()}
                                     WHERE id_aluno=${aluno.getIdAluno()}`;
 
-            console.log(queryUpdateAluno);
-
             await database.query(queryUpdateAluno)
                 .then((result) => {
                     if (result.rowCount != 0) {

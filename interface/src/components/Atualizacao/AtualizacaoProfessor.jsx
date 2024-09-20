@@ -32,6 +32,7 @@ function AtualizacaoProfessor() {
         especialidade: objProfessor.especialidade
     });
 
+    console.table(objProfessor);
     /**
      * Reseta valores
      */

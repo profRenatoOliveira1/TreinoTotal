@@ -56,7 +56,7 @@ function AtualizacaoAluno() {
             if(await AlunoRequests.atualizarAluno(cleanData)) {
                 console.log('Aluno atualizado com sucesso!');
                 window.alert(`${formData.nome} foi atualizado com sucesso`);
-                navegacao({LISTAGEM_ALUNO}, { replace: true });
+                navegacao(ROUTES.LISTAGEM_ALUNO, { replace: true });
             }
         } catch (error) {
             console.error('Erro ao atualizar aluno:', error);
