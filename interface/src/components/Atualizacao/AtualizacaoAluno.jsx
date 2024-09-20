@@ -28,7 +28,9 @@ function AtualizacaoAluno() {
         celular: objAluno.celular,
         endereco: objAluno.endereco,
         altura: objAluno.altura,
-        peso: objAluno.peso
+        peso: objAluno.peso,
+        imc: objAluno.imc,
+        email: objAluno.email
     });
 
     /**
@@ -83,19 +85,20 @@ function AtualizacaoAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para CPF */}
+
                     <div className={styles.formGroup}>
                         <div className={styles.inputGroup}>
                             <label>
                                 <p>CPF</p>
                                 <InputMask
-                                    type="text"
                                     mask="999.999.999-99"
+                                    type="text"
                                     className={styles.formStyleEsquerda}
                                     placeholder="CPF"
                                     value={formData.cpf}
                                     onChange={handleChange}
                                     name="cpf"
+                                    required
                                 />
                             </label>
 
@@ -104,16 +107,20 @@ function AtualizacaoAluno() {
                                 <input
                                     type="date"
                                     className={styles.formStyleDireita}
+                                    placeholder="Data de Nascimento"
+                                    onFocus={(e) => e.target.type = 'date'}
+                                    onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                                     value={formData.dataNascimento}
                                     onChange={handleChange}
                                     name="dataNascimento"
                                     min="1950-01-01"
                                     max={hoje}
+                                    required
                                 />
                             </label>
                         </div>
                     </div>
-                    {/* Campo para número de celular */}
+
                     <div className={styles.formGroup}>
                         <label>
                             <p>Celular</p>
@@ -128,7 +135,21 @@ function AtualizacaoAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para endereço */}
+
+                    <div className={styles.formGroup}>
+                        <label>
+                            <p>E-mail</p>
+                            <input
+                                type="email"
+                                className={styles.formStyle}
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                name="email"
+                            />
+                        </label>
+                    </div>
+
                     <div className={styles.formGroup}>
                         <label>
                             <p>Endereço</p>
@@ -142,7 +163,7 @@ function AtualizacaoAluno() {
                             />
                         </label>
                     </div>
-                    {/* Campo para peso e altura */}
+
                     <div className={styles.formGroup}>
                         <div className={styles.inputGroup}>
                             <label>
@@ -171,14 +192,33 @@ function AtualizacaoAluno() {
                                     name="peso"
                                     min="40"
                                     max="399"
+                                    step="0.01"
+                                />
+                            </label>
+
+                            <label>
+                                <p>IMC</p>
+                                <input
+                                    type="number"
+                                    className={styles.formStyleDireita}
+                                    placeholder="IMC"
+                                    value={formData.imc}
+                                    onChange={handleChange}
+                                    name="imc"
+                                    disabled
                                 />
                             </label>
                         </div>
                     </div>
 
-                    <button type="submit" className={styles.btn}>
-                        Cadastrar
-                    </button>
+                    <div className={styles.buttonGroup}>
+                        <button type="submit" className={styles.btn}>
+                            Cadastrar
+                        </button>
+                        <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_ALUNO)}>
+                            Alunos
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

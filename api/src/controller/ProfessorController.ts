@@ -36,7 +36,7 @@ class ProfessorController extends Professor {
     public async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade } = req.body;
+            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade, email } = req.body;
 
             // Instanciando objeto Professor
             const novoProfessor = new Professor(
@@ -49,6 +49,10 @@ class ProfessorController extends Professor {
                 formacao,
                 especialidade
             );
+
+            if(email !== null || email !== '' || email !== undefined) {
+                novoProfessor.setEmail(email);
+            }
 
             // Chama o método para persistir o professor no banco de dados
             const result = await Professor.cadastrarProfessor(novoProfessor);
@@ -98,7 +102,7 @@ class ProfessorController extends Professor {
     public async atualizar(req: Request, res: Response): Promise<Response> {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade } = req.body;
+            const { nome, cpf, dataNascimento, celular, endereco, dataContratacao, formacao, especialidade, email } = req.body;
 
             // Instanciando objeto Professor
             const professor = new Professor(
@@ -111,6 +115,10 @@ class ProfessorController extends Professor {
                 formacao,
                 especialidade
             );
+
+            if(email !== null || email !== '' || email !== undefined) {
+                professor.setEmail(email);
+            }
 
             professor.setIdProfessor(parseInt(req.query.idProfessor as string));
 

@@ -35,7 +35,7 @@ class AlunoController extends Aluno {
     public async cadastrar(req: Request, res: Response) {
         try {
             // Desestruturando objeto recebido pelo front-end
-            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco } = req.body;
+            const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco, email } = req.body;
 
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
@@ -48,6 +48,10 @@ class AlunoController extends Aluno {
                 peso,
                 imc
             );
+
+            if(email !== null || email !== '' || email !== undefined) {
+                novoAluno.setEmail(email);
+            }
 
             // Chama o método para persistir o aluno no banco de dados
             const result = await Aluno.cadastrarAluno(novoAluno);
@@ -97,8 +101,6 @@ class AlunoController extends Aluno {
             // Desestruturando objeto recebido pelo front-end      
             const { nome, cpf, altura, peso, imc, dataNascimento, celular, endereco, email } = req.body;
 
-            const imcCalculado = (parseInt(peso) / (parseInt(altura) * parseInt(altura)));
-
             // Instanciando objeto Aluno
             const novoAluno = new Aluno(
                 nome,
@@ -108,8 +110,12 @@ class AlunoController extends Aluno {
                 endereco,
                 altura,
                 peso,
-                imcCalculado
+                imc
             );
+
+            if(email !== null || email !== '' || email !== undefined) {
+                novoAluno.setEmail(email);
+            }
 
             novoAluno.setIdAluno(parseInt(req.query.idAluno as string));
 

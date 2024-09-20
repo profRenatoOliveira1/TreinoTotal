@@ -1,14 +1,4 @@
 /* Define variáveis de cor para reutilização */
-/* :root {
-  --amareloClaro: #ffeba7;
-  --cinzaEscuro: #212529;
-  --cinzaAzulado: #343A40;
-  --cinzaAvermelhado: #333;
-  --branco: #FFFFFF;
-  --cinzaClaro: #ccc;
-  --amareloEscuro: #b39f72;
-  --preto: #000000;
-} */
 
 /* Estilos para uma seção genérica */
 .section {
@@ -76,6 +66,7 @@
 .inputGroup {
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 form{

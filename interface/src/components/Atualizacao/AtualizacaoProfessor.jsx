@@ -29,7 +29,8 @@ function AtualizacaoProfessor() {
         endereco: objProfessor.endereco,
         dataContratacao: new Date(objProfessor.dataContratacao).toISOString().split('T')[0],
         formacao: objProfessor.formacao,
-        especialidade: objProfessor.especialidade
+        especialidade: objProfessor.especialidade,
+        email: objProfessor.email
     });
 
     console.table(objProfessor);
@@ -72,7 +73,7 @@ function AtualizacaoProfessor() {
 
     return (
         <div className={styles.section}>
-            <h1 className={styles.h1}>Atualizar Cadastro de Professor</h1>
+            <h1 className={styles.h1}>Cadastro de Professor</h1>
 
             <div className={styles.container}>
                 <form onSubmit={handleSubmit}>
@@ -87,6 +88,7 @@ function AtualizacaoProfessor() {
                                 value={formData.nome}
                                 onChange={handleChange}
                                 name="nome"
+                                required
                             />
                         </label>
                     </div>
@@ -103,6 +105,7 @@ function AtualizacaoProfessor() {
                                     value={formData.cpf}
                                     onChange={handleChange}
                                     name="cpf"
+                                    required
                                 />
                             </label>
                             <label>
@@ -154,6 +157,21 @@ function AtualizacaoProfessor() {
                             </label>
                         </div>
                     </div>
+
+                    <div className={styles.formGroup}>
+                        <label>
+                            <p>E-mail</p>
+                            <input
+                                type="email"
+                                className={styles.formStyle}
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                name="email"
+                            />
+                        </label>
+                    </div>
+                    
                     {/* Campo para endereço */}
                     <div className={styles.formGroup}>
                         <label>
@@ -165,41 +183,49 @@ function AtualizacaoProfessor() {
                                 value={formData.endereco}
                                 onChange={handleChange}
                                 name="endereco"
+                                required
                             />
                         </label>
                     </div>
                     {/* Campo para formação */}
-                    <div className={styles.formGroup}>
-                        <label>
-                            <p>Formação</p>
-                            <input
-                                type="text"
-                                className={styles.formStyle}
-                                placeholder="Formacao"
-                                value={formData.formacao}
-                                onChange={handleChange}
-                                name="formacao"
-                            />
-                        </label>
+                    <div className={styles.inputGroup}>
+                        <div className={styles.formGroup} style={{ width: '49%'}}>
+                            <label>
+                                <p>Formação</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyle}
+                                    placeholder="Formacao"
+                                    value={formData.formacao}
+                                    onChange={handleChange}
+                                    name="formacao"
+                                    required
+                                />
+                            </label>
+                        </div>
+                        {/* Campo para especialidade */}
+                        <div className={styles.formGroup} style={{ width: '49%'}}>
+                            <label>
+                                <p>Especialidade</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyle}
+                                    placeholder="Especialidade"
+                                    value={formData.especialidade}
+                                    onChange={handleChange}
+                                    name="especialidade"
+                                />
+                            </label>
+                        </div>
                     </div>
-                    {/* Campo para especialidade */}
-                    <div className={styles.formGroup}>
-                        <label>
-                            <p>Especialidade</p>
-                            <input
-                                type="text"
-                                className={styles.formStyle}
-                                placeholder="Especialidade"
-                                value={formData.especialidade}
-                                onChange={handleChange}
-                                name="especialidade"
-                            />
-                        </label>
+                    <div className={styles.buttonGroup}>
+                        <button type="submit" className={styles.btn}>
+                            Cadastrar
+                        </button>
+                        <button type="button" className={styles.btn} onClick={() => navigate(ROUTES.LISTAGEM_PROFESSOR)}>
+                            Professores
+                        </button>
                     </div>
-                    {/* Botão para enviar o formulário */}
-                    <button type="submit" className={styles.btn}>
-                        Cadastrar
-                    </button>
                 </form>
             </div>
         </div>

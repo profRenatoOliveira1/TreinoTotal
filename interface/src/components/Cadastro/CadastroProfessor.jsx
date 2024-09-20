@@ -25,7 +25,8 @@ function CadastroProfessor() {
         endereco: '',
         dataContratacao: '',
         formacao: '',
-        especialidade: ''
+        especialidade: '',
+        email: ''
     });
 
     /**
@@ -149,6 +150,21 @@ function CadastroProfessor() {
                             </label>
                         </div>
                     </div>
+
+                    <div className={styles.formGroup}>
+                        <label>
+                            <p>E-mail</p>
+                            <input
+                                type="email"
+                                className={styles.formStyle}
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                name="email"
+                            />
+                        </label>
+                    </div>
+                    
                     {/* Campo para endereço */}
                     <div className={styles.formGroup}>
                         <label>
@@ -165,33 +181,35 @@ function CadastroProfessor() {
                         </label>
                     </div>
                     {/* Campo para formação */}
-                    <div className={styles.formGroup}>
-                        <label>
-                            <p>Formação</p>
-                            <input
-                                type="text"
-                                className={styles.formStyle}
-                                placeholder="Formacao"
-                                value={formData.formacao}
-                                onChange={handleChange}
-                                name="formacao"
-                                required
-                            />
-                        </label>
-                    </div>
-                    {/* Campo para especialidade */}
-                    <div className={styles.formGroup}>
-                        <label>
-                            <p>Especialidade</p>
-                            <input
-                                type="text"
-                                className={styles.formStyle}
-                                placeholder="Especialidade"
-                                value={formData.especialidade}
-                                onChange={handleChange}
-                                name="especialidade"
-                            />
-                        </label>
+                    <div className={styles.inputGroup}>
+                        <div className={styles.formGroup} style={{ width: '49%'}}>
+                            <label>
+                                <p>Formação</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyle}
+                                    placeholder="Formacao"
+                                    value={formData.formacao}
+                                    onChange={handleChange}
+                                    name="formacao"
+                                    required
+                                />
+                            </label>
+                        </div>
+                        {/* Campo para especialidade */}
+                        <div className={styles.formGroup} style={{ width: '49%'}}>
+                            <label>
+                                <p>Especialidade</p>
+                                <input
+                                    type="text"
+                                    className={styles.formStyle}
+                                    placeholder="Especialidade"
+                                    value={formData.especialidade}
+                                    onChange={handleChange}
+                                    name="especialidade"
+                                />
+                            </label>
+                        </div>
                     </div>
                     <div className={styles.buttonGroup}>
                         <button type="submit" className={styles.btn}>

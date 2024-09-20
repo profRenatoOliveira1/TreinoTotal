@@ -20,7 +20,9 @@ function CadastroAluno() {
         celular: '',
         endereco: '',
         altura: '',
-        peso: ''
+        peso: '',
+        imc: '',
+        email: ''
     });
 
     const handleChange = (e) => {
@@ -29,6 +31,20 @@ function CadastroAluno() {
             ...prevState,
             [name]: value
         }));
+
+        // Verifica se ambos altura e peso foram preenchidos e calcula o IMC
+        if (name === 'peso' || name === 'altura') {
+            const altura = parseFloat(name === 'altura' ? value : formData.altura);
+            const peso = parseFloat(name === 'peso' ? value : formData.peso);
+
+            if (altura > 0 && peso > 0) {
+                const imc = (peso / (altura * altura)).toFixed(2); // Calcula o IMC com 2 casas decimais
+                setFormData(prevState => ({
+                    ...prevState,
+                    imc
+                }));
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -41,7 +57,7 @@ function CadastroAluno() {
         const cleanData = { ...formData, cpf: Utilitarios.cleanCPF(formData.cpf), celular: Utilitarios.cleanCelular(formData.celular) };
 
         try {
-            if(await AlunoRequests.cadastrarAluno(cleanData)) {
+            if (await AlunoRequests.cadastrarAluno(cleanData)) {
                 console.log('Aluno cadastrado com sucesso!');
                 window.alert(`${formData.nome} foi cadastrado com sucesso`);
                 window.location.reload();
@@ -124,6 +140,20 @@ function CadastroAluno() {
 
                     <div className={styles.formGroup}>
                         <label>
+                            <p>E-mail</p>
+                            <input
+                                type="email"
+                                className={styles.formStyle}
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                name="email"
+                            />
+                        </label>
+                    </div>
+
+                    <div className={styles.formGroup}>
+                        <label>
                             <p>Endereço</p>
                             <input
                                 type="text"
@@ -165,6 +195,19 @@ function CadastroAluno() {
                                     min="40"
                                     max="399"
                                     step="0.01"
+                                />
+                            </label>
+
+                            <label>
+                                <p>IMC</p>
+                                <input
+                                    type="number"
+                                    className={styles.formStyleDireita}
+                                    placeholder="IMC"
+                                    value={formData.imc}
+                                    onChange={handleChange}
+                                    name="imc"
+                                    disabled
                                 />
                             </label>
                         </div>
