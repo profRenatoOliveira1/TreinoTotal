@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TreinoRequests from '../../fetch/TreinoRequests';
 import styles from '../styles/FichaTreino.module.css';
 import AlunoModal from '../Modal/AlunoModal/AlunoModal';
+import TreinoSelectionModal from '../Modal/TreinoSelectionModal/TreinoSelectionModal';
 
 /**
  * Componente responsável por exibir a lista de treino
@@ -16,6 +17,8 @@ function FichaTreino() {
     const [exercicios, setExercicios] = useState([]);
     const [aluno, setAluno] = useState('');
     const [professor, setProfessor] = useState('');
+    const [treinosDisponiveis, setTreinosDisponiveis] = useState([]);
+    const [showTreinoSelection, setShowTreinoSelection] = useState(false);
 
     /**
      * Controla o estado do modal aluno
@@ -61,6 +64,13 @@ function FichaTreino() {
         }
     }, [selectedAluno]);
 
+    const handleSelectTreino = (treino) => {
+        setProfessor(treino.professor.nome_professor);
+        setExercicios(treino.exercicios);
+        setShowTreinoSelection(false);
+        setSearchValue('');
+    };
+
     /**
      * Lida com a busca dos valores da ficha de treino
      */
@@ -70,20 +80,40 @@ function FichaTreino() {
         } else {
             try {
                 const response = await TreinoRequests.listarTreino(searchType, searchValue);
-                setAluno(response.treino.nomeAluno);
-                setProfessor(response.treino.treinos[0].professor.nome_professor);
-                setExercicios(response.treino.treinos[0].exercicios);
-                setSearchValue('');
+
+                // verifica se há mais de um treino para o aluno
+                if (response.treino.treinos.length > 1) {
+                    setTreinosDisponiveis(response.treino.treinos);
+                    setAluno(response.treino.nomeAluno);
+                    setShowTreinoSelection(true);
+                
+                // quando só há um treino para o aluno
+                } else if (response.treino.treinos.length === 1) {
+                    const treinoUnico = response.treino.treinos[0];
+                    setAluno(response.treino.nomeAluno);
+                    setProfessor(treinoUnico.professor.nome_professor);
+                    setExercicios(treinoUnico.exercicios);
+                    setSearchValue('');
+
+                // não foi encontrado nenhum treino para o aluno
+                } else {
+                    alert('Nenhum treino cadastrado para o aluno informado');
+                    resetTreinoStates();
+                }
             } catch (error) {
                 alert('Treino não cadastrado para o aluno informado');
-                console.log(`Erro na busca: ${error}`);
-                setSearchValue('');
-                setAluno('');
-                setProfessor('');
-                setExercicios([]);
+                console.error(`Erro na busca: ${error}`);
+                resetTreinoStates();
             }
         }
     };
+
+    const resetTreinoStates = () => {
+        setAluno('');
+        setProfessor('');
+        setExercicios([]);
+        setSearchValue('');
+    }
 
     return (
         <div className={styles.container}>
@@ -105,9 +135,18 @@ function FichaTreino() {
                 />
             </div>
 
+            {/* Modal para seleção de treino */}
+            <TreinoSelectionModal
+                show={showTreinoSelection}
+                treinos={treinosDisponiveis}
+                onSelect={handleSelectTreino}
+                onClose={() => {setShowTreinoSelection(false), setSearchValue('')}}
+            />
+
             <div className={styles.nomeAluno}>
                 <h4>Nome do Aluno:</h4>
                 <h3>{aluno}</h3>
+                {console.log(aluno)}
             </div>
 
             <div className={styles.nomeProfessor}>
