@@ -127,32 +127,50 @@ export class Treino {
      * @returns Ficha de treino
      */
     static async listarTreino(condicao: string): Promise<any | null> {
-        const querySelectTreino = `SELECT 
-                                        a.id_aluno,
-                                        a.nome AS nome_aluno,
-                                        p.id_professor,
-                                        p.nome AS nome_professor,
-                                        t.id_treino,
-                                        et.id_exercicio,
-                                        e.exercicio,
-                                        et.carga,
-                                        et.repeticoes,
-                                        et.series,
-                                        e.id_aparelho,
-                                        ap.nome_aparelho
-                                    FROM 
-                                        aluno a
-                                    JOIN 
-                                        treino t ON a.id_aluno = t.id_aluno
-                                    JOIN 
-                                        professor p ON t.id_professor = p.id_professor
-                                    JOIN 
-                                        exercicio_treino et ON t.id_treino = et.id_treino
-                                    JOIN 
-                                        exercicio e ON et.id_exercicio = e.id_exercicio
-                                    JOIN 
-                                        aparelho ap ON e.id_aparelho = ap.id_aparelho
-                                    WHERE ${condicao};`;
+        const querySelectTreino = `
+            SELECT 
+                a.id_aluno,
+                a.matricula,
+                a.nome AS nome_aluno,
+                json_agg(
+                    json_build_object(
+                        'id_treino', t.id_treino,
+                        'professor', json_build_object(
+                            'id_professor', p.id_professor,
+                            'nome_professor', p.nome
+                        ),
+                        'exercicios', (
+                            SELECT json_agg(
+                                json_build_object(
+                                    'id_exercicio', e.id_exercicio,
+                                    'exercicio', e.exercicio,
+                                    'carga', et.carga,
+                                    'repeticoes', et.repeticoes,
+                                    'series', et.series,
+                                    'aparelho', json_build_object(
+                                        'id_aparelho', ap.id_aparelho,
+                                        'nome_aparelho', ap.nome_aparelho
+                                    )
+                                )
+                            )
+                            FROM exercicio_treino et
+                            JOIN exercicio e ON et.id_exercicio = e.id_exercicio
+                            JOIN aparelho ap ON e.id_aparelho = ap.id_aparelho
+                            WHERE et.id_treino = t.id_treino
+                        )
+                    )
+                ) AS treinos
+            FROM 
+                aluno a
+            JOIN 
+                treino t ON a.id_aluno = t.id_aluno
+            JOIN 
+                professor p ON t.id_professor = p.id_professor
+            WHERE 
+                ${condicao}
+            GROUP BY 
+                a.id_aluno, a.matricula, a.nome;
+        `;
 
         try {
             const queryReturn = await database.query(querySelectTreino);
@@ -162,27 +180,16 @@ export class Treino {
                 return null;
             }
 
-            const { id_aluno, nome_aluno, id_professor, nome_professor, id_treino } = rows[0];
+            // Extraindo apenas o primeiro registro, já que a agregação é feita na query
+            const aluno = rows[0];
 
-            // Construindo array de exercícios
-            const exercicios = rows.map(row => ({
-                idExercicio: row.id_exercicio,
-                exercicio: row.exercicio,
-                carga: row.carga,
-                series: row.series,
-                repeticoes: row.repeticoes,
-                idAparelho: row.id_aparelho,
-                nomeAparelho: row.nome_aparelho
-            }));
-
-            // Construindo o objeto final para a resposta
+            // Retornando a estrutura desejada
             const response = {
-                idAluno: id_aluno,
-                nomeAluno: nome_aluno,
-                idProfessor: id_professor,
-                nomeProfessor: nome_professor,
-                idTreino: id_treino,
-                exercicios
+                treino: {
+                    idAluno: aluno.id_aluno,
+                    nomeAluno: aluno.nome_aluno,
+                    treinos: aluno.treinos // Aqui você já tem os treinos e exercícios
+                }
             };
 
             return response;
@@ -191,6 +198,7 @@ export class Treino {
             return null;
         }
     }
+
 
     /**
      * Chama a função listarTreino passando o ID do treino como parâmetro
@@ -202,11 +210,21 @@ export class Treino {
         return this.listarTreino(condicao);
     }
 
+    /**
+     * Chama a função listarTreino passando o ID do aluno como parâmetro
+     * @param idAluno 
+     * @returns Ficha de treino (ID aluno)
+     */
     static async listarTreinoNomeAluno(nomeAluno: string): Promise<any | null> {
         const condicao = `a.nome LIKE '%${nomeAluno}%'`;
         return this.listarTreino(condicao);
     }
 
+    /**
+     * Chama a função listarTreino passando o ID do professor como parâmetro
+     * @param idProfessor 
+     * @returns Ficha de treino (ID professor)
+     */
     static async listarTreinoMatriculaAluno(matricula: number): Promise<any | null> {
         const condicao = `a.matricula = '${matricula}'`;
         return this.listarTreino(condicao);
@@ -253,8 +271,7 @@ export class Treino {
                 // Confirma a transação.
                 await client.query('COMMIT');
 
-                console.log('tudo certo');
-
+                console.log(`Treino cadastrado com sucesso. ID: ${idTreino}`);
 
                 // Define 'queryResult' como true para indicar que a operação foi bem-sucedida.
                 queryResult = true;
@@ -326,8 +343,6 @@ export class Treino {
      * @returns Booleano indicando se a atualização foi bem-sucedida
      */
     static async atualizarTreino(idAluno: number, idProfessor: number, exercicios: Array<number>, idTreino: number): Promise<boolean> {
-        console.log(idAluno, idProfessor, idTreino, exercicios);
-
         // Inicializa a variável 'queryResult' como false para indicar se a operação foi bem-sucedida.
         let queryResult = false;
         // Conecta-se ao banco de dados e obtém um cliente.

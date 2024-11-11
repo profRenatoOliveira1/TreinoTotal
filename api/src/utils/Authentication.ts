@@ -27,12 +27,12 @@ export class Authentication {
      * @returns Token de autenticação caso o usuário seja válido, mensagem de login não autorizado caso negativo
      */
     static async validacaoUsuario(req: Request, res: Response): Promise<any> {      
-        const { email, password } = req.body;
+        const { email, senha } = req.body;
 
         const querySelectUser = `SELECT id_professor, nome, email FROM professor WHERE email=$1 AND senha=$2;`;
 
         try {
-            const queryResult = await database.query(querySelectUser, [email, password]);
+            const queryResult = await database.query(querySelectUser, [email, senha]);
 
             if (queryResult.rowCount != 0) {
                 const professor = {

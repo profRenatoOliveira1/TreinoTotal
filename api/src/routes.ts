@@ -80,9 +80,9 @@ router.put('/update/exercicio', Authentication.verifyToken, exercicioController.
 * Rotas para a entidade exercício
 */
 // Listar todos os treinos cadastrados para um aluno (usando nome como parâmetro)
-router.get('/listar/treino/nome', Authentication.verifyToken, treinoController.listarTreino);
+router.get('/listar/treino', Authentication.verifyToken, treinoController.listarTreino);
 // Listar todos os treinos cadastrados para um aluno (usando ID como parâmetro)
-router.get('/listar/treino/id', Authentication.verifyToken, treinoController.listarTreino);
+router.get('/listar/treino', Authentication.verifyToken, treinoController.listarTreino);
 // Cadastra um novo treino
 router.post('/novo/treino', Authentication.verifyToken, treinoController.novo);
 // Remove um treino 
