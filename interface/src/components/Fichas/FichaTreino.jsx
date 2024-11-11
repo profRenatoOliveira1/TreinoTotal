@@ -70,9 +70,9 @@ function FichaTreino() {
         } else {
             try {
                 const response = await TreinoRequests.listarTreino(searchType, searchValue);
-                setAluno(response.nomeAluno);
-                setProfessor(response.nomeProfessor);
-                setExercicios(response.exercicios);
+                setAluno(response.treino.nomeAluno);
+                setProfessor(response.treino.treinos[0].professor.nome_professor);
+                setExercicios(response.treino.treinos[0].exercicios);
                 setSearchValue('');
             } catch (error) {
                 alert('Treino não cadastrado para o aluno informado');

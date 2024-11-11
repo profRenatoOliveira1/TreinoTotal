@@ -9,8 +9,8 @@ class TreinoRequests {
     constructor() {
         this.serverURL = import.meta.env.VITE_API_URL;
         this.routeCadastrarTreino = '/novo/treino';
-        this.routeListarTreinoNome = '/listar/treino/nome';
-        this.routeListarTreinoId = '/listar/treino/id';
+        this.routeListarTreinoNome = '/listar/treino';
+        this.routeListarTreinoId = '/listar/treino';
     }
 
     /**
